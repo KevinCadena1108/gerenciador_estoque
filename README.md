@@ -16,6 +16,9 @@
 
 <h4 id="estrutura"> 🏗️ ESTRUTURA </h4>
 → <span> Requisitos: Onde serão contidos os requisitos funcionais e informações relevantes sobre a engenharia do software</span>
+→ <span> api: Api feita em NodeJs para recebimento e tratamento de requisições (backend)</span>
+→ <span> frontend: Parte de visualização de paginas feita em ReactJS</span>
+
 
 <h4 id="#tecnologias"> 💻 TECNOLOGIAS </h3>
 → <a href="https://nodejs.org/en"> Node JS </a> <br>
