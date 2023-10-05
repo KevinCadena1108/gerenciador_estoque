@@ -62,15 +62,15 @@ function preventDefault(event) {
 export default function Orders() {
   return (
     <React.Fragment>
-      <Title>Recent Orders</Title>
+      <Title>Clientes</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Ship To</TableCell>
-            <TableCell>Payment Method</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
+            <TableCell>Nome</TableCell>
+            <TableCell>Contato</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Cidade</TableCell>
+            <TableCell align="right">CNPJ</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

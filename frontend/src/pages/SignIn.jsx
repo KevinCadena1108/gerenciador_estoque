@@ -76,7 +76,7 @@ export default function SignIn() {
               required
               fullWidth
               id="email"
-              label="Digite seu Email..."
+              label="Email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -86,7 +86,7 @@ export default function SignIn() {
               required
               fullWidth
               name="password"
-              label="Digite sua senha..."
+              label="Senha"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -102,7 +102,7 @@ export default function SignIn() {
             <Grid container>
               <Grid item>
                 <Link href="/signUp" variant="body2">
-                  {"Criar conta"}
+                  {"Não tem uma conta? Criar..."}
                 </Link>
               </Grid>
             </Grid>

@@ -7,8 +7,9 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export const mainListItems = (
   <React.Fragment>
@@ -18,29 +19,40 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
+
     <ListItemButton>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <ListItemText primary="Orders" />
+      <ListItemText primary="Vendas" />
     </ListItemButton>
+
+    <ListItemButton href="/cliente">
+      <ListItemIcon>
+        <PeopleAltIcon />
+      </ListItemIcon>
+      <ListItemText primary="Clientes" />
+    </ListItemButton>
+
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Funcionários" />
     </ListItemButton>
+
     <ListItemButton>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="Relatório" />
     </ListItemButton>
+
     <ListItemButton>
       <ListItemIcon>
-        <LayersIcon />
+        <LogoutIcon />
       </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText primary="Logout" />
     </ListItemButton>
   </React.Fragment>
 );
