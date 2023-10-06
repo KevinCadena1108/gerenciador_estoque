@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import { Clientes } from "./pages/Clientes";
+import { Funcionarios } from "./pages/Funcionarios";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path="cliente" element={<Clientes />} />
+            <Route path="funcionario" element={<Funcionarios />} />
           </Route>
         </Routes>
       </BrowserRouter>

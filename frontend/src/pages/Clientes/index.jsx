@@ -6,10 +6,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import "./styles.css";
-import { Typography } from "@mui/material";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import EditIcon from '@mui/icons-material/Edit';
+import { Box, Grid, Typography } from "@mui/material";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { blue } from "@mui/material/colors";
 
 export const Clientes = () => {
   function createData(name, calories, fat, carbs, protein) {
@@ -26,11 +27,23 @@ export const Clientes = () => {
 
   return (
     <>
-      <div className="titulo">
-        <Typography component="h1" variant="h3">
-          Clientes
-        </Typography>
-      </div>
+      <Grid container>
+        <Grid item xs={1}>
+          {" "}
+          <ArrowBackIcon fontSize="large"/>{" "}
+        </Grid>
+        <Grid item xs={3}>
+          {" "}
+        </Grid>
+
+        <Grid item xs={2}>
+          {" "}
+          <Typography variant="h3" sx={{ textAlign: "center"}}>
+            {" "}
+            Clientes{" "}
+          </Typography>{" "}
+        </Grid>
+      </Grid>
 
       <div className="tabela">
         <TableContainer component={Paper}>
@@ -42,8 +55,8 @@ export const Clientes = () => {
                 <TableCell align="right">Fat&nbsp;(g)</TableCell>
                 <TableCell align="right">Carbs&nbsp;(g)</TableCell>
                 <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                <TableCell ></TableCell>
-                <TableCell ></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -56,8 +69,12 @@ export const Clientes = () => {
                   <TableCell align="right">{row.fat}</TableCell>
                   <TableCell align="right">{row.carbs}</TableCell>
                   <TableCell align="right">{row.protein}</TableCell>
-                  <TableCell ><DeleteOutlineIcon /></TableCell>
-                  <TableCell ><EditIcon /></TableCell>
+                  <TableCell>
+                    <DeleteOutlineIcon />
+                  </TableCell>
+                  <TableCell>
+                    <EditIcon />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
