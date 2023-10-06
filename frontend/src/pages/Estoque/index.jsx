@@ -11,7 +11,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-export const Clientes = () => {
+export const Estoque = () => {
   function createData(nome, email, contato, cnpj, ciade) {
     return { nome, email, contato, cnpj, ciade };
   }
@@ -42,7 +42,7 @@ export const Clientes = () => {
           {" "}
           <Typography variant="h3" sx={{ textAlign: "center" }}>
             {" "}
-            Clientes{" "}
+            Estoque{" "}
           </Typography>{" "}
         </Grid>
       </Grid>

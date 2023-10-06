@@ -5,6 +5,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import { Clientes } from './pages/Clientes';
 import { Funcionarios } from './pages/Funcionarios';
+import { Estoque } from './pages/Estoque';
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 
@@ -22,6 +23,7 @@ const App = () => {
 							<Route index element={<Dashboard />} />
 							<Route path='cliente' element={<Clientes />} />
 							<Route path='funcionario' element={<Funcionarios />} />
+							<Route path='estoque' element={<Estoque />} />
 						</Route>
 					</Routes>
 				</BrowserRouter>
