@@ -55,7 +55,9 @@ export const Clientes = () => {
           justifyContent={{ xs: "center", sm: "flex-end" }}
           alignItems={"center"}
         >
+        <Link href="/cadcli">
           <Button variant="contained">Cadastrar</Button>
+          </Link>
         </Stack>
 
         <TableContainer component={Paper}>

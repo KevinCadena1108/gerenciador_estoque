@@ -6,7 +6,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button, Container, Grid, Link, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -29,11 +36,11 @@ export const Estoque = () => {
       <Grid container my={3} direction="row" alignItems="center">
         <Grid item xs={2} sx={{ textAlign: "center" }}>
           {" "}
-          <Link href = "/">
-          <ArrowBackIcon fontSize="large" />{" "}
+          <Link href="/">
+            <ArrowBackIcon fontSize="large" />{" "}
           </Link>
         </Grid>
-        
+
         <Grid item sm={3} xs={2}>
           {" "}
         </Grid>
@@ -55,18 +62,20 @@ export const Estoque = () => {
           justifyContent={{ xs: "center", sm: "flex-end" }}
           alignItems={"center"}
         >
-          <Button variant="contained">Cadastrar</Button>
+          <Link href="/cades">
+            <Button variant="contained">Cadastrar</Button>
+          </Link>
         </Stack>
 
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <TableCell>Nome</TableCell>
-                <TableCell align="right">Email</TableCell>
-                <TableCell align="right">Contato</TableCell>
-                <TableCell align="right">CNPJ</TableCell>
-                <TableCell align="right">Cidade</TableCell>
+                <TableCell>Tipo</TableCell>
+                <TableCell align="right">Preço</TableCell>
+                <TableCell align="right">Quantidade</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
                 <TableCell></TableCell>
               </TableRow>
             </TableHead>
