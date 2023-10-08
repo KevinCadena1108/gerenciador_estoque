@@ -47,7 +47,7 @@ export const mainListItems = (
       <ListItemText primary="Funcionários" />
     </ListItemButton>
 
-    <ListItemButton href="relatorio">
+    <ListItemButton href="/relatorio">
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
