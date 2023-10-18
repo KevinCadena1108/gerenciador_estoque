@@ -1,12 +1,18 @@
-import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button, Container, Grid, Link, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -29,11 +35,11 @@ export const Clientes = () => {
       <Grid container my={3} direction="row" alignItems="center">
         <Grid item xs={2} sx={{ textAlign: "center" }}>
           {" "}
-          <Link href = "/">
-          <ArrowBackIcon fontSize="large" />{" "}
+          <Link href="/">
+            <ArrowBackIcon fontSize="large" />{" "}
           </Link>
         </Grid>
-        
+
         <Grid item sm={3} xs={2}>
           {" "}
         </Grid>
@@ -55,8 +61,8 @@ export const Clientes = () => {
           justifyContent={{ xs: "center", sm: "flex-end" }}
           alignItems={"center"}
         >
-        <Link href="/cadcli">
-          <Button variant="contained">Cadastrar</Button>
+          <Link href="/cadcli">
+            <Button variant="contained">Cadastrar</Button>
           </Link>
         </Stack>
 

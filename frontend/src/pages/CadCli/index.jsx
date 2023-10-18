@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Grid, Link, TextField, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -104,7 +104,12 @@ function MyForm() {
           />
         </Grid>
       </Grid>
-      <Button type="submit" variant="contained" color="primary" sx={{ margin: '20px', marginLeft: '35px' }}>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        sx={{ margin: "20px", marginLeft: "35px" }}
+      >
         Cadastrar
       </Button>
     </form>

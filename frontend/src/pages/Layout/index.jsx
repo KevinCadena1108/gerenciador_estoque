@@ -89,8 +89,14 @@ const Layout = () => {
             >
               <MenuIcon />
             </IconButton>
+            <Box
+              component={"img"}
+              sx={{ maxWidth: 40, mr: 2 }}
+              src={"/logo.png"}
+              alt="Logo"
+            />
             <Typography component="h1" variant="h6" noWrap sx={{ flexGrow: 1 }}>
-              Dashboard
+              {document.title}
             </Typography>
           </Toolbar>
         </AppBar>
