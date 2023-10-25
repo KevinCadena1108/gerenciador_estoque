@@ -69,6 +69,7 @@ function MyForm() {
               value={formData.tipo}
               onChange={handleChange}
               label="Tipo"
+              variant="standard"
             >
               <MenuItem value="Tradicional">Tradicional</MenuItem>
               <MenuItem value="Especial">Especial</MenuItem>
@@ -81,7 +82,7 @@ function MyForm() {
         <Grid item xs={7}>
           <TextField
             label="Preço"
-            variant="outlined"
+            variant="standard"
             name="preço"
             value={formData.preço}
             onChange={handleChange}
@@ -91,7 +92,7 @@ function MyForm() {
         <Grid item xs={7}>
           <TextField
             label="Quantidade"
-            variant="outlined"
+            variant="standard"
             name="quantidade"
             value={formData.quantidade}
             onChange={handleChange}

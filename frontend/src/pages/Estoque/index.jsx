@@ -61,7 +61,7 @@ export const Estoque = () => {
           justifyContent={{ xs: "center", sm: "flex-end" }}
           alignItems={"center"}
         >
-          <Link href="/cades">
+          <Link href="/estoque/cadastro">
             <Button variant="contained">Cadastrar</Button>
           </Link>
         </Stack>

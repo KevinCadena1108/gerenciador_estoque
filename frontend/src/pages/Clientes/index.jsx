@@ -61,7 +61,7 @@ export const Clientes = () => {
           justifyContent={{ xs: "center", sm: "flex-end" }}
           alignItems={"center"}
         >
-          <Link href="/cadcli">
+          <Link href="/cliente/cadastro">
             <Button variant="contained">Cadastrar</Button>
           </Link>
         </Stack>
