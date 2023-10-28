@@ -12,6 +12,7 @@ import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { Vendas } from "./pages/Vendas";
 import { Relatorio } from "./pages/Relatorio";
+import { CadFun } from "./pages/CadFun"
 
 const App = () => {
   const theme = createTheme();
@@ -32,6 +33,8 @@ const App = () => {
               <Route path="estoque/cadastro" element={<CadEs />} />
               <Route path="vendas" element={<Vendas />} />
               <Route path="Relatorio" element={<Relatorio />} />
+              <Route path="funcionario/cadastro" element={<CadFun />} />
+
             </Route>
           </Routes>
         </BrowserRouter>

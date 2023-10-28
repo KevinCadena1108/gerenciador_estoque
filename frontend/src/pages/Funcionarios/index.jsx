@@ -60,7 +60,9 @@ export const Funcionarios = () => {
           justifyContent={{ xs: "center", sm: "flex-end" }}
           alignItems={"center"}
         >
-          <Button variant="contained">Cadastrar</Button>
+          <Link href="funcionario/cadastro">
+            <Button variant="contained">Cadastrar</Button>
+          </Link>
         </Stack>
 
         <TableContainer component={Paper}>
