@@ -1,7 +1,7 @@
-CREATE DATABASE estoque;
-\c estoque
+--CREATE DATABASE estoque;
+--\c estoque
 
-SET datestyle = 'ISO,DMY';
+--SET datestyle = 'ISO,DMY';
 
 CREATE TABLE usuario
 (
