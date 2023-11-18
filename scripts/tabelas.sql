@@ -1,7 +1,7 @@
--- CREATE DATABASE estoque;
--- \c estoque
+CREATE DATABASE estoque;
+\c estoque
 
--- SET datestyle = 'ISO,DMY';
+SET datestyle = 'ISO,DMY';
 
 CREATE TABLE usuario
 (
@@ -39,7 +39,7 @@ CREATE TABLE pedido (
     estado VARCHAR(50) NOT NULL,
     quantidade INTEGER NOT NULL,
     dth_venda TIMESTAMP NOT NULL,
-    FOREIGN KEY (idp) REFERENCES produto(idp),
-    FOREIGN KEY (idc) REFERENCES cliente(idc),
-    FOREIGN KEY (idu) REFERENCES usuario(idu)
+    CONSTRAINT fk_pedido_produto FOREIGN KEY (idp) REFERENCES produto(idp),
+    CONSTRAINT fk_pedido_cliente FOREIGN KEY (idc) REFERENCES cliente(idc),
+    CONSTRAINT fk_pedido_usuario FOREIGN KEY (idu) REFERENCES usuario(idu)
 );
