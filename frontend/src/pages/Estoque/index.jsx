@@ -35,7 +35,7 @@ export const Estoque = () => {
       <Grid container my={3} direction="row" alignItems="center">
         <Grid item xs={2} sx={{ textAlign: "center" }}>
           {" "}
-          <Link href="/">
+          <Link href="/app">
             <ArrowBackIcon fontSize="large" />{" "}
           </Link>
         </Grid>
@@ -61,7 +61,7 @@ export const Estoque = () => {
           justifyContent={{ xs: "center", sm: "flex-end" }}
           alignItems={"center"}
         >
-          <Link href="/estoque/cadastro">
+          <Link href="/app/estoque/cadastro">
             <Button variant="contained">Cadastrar</Button>
           </Link>
         </Stack>
@@ -70,10 +70,10 @@ export const Estoque = () => {
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <TableCell>Tipo</TableCell>
-                <TableCell align="right">Preço</TableCell>
-                <TableCell align="right">Quantidade</TableCell>
-                <TableCell></TableCell>
+                <TableCell align="center">Tipo</TableCell>
+                <TableCell align="center">Preço</TableCell>
+                <TableCell align="center">Quantidade</TableCell>
+                <TableCell align="center">Descrição</TableCell>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
               </TableRow>
@@ -84,11 +84,11 @@ export const Estoque = () => {
                   <TableCell component="th" scope="row">
                     {row.name}
                   </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right">{row.protein}</TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">{row.calories}</TableCell>
+                  <TableCell align="center">{row.fat}</TableCell>
+                  <TableCell align="center">{row.carbs}</TableCell>
+                  <TableCell align="center">{row.protein}</TableCell>
+                  <TableCell align="center">
                     <EditIcon sx={{ mr: 2 }} />
                     <DeleteOutlineIcon />
                   </TableCell>

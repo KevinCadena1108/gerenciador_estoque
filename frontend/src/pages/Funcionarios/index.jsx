@@ -35,7 +35,7 @@ export const Funcionarios = () => {
       <Grid container my={3} direction="row" alignItems="center">
         <Grid item xs={2} sx={{ textAlign: "center" }}>
           {" "}
-          <Link href="/">
+          <Link href="/app">
             <ArrowBackIcon fontSize="large" />{" "}
           </Link>
         </Grid>
@@ -60,7 +60,7 @@ export const Funcionarios = () => {
           justifyContent={{ xs: "center", sm: "flex-end" }}
           alignItems={"center"}
         >
-          <Link href="funcionario/cadastro">
+          <Link href="/app/funcionario/cadastro">
             <Button variant="contained">Cadastrar</Button>
           </Link>
         </Stack>
@@ -69,11 +69,13 @@ export const Funcionarios = () => {
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <TableCell>Dessert (100g serving)</TableCell>
-                <TableCell align="right">Calories</TableCell>
-                <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                <TableCell align="center">Nome</TableCell>
+                <TableCell align="center">Email</TableCell>
+                <TableCell align="center">Telefone</TableCell>
+                <TableCell align="center">Cargo</TableCell>
+                <TableCell align="center">Senha</TableCell>
+                <TableCell align="center">Tipo</TableCell>
+
                 <TableCell></TableCell>
                 <TableCell></TableCell>
               </TableRow>
@@ -81,17 +83,17 @@ export const Funcionarios = () => {
             <TableBody>
               {rows.map((row) => (
                 <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right">{row.protein}</TableCell>
-                  <TableCell>
+                  <TableCell align="center">{row.nome}</TableCell>
+                  <TableCell align="center">{row.email}</TableCell>
+                  <TableCell align="center">{row.telefone}</TableCell>
+                  <TableCell align="center">{row.cargo}</TableCell>
+                  <TableCell align="center">{row.senha}</TableCell>
+                  <TableCell align="center">{row.tipo}</TableCell>
+
+                  <TableCell align="center">
                     <DeleteOutlineIcon />
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <EditIcon />
                   </TableCell>
                 </TableRow>

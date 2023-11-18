@@ -9,6 +9,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import LogoutIcon from "@mui/icons-material/Logout";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 export const mainListItems = (
   <React.Fragment>
@@ -24,6 +25,13 @@ export const mainListItems = (
         <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Vendas" />
+    </ListItemButton>
+
+    <ListItemButton href="/app/verVendas">
+      <ListItemIcon>
+        <RemoveRedEyeIcon />
+      </ListItemIcon>
+      <ListItemText primary="Visualisar vendas" />
     </ListItemButton>
 
     <ListItemButton href="/app/estoque">

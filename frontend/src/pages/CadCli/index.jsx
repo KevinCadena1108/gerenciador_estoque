@@ -8,7 +8,7 @@ export const CadCli = () => {
       <Grid container my={3} direction="row" alignItems="center">
         <Grid item xs={2} sx={{ textAlign: "center" }}>
           {" "}
-          <Link href="/cliente">
+          <Link href="/app/cliente">
             <ArrowBackIcon fontSize="large" />{" "}
           </Link>
         </Grid>
@@ -95,10 +95,10 @@ function MyForm() {
         </Grid>
         <Grid item xs={7}>
           <TextField
-            label="Cidade"
+            label="Endereço"
             variant="outlined"
             name="cidade"
-            value={formData.cidade}
+            value={formData.endereço}
             onChange={handleChange}
             fullWidth
           />

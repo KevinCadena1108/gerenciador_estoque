@@ -12,6 +12,8 @@ import { Vendas } from "./pages/Vendas";
 import { Relatorio } from "./pages/Relatorio";
 import { CadFun } from "./pages/CadFun";
 import Providers from "./Providers";
+import { VerVendas } from "./pages/VerVendas";
+
 
 const App = () => {
   return (
@@ -30,6 +32,8 @@ const App = () => {
             <Route path="vendas" element={<Vendas />} />
             <Route path="Relatorio" element={<Relatorio />} />
             <Route path="funcionario/cadastro" element={<CadFun />} />
+            <Route path="vervendas" element={<VerVendas />} />
+
           </Route>
         </Routes>
       </Providers>
