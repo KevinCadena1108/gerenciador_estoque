@@ -18,7 +18,7 @@ export const CadEs = () => {
       <Grid container my={3} direction="row" alignItems="center">
         <Grid item xs={2} sx={{ textAlign: "center" }}>
           {" "}
-          <Link href="/estoque">
+          <Link href="/app/estoque">
             <ArrowBackIcon fontSize="large" />{" "}
           </Link>
         </Grid>
@@ -95,6 +95,16 @@ function MyForm() {
             variant="standard"
             name="quantidade"
             value={formData.quantidade}
+            onChange={handleChange}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={7}>
+          <TextField
+            label="Descrição"
+            variant="standard"
+            name="descrição"
+            value={formData.descrição}
             onChange={handleChange}
             fullWidth
           />

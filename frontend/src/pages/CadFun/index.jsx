@@ -1,5 +1,15 @@
 import { useState } from "react";
-import { Button, Grid, Link, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const CadFun = () => {
@@ -7,26 +17,20 @@ export const CadFun = () => {
     <>
       <Grid container my={3} direction="row" alignItems="center">
         <Grid item xs={2} sx={{ textAlign: "center" }}>
-          {" "}
-          <Link href="/funcionario">
-            <ArrowBackIcon fontSize="large" />{" "}
+          <Link href="/app/funcionario">
+            <ArrowBackIcon fontSize="large" />
           </Link>
         </Grid>
 
-        <Grid item sm={3} xs={2}>
-          {" "}
-        </Grid>
+        <Grid item sm={3} xs={2}></Grid>
 
         <Grid item xs={2}>
-          {" "}
           <Typography variant="h3" sx={{ textAlign: "center" }}>
-            {" "}
-            Cadastrar Funcionarios{" "}
-          </Typography>{" "}
+            Cadastrar Funcionarios
+          </Typography>
         </Grid>
       </Grid>
 
-      {}
       <MyForm />
     </>
   );
@@ -37,8 +41,9 @@ function MyForm() {
     nome: "",
     email: "",
     contato: "",
-    cnpj: "",
-    cidade: "",
+    cargo: "",
+    senha: "",
+    tipo: "",
   });
 
   const handleChange = (e) => {
@@ -85,23 +90,38 @@ function MyForm() {
         </Grid>
         <Grid item xs={7}>
           <TextField
-            label="CNPJ"
+            label="Cargo"
             variant="outlined"
-            name="cnpj"
-            value={formData.cnpj}
+            name="cargo"
+            value={formData.cargo}
             onChange={handleChange}
             fullWidth
           />
         </Grid>
         <Grid item xs={7}>
           <TextField
-            label="Cidade"
+            label="Senha"
             variant="outlined"
-            name="cidade"
-            value={formData.cidade}
+            name="senha"
+            value={formData.senha}
             onChange={handleChange}
             fullWidth
           />
+        </Grid>
+        <Grid item xs={7}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel htmlFor="tipo">Tipo do usuário</InputLabel>
+            <Select
+              name="tipo"
+              value={formData.tipo}
+              onChange={handleChange}
+              label="Tipo"
+              variant="standard"
+            >
+              <MenuItem value="Administrador">Administrador</MenuItem>
+              <MenuItem value="Funcionário">Funcionário</MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
       </Grid>
       <Button

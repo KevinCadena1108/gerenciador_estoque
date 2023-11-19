@@ -6,18 +6,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import {
-  Button,
   Container,
   Grid,
   Link,
   Stack,
   Typography,
 } from "@mui/material";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
+import ClearIcon from '@mui/icons-material/Clear';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-export const Clientes = () => {
+export const VerVendas = () => {
   function createData(nome, email, contato, cnpj, ciade) {
     return { nome, email, contato, cnpj, ciade };
   }
@@ -48,7 +47,7 @@ export const Clientes = () => {
           {" "}
           <Typography variant="h3" sx={{ textAlign: "center" }}>
             {" "}
-            Clientes{" "}
+            Vendas{" "}
           </Typography>{" "}
         </Grid>
       </Grid>
@@ -61,20 +60,18 @@ export const Clientes = () => {
           justifyContent={{ xs: "center", sm: "flex-end" }}
           alignItems={"center"}
         >
-          <Link href="/app/cliente/cadastro">
-            <Button variant="contained">Cadastrar</Button>
-          </Link>
+
         </Stack>
 
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">Nome</TableCell>
-                <TableCell align="center">Email</TableCell>
-                <TableCell align="center">Contato</TableCell>
-                <TableCell align="center">Endereço</TableCell>
-                <TableCell align="center">CNPJ/CPF</TableCell>
+                <TableCell align="center">Tipo</TableCell>
+                <TableCell align="center">Quantidade</TableCell>
+                <TableCell align="center">Valor</TableCell>
+                <TableCell align="center">Data e hora</TableCell>
+                <TableCell align="center">Estado</TableCell>
                 <TableCell></TableCell>
               </TableRow>
             </TableHead>
@@ -89,8 +86,8 @@ export const Clientes = () => {
                   <TableCell align="center">{row.carbs}</TableCell>
                   <TableCell align="center">{row.protein}</TableCell>
                   <TableCell align="center">
-                    <EditIcon sx={{ mr: 2 }} />
-                    <DeleteOutlineIcon />
+                    <DoneAllIcon sx={{ mr: 2 }} />
+                    <ClearIcon />
                   </TableCell>
                 </TableRow>
               ))}

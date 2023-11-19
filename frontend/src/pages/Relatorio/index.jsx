@@ -1,4 +1,3 @@
-import React from "react";
 import {
   LineChart,
   Line,
@@ -21,7 +20,7 @@ export const Relatorio = () => {
       <Grid container my={3} direction="row" alignItems="center">
         <Grid item xs={2} sx={{ textAlign: "center" }}>
           {" "}
-          <Link href="/">
+          <Link href="/app">
             <ArrowBackIcon fontSize="large" />{" "}
           </Link>
         </Grid>
