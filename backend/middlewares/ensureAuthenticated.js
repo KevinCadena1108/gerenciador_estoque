@@ -1,13 +1,11 @@
+import AppError from "../AppError.js";
 import UsuarioRepository from "../repositories/UsuarioRepository.js";
 import jwt from "jsonwebtoken";
 
 export async function ensureAuthenticated(req, res, next) {
   // Verificar existência do Token
   const authHeader = req.headers.authorization;
-  if (!authHeader)
-    return res
-      .status(400)
-      .json({ message: "Sem token no cabeçalho da requisição" });
+  if (!authHeader) throw new AppError("Sem token no cabeçalho da requisição");
 
   //Desestruturar Token
   const [, token] = authHeader.split(" ");
@@ -19,13 +17,13 @@ export async function ensureAuthenticated(req, res, next) {
     const usersRepository = new UsuarioRepository();
     const user = await usersRepository.findById(parseInt(user_id));
 
-    if (!user) return res.status(400).json({ message: "Usuário não existe" });
+    if (!user) throw new AppError("Usuário não existe");
 
     req.user = user;
 
     next();
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ message: "Token enviado é invalido" });
+    throw new AppError("Token enviado é invalido");
   }
 }

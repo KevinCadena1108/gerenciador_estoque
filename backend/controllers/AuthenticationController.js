@@ -1,4 +1,5 @@
 import { compare } from "bcrypt";
+import AppError from "../AppError.js";
 import jwt from "jsonwebtoken";
 
 class AuthenticationController {
@@ -10,12 +11,10 @@ class AuthenticationController {
     const { email, senha } = req.body;
 
     const user = await this.repository.findByEmail(email);
-    if (user.length === 0)
-      return res.status(400).json({ message: "Usuário ou senha incorretos" });
+    if (user.length === 0) throw new AppError("Usuário ou senha incorretos");
 
     const passwordMatch = await compare(senha, user[0].senha);
-    if (!passwordMatch)
-      return res.status(400).json({ message: "Usuário ou senha incorretos" });
+    if (!passwordMatch) throw new AppError("Usuário ou senha incorretos");
 
     const token = jwt.sign({}, "6cfdab0d3659a2e6058293d7", {
       subject: `${user[0].idu}`,

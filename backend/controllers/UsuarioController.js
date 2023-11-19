@@ -1,4 +1,5 @@
 import { hash } from "bcrypt";
+import AppError from "../AppError.js";
 
 class UsuarioController {
   constructor(usuarioRepository) {
@@ -10,9 +11,7 @@ class UsuarioController {
 
     const userAlreadyExists = await this.repository.findByEmail(email);
     if (userAlreadyExists.length > 0)
-      return res
-        .status(400)
-        .json({ message: "Já existe um usuário com esse email" });
+      throw new AppError("Já existe um usuário com esse email");
 
     const passwordHash = await hash(senha, 8);
 

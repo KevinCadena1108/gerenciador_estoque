@@ -1,3 +1,4 @@
+import AppError from "../AppError.js";
 import UsuarioRepository from "../repositories/UsuarioRepository.js";
 
 export async function ensureAdmin(req, res, next) {
@@ -7,7 +8,7 @@ export async function ensureAdmin(req, res, next) {
   const user = await usersRepository.findById(idu);
 
   if (user.tipo !== "ADMINISTRADOR")
-    return res.status(400).json({ message: "Usuário não é administrador" });
+    throw new AppError("Usuário não é administrador");
 
   return next();
 }
