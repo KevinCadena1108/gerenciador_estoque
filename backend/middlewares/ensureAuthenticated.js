@@ -17,14 +17,15 @@ export async function ensureAuthenticated(req, res, next) {
     const { sub: user_id } = jwt.verify(token, "6cfdab0d3659a2e6058293d7");
 
     const usersRepository = new UsuarioRepository();
-    const user = await usersRepository.findById(user_id);
+    const user = await usersRepository.findById(parseInt(user_id));
 
     if (!user) return res.status(400).json({ message: "Usuário não existe" });
 
     req.user = user;
 
     next();
-  } catch {
+  } catch (error) {
+    console.log(error);
     return res.status(400).json({ message: "Token enviado é invalido" });
   }
 }

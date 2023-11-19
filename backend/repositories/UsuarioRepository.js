@@ -3,7 +3,7 @@ import db from "../db.js";
 class UsuarioRepository {
   async createUser({ nome, email, senha, telefone, cargo, tipo }) {
     try {
-      db.none(
+      await db.none(
         "INSERT INTO usuario (nome, email, senha, telefone, cargo, tipo) VALUES ($1, $2, $3, $4, $5, $6);",
         [nome, email, senha, telefone, cargo, tipo]
       );
@@ -16,7 +16,7 @@ class UsuarioRepository {
 
   async findByEmail(email) {
     try {
-      return db.one("SELECT * FROM usuario WHERE email = $1;", [email]);
+      return db.any("SELECT * FROM usuario WHERE email = $1;", [email]);
     } catch (error) {
       throw new Error(error);
     }
@@ -24,7 +24,7 @@ class UsuarioRepository {
 
   async findById(id) {
     try {
-      return db.one(
+      return await db.one(
         "SELECT idu, nome, email, telefone, cargo, tipo FROM usuario WHERE idu = $1;",
         [id]
       );
@@ -35,7 +35,7 @@ class UsuarioRepository {
 
   async getAllUsers() {
     try {
-      return db.any(
+      return await db.any(
         "SELECT idu, nome, telefone, cargo, email, tipo FROM usuario;"
       );
     } catch (error) {

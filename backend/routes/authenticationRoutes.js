@@ -8,6 +8,8 @@ const authenticationController = new AuthenticationController(
   usuarioRepository
 );
 
-authenticationRoutes.get("/signin", authenticationController.signIn);
+authenticationRoutes.post("/signin", async (req, res) => {
+  await authenticationController.signIn(req, res);
+});
 
 export { authenticationRoutes };

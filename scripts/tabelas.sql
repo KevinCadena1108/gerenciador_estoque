@@ -10,7 +10,7 @@ CREATE TABLE usuario
     cargo VARCHAR(50) NOT NULL,
     telefone VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    senha VARCHAR(50) NOT NULL,
+    senha VARCHAR(100) NOT NULL,
     tipo VARCHAR(50) NOT NULL
 );
 

@@ -1,9 +1,7 @@
 import { hash } from "bcrypt";
 
 class UsuarioController {
-  repository;
-
-  contructor(usuarioRepository) {
+  constructor(usuarioRepository) {
     this.repository = usuarioRepository;
   }
 
@@ -11,7 +9,7 @@ class UsuarioController {
     const { nome, email, senha, telefone, cargo, tipo } = req.body;
 
     const userAlreadyExists = await this.repository.findByEmail(email);
-    if (userAlreadyExists)
+    if (userAlreadyExists.length > 0)
       return res
         .status(400)
         .json({ message: "Já existe um usuário com esse email" });
@@ -21,13 +19,13 @@ class UsuarioController {
     await this.repository.createUser({
       nome,
       email,
-      passwordHash,
+      senha: passwordHash,
       telefone,
       cargo,
       tipo,
     });
 
-    return res.status(500).json({ message: "Usuário criado com sucesso" });
+    return res.status(200).json({ message: "Usuário criado com sucesso" });
   }
 }
 
