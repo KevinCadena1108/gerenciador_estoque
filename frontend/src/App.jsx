@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
 import { Clientes } from "./pages/Clientes";
 import { Funcionarios } from "./pages/Funcionarios";
 import { Estoque } from "./pages/Estoque";
@@ -11,9 +10,8 @@ import { CadEs } from "./pages/CadEs";
 import { Vendas } from "./pages/Vendas";
 import { Relatorio } from "./pages/Relatorio";
 import { CadFun } from "./pages/CadFun";
-import Providers from "./Providers";
 import { VerVendas } from "./pages/VerVendas";
-
+import Providers from "./Providers";
 
 const App = () => {
   return (
@@ -21,7 +19,6 @@ const App = () => {
       <Providers>
         <Routes>
           <Route path="/" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
           <Route path="/app/" element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path="cliente" element={<Clientes />} />
@@ -33,7 +30,6 @@ const App = () => {
             <Route path="Relatorio" element={<Relatorio />} />
             <Route path="funcionario/cadastro" element={<CadFun />} />
             <Route path="vervendas" element={<VerVendas />} />
-
           </Route>
         </Routes>
       </Providers>

@@ -1,3 +1,4 @@
+import AppError from "../AppError.js";
 import db from "../db.js";
 
 class UsuarioRepository {
@@ -10,7 +11,7 @@ class UsuarioRepository {
 
       return;
     } catch (error) {
-      throw new Error(error);
+      throw new AppError(error.message);
     }
   }
 
@@ -18,7 +19,7 @@ class UsuarioRepository {
     try {
       return db.any("SELECT * FROM usuario WHERE email = $1;", [email]);
     } catch (error) {
-      throw new Error(error);
+      throw new AppError(error.message);
     }
   }
 
@@ -29,7 +30,7 @@ class UsuarioRepository {
         [id]
       );
     } catch (error) {
-      throw new Error(error);
+      throw new AppError(error.message);
     }
   }
 

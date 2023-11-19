@@ -8,6 +8,10 @@ const userRoutes = Router();
 
 const userController = new UsuarioController(usuarioRepository);
 
+userRoutes.get("/recover", ensureAuthenticated, async (req, res) => {
+  await userController.recoverUser(req, res);
+});
+
 userRoutes.post("/", ensureAuthenticated, ensureAdmin, async (req, res) => {
   await userController.createUser(req, res);
 });

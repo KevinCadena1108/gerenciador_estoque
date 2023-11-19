@@ -12,9 +12,10 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { mainListItems } from "../../components/listItems";
+import { MainListItems } from "../../components/ListItems";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const drawerWidth = 240;
 
@@ -32,12 +33,12 @@ const AppBar = styled(MuiAppBar, {
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
-    })
+    }),
   }),
 }));
 
 const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open"
+  shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   "& .MuiDrawer-paper": {
     position: "relative",
@@ -50,7 +51,7 @@ const Drawer = styled(MuiDrawer, {
     boxSizing: "border-box",
     [theme.breakpoints.down("md")]: {
       position: "absolute",
-      zIndex: 99
+      zIndex: 99,
     },
     ...(!open && {
       overflowX: "hidden",
@@ -61,24 +62,25 @@ const Drawer = styled(MuiDrawer, {
       width: theme.spacing(7),
       [theme.breakpoints.down("md")]: {
         position: "absolute",
-        width: 0
-      }
+        width: 0,
+      },
     }),
   },
 }));
 
 const Layout = () => {
+  const { isAuthenticated, signOut } = React.useContext(AuthContext);
   const [open, setOpen] = React.useState(true);
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  React.useEffect(()=> {
-    isMobile && setOpen(false)
-  }, [isMobile])
+  React.useEffect(() => {
+    isMobile && setOpen(false);
+  }, [isMobile, isAuthenticated, signOut]);
 
   return (
     <>
@@ -128,7 +130,9 @@ const Layout = () => {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">{mainListItems}</List>
+          <List component="nav">
+            <MainListItems />
+          </List>
         </Drawer>
 
         <Box
@@ -140,20 +144,21 @@ const Layout = () => {
                 : theme.palette.grey[900],
             flexGrow: 1,
             height: "100vh",
-            overflow: "auto"
+            overflow: "auto",
           }}
         >
-
-          {
-            open && isMobile && (
-              <Box sx={{
+          {open && isMobile && (
+            <Box
+              sx={{
                 position: "absolute",
-                width: '100vw',
-                height: '100vh',
-                backgroundColor: "rgba(0, 0, 0, .3)"
-              }}> </Box>
-            )
-          }
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "rgba(0, 0, 0, .3)",
+              }}
+            >
+              {" "}
+            </Box>
+          )}
 
           <Toolbar />
           <Outlet />

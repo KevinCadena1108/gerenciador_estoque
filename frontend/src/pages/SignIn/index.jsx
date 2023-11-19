@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -12,16 +12,20 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 import { useForm } from "react-hook-form";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
+import { Alert, AlertTitle } from "@mui/material";
 
 export default function SignIn() {
-  const { user, signIn } = useContext(AuthContext);
+  const [error, setError] = useState(null);
+  const { signIn } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = ({ email, password }) => {
-    signIn({ email, password });
-
-    console.log(user);
+  const onSubmit = async ({ email, senha }) => {
+    try {
+      await signIn({ email, senha });
+    } catch (error) {
+      setError(error);
+    }
   };
 
   return (
@@ -41,6 +45,13 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
+
+        {error && (
+          <Alert sx={{ m: 2, width: "100%" }} severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {error.message}
+          </Alert>
+        )}
 
         <Box
           component="form"
@@ -64,7 +75,7 @@ export default function SignIn() {
             label="Senha"
             type="password"
             autoComplete="current-password"
-            {...register("password", {
+            {...register("senha", {
               required: "Esse campo é obrigatório",
               minLength: 4,
             })}

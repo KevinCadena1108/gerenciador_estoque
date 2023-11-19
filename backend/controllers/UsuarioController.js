@@ -6,6 +6,14 @@ class UsuarioController {
     this.repository = usuarioRepository;
   }
 
+  async recoverUser(req, res) {
+    const user = req.user;
+
+    if (!user) throw new AppError("Usuário não encontrado");
+
+    return res.status(200).json(user);
+  }
+
   async createUser(req, res) {
     const { nome, email, senha, telefone, cargo, tipo } = req.body;
 

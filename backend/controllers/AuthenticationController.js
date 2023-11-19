@@ -21,7 +21,7 @@ class AuthenticationController {
       expiresIn: "1d",
     });
 
-    return res.status(500).json({
+    return res.status(200).json({
       token,
       user: {
         nome: user[0].nome,

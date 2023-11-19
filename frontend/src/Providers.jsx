@@ -1,16 +1,20 @@
 import { ThemeProvider, createTheme } from "@mui/material";
+import { QueryClient, QueryClientProvider } from "react-query";
 import AuthProvider from "./contexts/AuthContext";
 import { BrowserRouter } from "react-router-dom";
 
 const Providers = ({ children }) => {
   const theme = createTheme();
+  const queryClient = new QueryClient();
 
   return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <AuthProvider>{children}</AuthProvider>
-      </BrowserRouter>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <AuthProvider>{children}</AuthProvider>
+        </BrowserRouter>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 
