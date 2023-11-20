@@ -30,10 +30,14 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      getUser().then((response) => {
-        const user = response.user;
-        setUser(user);
-      });
+      getUser()
+        .then((response) => {
+          const user = response.user;
+          setUser(user);
+        })
+        .catch(() => {
+          signOut();
+        });
     } else {
       navigate("/");
     }
