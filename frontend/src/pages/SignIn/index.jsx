@@ -55,7 +55,7 @@ export default function SignIn() {
         {error && (
           <Alert sx={{ m: 2, width: "100%" }} severity="error">
             <AlertTitle>Error</AlertTitle>
-            {error.message}
+            {error.response.data.message}
           </Alert>
         )}
 
