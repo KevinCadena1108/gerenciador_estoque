@@ -11,60 +11,90 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { AuthContext } from "../contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 export const MainListItems = () => {
   const { signOut } = React.useContext(AuthContext);
 
   return (
     <React.Fragment>
-      <ListItemButton href="/app">
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItemButton>
+      <Link style={{ color: "black", textDecoration: "none" }} to="/app">
+        <ListItemButton>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItemButton>
+      </Link>
 
-      <ListItemButton href="/app/vendas">
-        <ListItemIcon>
-          <ShoppingCartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Vendas" />
-      </ListItemButton>
+      <Link style={{ color: "black", textDecoration: "none" }} to="/app/vendas">
+        <ListItemButton>
+          <ListItemIcon>
+            <ShoppingCartIcon />
+          </ListItemIcon>
+          <ListItemText primary="Vendas" />
+        </ListItemButton>
+      </Link>
 
-      <ListItemButton href="/app/verVendas">
-        <ListItemIcon>
-          <RemoveRedEyeIcon />
-        </ListItemIcon>
-        <ListItemText primary="Visualisar vendas" />
-      </ListItemButton>
+      <Link
+        style={{ color: "black", textDecoration: "none" }}
+        to="/app/verVendas"
+      >
+        <ListItemButton>
+          <ListItemIcon>
+            <RemoveRedEyeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Visualisar vendas" />
+        </ListItemButton>
+      </Link>
 
-      <ListItemButton href="/app/estoque">
-        <ListItemIcon>
-          <InventoryIcon />
-        </ListItemIcon>
-        <ListItemText primary="Estoque" />
-      </ListItemButton>
+      <Link
+        style={{ color: "black", textDecoration: "none" }}
+        to="/app/estoque"
+      >
+        <ListItemButton>
+          <ListItemIcon>
+            <InventoryIcon />
+          </ListItemIcon>
+          <ListItemText primary="Estoque" />
+        </ListItemButton>
+      </Link>
 
-      <ListItemButton href="/app/cliente">
-        <ListItemIcon>
-          <PeopleAltIcon />
-        </ListItemIcon>
-        <ListItemText primary="Clientes" />
-      </ListItemButton>
+      <Link
+        style={{ color: "black", textDecoration: "none" }}
+        to="/app/cliente"
+      >
+        <ListItemButton>
+          <ListItemIcon>
+            <PeopleAltIcon />
+          </ListItemIcon>
+          <ListItemText primary="Clientes" />
+        </ListItemButton>
+      </Link>
 
-      <ListItemButton href="/app/funcionario">
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="Funcionários" />
-      </ListItemButton>
+      <Link
+        style={{ color: "black", textDecoration: "none" }}
+        to="/app/funcionario"
+      >
+        <ListItemButton>
+          <ListItemIcon>
+            <PeopleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Funcionários" />
+        </ListItemButton>
+      </Link>
 
-      <ListItemButton href="/app/relatorio">
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Relatório" />
-      </ListItemButton>
+      <Link
+        style={{ color: "black", textDecoration: "none" }}
+        to="/app/relatorio"
+      >
+        <ListItemButton>
+          <ListItemIcon>
+            <BarChartIcon />
+          </ListItemIcon>
+          <ListItemText primary="Relatório" />
+        </ListItemButton>
+      </Link>
 
       <ListItemButton onClick={signOut}>
         <ListItemIcon>
