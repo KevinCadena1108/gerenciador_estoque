@@ -13,7 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { MainListItems } from "../../components/ListItems";
-import { useMediaQuery } from "@mui/material";
+import { Container, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import { AuthContext } from "../../contexts/AuthContext";
 
@@ -51,7 +51,7 @@ const Drawer = styled(MuiDrawer, {
     boxSizing: "border-box",
     [theme.breakpoints.down("md")]: {
       position: "absolute",
-      zIndex: 99,
+      zIndex: 100,
     },
     ...(!open && {
       overflowX: "hidden",
@@ -154,6 +154,7 @@ const Layout = () => {
                 width: "100vw",
                 height: "100vh",
                 backgroundColor: "rgba(0, 0, 0, .3)",
+                zIndex: 99,
               }}
             >
               {" "}
@@ -161,7 +162,11 @@ const Layout = () => {
           )}
 
           <Toolbar />
-          <Outlet />
+          <Container
+            sx={{ width: { md: `calc(100vw - ${drawerWidth}px)`, xs: "90vw" } }}
+          >
+            <Outlet />
+          </Container>
         </Box>
       </Box>
     </>

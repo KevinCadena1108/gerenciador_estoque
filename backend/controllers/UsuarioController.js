@@ -34,6 +34,14 @@ class UsuarioController {
 
     return res.status(200).json({ message: "Usuário criado com sucesso" });
   }
+
+  async getUsers(req, res) {
+    const page = parseInt(req.query?.page);
+
+    const users = await this.repository.getUsers(page);
+
+    return res.status(200).json(users);
+  }
 }
 
 export default UsuarioController;

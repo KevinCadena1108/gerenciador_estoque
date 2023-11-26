@@ -12,6 +12,10 @@ userRoutes.get("/recover", ensureAuthenticated, async (req, res) => {
   await userController.recoverUser(req, res);
 });
 
+userRoutes.get("/", ensureAuthenticated, ensureAdmin, async (req, res) => {
+  await userController.getUsers(req, res);
+});
+
 userRoutes.post("/", ensureAuthenticated, ensureAdmin, async (req, res) => {
   await userController.createUser(req, res);
 });

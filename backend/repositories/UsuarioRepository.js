@@ -34,10 +34,11 @@ class UsuarioRepository {
     }
   }
 
-  async getAllUsers() {
+  async getUsers(page) {
     try {
       return await db.any(
-        "SELECT idu, nome, telefone, cargo, email, tipo FROM usuario;"
+        "SELECT idu as id, nome, telefone, cargo, email, tipo FROM usuario ORDER BY idu ASC LIMIT 20 OFFSET $1;",
+        [page * 20]
       );
     } catch (error) {
       throw new Error(error);
