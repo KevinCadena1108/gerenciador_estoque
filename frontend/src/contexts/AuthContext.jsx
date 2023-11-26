@@ -29,7 +29,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    if (token) {
+    if (token && !isAuthenticated) {
       getUser()
         .then((response) => {
           const user = response.user;
@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
         .catch(() => {
           signOut();
         });
-    } else {
+    } else if (!token) {
       navigate("/");
     }
   }, []);
