@@ -13,7 +13,7 @@ export const Funcionarios = () => {
   });
 
   let users = new Set();
-  const cols = ["id", "nome", "telefone", "cargo", "email", "tipo"];
+  const cols = ["Id", "Nome", "Telefone", "Cargo", "Email", "Tipo"];
 
   const [tableProps, setTableProps] = useState(null);
 

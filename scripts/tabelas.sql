@@ -37,8 +37,8 @@ CREATE TABLE pedido (
     idu INTEGER NOT NULL,
     estado VARCHAR(50) NOT NULL,
     dth_venda TIMESTAMP NOT NULL,
-    CONSTRAINT fk_pedido_cliente FOREIGN KEY (idc) REFERENCES cliente(idc),
-    CONSTRAINT fk_pedido_usuario FOREIGN KEY (idu) REFERENCES usuario(idu)
+    CONSTRAINT fk_pedido_cliente FOREIGN KEY (idc) REFERENCES cliente(idc) ON DELETE CASCADE,
+    CONSTRAINT fk_pedido_usuario FOREIGN KEY (idu) REFERENCES usuario(idu) ON DELETE CASCADE
 );
 
 CREATE TABLE itempedido (
@@ -46,6 +46,6 @@ CREATE TABLE itempedido (
     codp INTEGER NOT NULL,
     idp INTEGER NOT NULL,
     quantidade_pedido INTEGER NOT NULL,
-    CONSTRAINT fk_itempedido_produto FOREIGN KEY (idp) REFERENCES produto(idp),
-    CONSTRAINT fk_itempedido_pedido FOREIGN KEY (codp) REFERENCES pedido(codp)
+    CONSTRAINT fk_itempedido_produto FOREIGN KEY (idp) REFERENCES produto(idp) ON DELETE CASCADE,
+    CONSTRAINT fk_itempedido_pedido FOREIGN KEY (codp) REFERENCES pedido(codp) ON DELETE CASCADE
 );
