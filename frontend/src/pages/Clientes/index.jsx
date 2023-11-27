@@ -1,103 +1,42 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import {
-  Button,
-  Container,
-  Grid,
-  Link,
-  Stack,
-  Typography,
-} from "@mui/material";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getClientes } from "./requests";
+import { CircularProgress, Typography } from "@mui/material";
+import TableDefault from "../../components/Table";
 
 export const Clientes = () => {
-  function createData(nome, email, contato, cnpj, ciade) {
-    return { nome, email, contato, cnpj, ciade };
-  }
+  const [page, setPage] = useState(0);
+  const { isLoading, isError, error, data, isFetching } = useQuery({
+    queryKey: ["clientes", page],
+    queryFn: () => getClientes(page),
+    keepPreviousData: true,
+  });
 
-  const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-  ];
+  let clientes = new Set();
+  const cols = ["Id", "Nome", "Endereço", "Email", "Telefone", "Tipo"];
 
-  return (
-    <>
-      <Grid container my={3} direction="row" alignItems="center">
-        <Grid item xs={2} sx={{ textAlign: "center" }}>
-          {" "}
-          <Link href="/app">
-            <ArrowBackIcon fontSize="large" />{" "}
-          </Link>
-        </Grid>
+  const [tableProps, setTableProps] = useState(null);
 
-        <Grid item sm={3} xs={2}>
-          {" "}
-        </Grid>
+  useEffect(() => {
+    data?.map((cliente) => clientes.add(cliente));
 
-        <Grid item xs={2}>
-          {" "}
-          <Typography variant="h3" sx={{ textAlign: "center" }}>
-            {" "}
-            Clientes{" "}
-          </Typography>{" "}
-        </Grid>
-      </Grid>
+    setTableProps({
+      tableName: "Clientes",
+      add: "/app/cliente/cadastro",
+      cols: cols,
+      rows: clientes,
+      page: page,
+      setPage: setPage,
+      loading: isFetching || isLoading,
+    });
+  }, [isLoading, isFetching, page, data]); // eslint-disable-line
 
-      <Container className="tabela">
-        <Stack
-          my={3}
-          useFlexGap
-          direction={"row"}
-          justifyContent={{ xs: "center", sm: "flex-end" }}
-          alignItems={"center"}
-        >
-          <Link href="/app/cliente/cadastro">
-            <Button variant="contained">Cadastrar</Button>
-          </Link>
-        </Stack>
-
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Nome</TableCell>
-                <TableCell align="center">Email</TableCell>
-                <TableCell align="center">Contato</TableCell>
-                <TableCell align="center">Endereço</TableCell>
-                <TableCell align="center">CNPJ/CPF</TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="center">{row.calories}</TableCell>
-                  <TableCell align="center">{row.fat}</TableCell>
-                  <TableCell align="center">{row.carbs}</TableCell>
-                  <TableCell align="center">{row.protein}</TableCell>
-                  <TableCell align="center">
-                    <EditIcon sx={{ mr: 2 }} />
-                    <DeleteOutlineIcon />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
-    </>
+  return isError ? (
+    <Typography>Error: {error?.message}</Typography>
+  ) : tableProps ? (
+    <TableDefault props={tableProps} />
+  ) : (
+    <CircularProgress />
   );
 };
+

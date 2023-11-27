@@ -22,7 +22,7 @@ export const Funcionarios = () => {
 
     setTableProps({
       tableName: "Usuários",
-      add: "#",
+      add: "/app/funcionario/cadastro",
       cols: cols,
       rows: users,
       page: page,
