@@ -13,7 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { MainListItems } from "../../components/ListItems";
-import { Container, useMediaQuery } from "@mui/material";
+import { CircularProgress, Container, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import { AuthContext } from "../../contexts/AuthContext";
 
@@ -84,91 +84,112 @@ const Layout = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar elevation={1} position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: "24px",
-              backgroundColor: "white",
-              color: "black",
-            }}
-          >
-            <IconButton
-              edge="start"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
+      {isAuthenticated ? (
+        <Box sx={{ display: "flex" }}>
+          <CssBaseline />
+          <AppBar elevation={1} position="absolute" open={open}>
+            <Toolbar
               sx={{
-                marginRight: "36px",
-                ...(open && { display: "none" }),
+                pr: "24px",
+                backgroundColor: "white",
+                color: "black",
               }}
             >
-              <MenuIcon />
-            </IconButton>
-            <Box
-              component={"img"}
-              sx={{ maxWidth: 40, mr: 2 }}
-              src={"/logo.png"}
-              alt="Logo"
-            />
-            <Typography component="h1" variant="h6" noWrap sx={{ flexGrow: 1 }}>
-              {document.title}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
+              <IconButton
+                edge="start"
+                aria-label="open drawer"
+                onClick={toggleDrawer}
+                sx={{
+                  marginRight: "36px",
+                  ...(open && { display: "none" }),
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Box
+                component={"img"}
+                sx={{ maxWidth: 40, mr: 2 }}
+                src={"/logo.png"}
+                alt="Logo"
+              />
+              <Typography
+                component="h1"
+                variant="h6"
+                noWrap
+                sx={{ flexGrow: 1 }}
+              >
+                {document.title}
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Drawer variant="permanent" open={open}>
+            <Toolbar
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                px: [1],
+              }}
+            >
+              <IconButton onClick={toggleDrawer}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </Toolbar>
+            <Divider />
+            <List component="nav">
+              <MainListItems />
+            </List>
+          </Drawer>
+
+          <Box
+            component="main"
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
+              backgroundColor: (theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette.grey[100]
+                  : theme.palette.grey[900],
+              flexGrow: 1,
+              height: "100vh",
+              overflow: "auto",
             }}
           >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-            <MainListItems />
-          </List>
-        </Drawer>
+            {open && isMobile && (
+              <Box
+                sx={{
+                  position: "absolute",
+                  width: "100vw",
+                  height: "100vh",
+                  backgroundColor: "rgba(0, 0, 0, .3)",
+                  zIndex: 99,
+                }}
+              >
+                {" "}
+              </Box>
+            )}
 
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
+            <Toolbar />
+            <Container
+              sx={{
+                width: { md: `calc(100vw - ${drawerWidth}px)`, xs: "90vw" },
+              }}
+            >
+              <Outlet />
+            </Container>
+          </Box>
+        </Box>
+      ) : (
+        <Container
+          style={{
+            width: "100vw",
             height: "100vh",
-            overflow: "auto",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          {open && isMobile && (
-            <Box
-              sx={{
-                position: "absolute",
-                width: "100vw",
-                height: "100vh",
-                backgroundColor: "rgba(0, 0, 0, .3)",
-                zIndex: 99,
-              }}
-            >
-              {" "}
-            </Box>
-          )}
-
-          <Toolbar />
-          <Container
-            sx={{ width: { md: `calc(100vw - ${drawerWidth}px)`, xs: "90vw" } }}
-          >
-            <Outlet />
-          </Container>
-        </Box>
-      </Box>
+          <CircularProgress />
+        </Container>
+      )}
     </>
   );
 };

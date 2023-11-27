@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUser, login } from "../services/userRequests";
 
@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  let isAuthenticated = Boolean(user);
+  const isAuthenticated = useMemo(() => Boolean(user), [user]);
 
   const signOut = async () => {
     setUser(null);
@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
     if (token && !isAuthenticated) {
       getUser()
         .then((response) => {
-          const user = response.user;
+          const user = response;
           setUser(user);
         })
         .catch(() => {
