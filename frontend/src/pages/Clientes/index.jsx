@@ -4,7 +4,7 @@ import { getClientes } from "./requests";
 import { CircularProgress, Typography } from "@mui/material";
 import TableDefault from "../../components/Table";
 
-export const Clientes = () => {
+const Clientes = () => {
   const [page, setPage] = useState(0);
   const { isLoading, isError, error, data, isFetching } = useQuery({
     queryKey: ["clientes", page],
@@ -40,3 +40,4 @@ export const Clientes = () => {
   );
 };
 
+export default Clientes;

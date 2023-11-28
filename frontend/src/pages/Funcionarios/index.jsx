@@ -4,7 +4,7 @@ import { getUsers } from "./requests";
 import { CircularProgress, Typography } from "@mui/material";
 import TableDefault from "../../components/Table";
 
-export const Funcionarios = () => {
+const Funcionarios = () => {
   const [page, setPage] = useState(0);
   const { isLoading, isError, error, data, isFetching } = useQuery({
     queryKey: ["users", page],
@@ -39,3 +39,5 @@ export const Funcionarios = () => {
     <CircularProgress />
   );
 };
+
+export default Funcionarios;
