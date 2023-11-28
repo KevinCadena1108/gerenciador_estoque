@@ -9,8 +9,3 @@ export const getUser = async () => {
   const { data } = await api.get(`/user/recover`);
   return data;
 };
-
-export const getCliete = async () => {
-  const { data } = await api.get(`/cliente/recover`);
-  return data;
-}
