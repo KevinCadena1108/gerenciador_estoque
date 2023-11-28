@@ -9,7 +9,7 @@ class ClienteRepository {
         [page * 20]
       );
     } catch (error) {
-      throw new Error(error);
+      throw new AppError(error);
     }
   }
 }

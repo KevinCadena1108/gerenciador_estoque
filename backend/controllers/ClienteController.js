@@ -1,5 +1,3 @@
-import AppError from "../AppError.js";
-
 class ClienteController {
   constructor(clienteRepository) {
     this.repository = clienteRepository;
