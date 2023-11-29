@@ -22,7 +22,7 @@ const Estoque = () => {
 
     setTableProps({
       tableName: "Produtos",
-      add: "/app/produto/cadastro",
+      add: "/app/estoque/cadastro",
       cols: cols,
       rows: produtos,
       page: page,
