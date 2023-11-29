@@ -74,13 +74,13 @@ export const MainListItems = () => {
 
       <Link
         style={{ color: "black", textDecoration: "none" }}
-        to="/app/funcionario"
+        to="/app/usuario"
       >
         <ListItemButton>
           <ListItemIcon>
             <PeopleIcon />
           </ListItemIcon>
-          <ListItemText primary="Funcionários" />
+          <ListItemText primary="Usuários" />
         </ListItemButton>
       </Link>
 

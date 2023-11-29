@@ -12,12 +12,12 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-export const CadFun = () => {
+const CadUsu = () => {
   return (
     <>
       <Grid container my={3} direction="row" alignItems="center">
         <Grid item xs={2} sx={{ textAlign: "center" }}>
-          <Link href="/app/funcionario">
+          <Link href="/app/usuario">
             <ArrowBackIcon fontSize="large" />
           </Link>
         </Grid>
@@ -26,7 +26,7 @@ export const CadFun = () => {
 
         <Grid item xs={2}>
           <Typography variant="h3" sx={{ textAlign: "center" }}>
-            Cadastrar Funcionarios
+            Cadastrar Usuarios
           </Typography>
         </Grid>
       </Grid>
@@ -119,7 +119,7 @@ function MyForm() {
               variant="standard"
             >
               <MenuItem value="Administrador">Administrador</MenuItem>
-              <MenuItem value="Funcionário">Funcionário</MenuItem>
+              <MenuItem value="Usuário">Usuário</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -135,3 +135,5 @@ function MyForm() {
     </form>
   );
 }
+
+export default CadUsu;
