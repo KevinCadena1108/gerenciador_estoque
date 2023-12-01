@@ -28,7 +28,9 @@ CREATE TABLE cliente (
     endereco VARCHAR(200) NOT NULL,
     email VARCHAR(100) NOT NULL,
     telefone VARCHAR(15) NOT NULL,
-    tipo VARCHAR(15) NOT NULL
+    tipo VARCHAR(15) NOT NULL,
+    cpf VARCHAR(11) UNIQUE,
+    cnpj VARCHAR(14) UNIQUE
 );
 
 CREATE TABLE pedido (
