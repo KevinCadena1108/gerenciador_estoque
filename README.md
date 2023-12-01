@@ -15,9 +15,9 @@
 <p> Trabalho conjunto das matérias de Programação 2, Banco de Dados e Engenharia de Software para entrega no final do 4º semestre de computação na Universidade Federal da Fronteira Sul. O trabalho tem por objetivo a construção de um sistema admnistrativo completo para uma empresa do ramo alimentício do café e apresentará modulos de front-end back-end e banco de dados, além de requisitos funcionais e não funcionais para engenharia do projeto. </p>
 
 <h4 id="estrutura"> 🏗️ ESTRUTURA </h4>
-→ <span> Requisitos: Onde serão contidos os requisitos funcionais e informações relevantes sobre a engenharia do software</span>
-→ <span> api: Api feita em NodeJs para recebimento e tratamento de requisições (backend)</span>
-→ <span> frontend: Parte de visualização de paginas feita em ReactJS</span>
+→ <span> planejamento: Onde serão contidos os requisitos funcionais e informações relevantes sobre a engenharia do software</span> <br>
+→ <span> api: Api feita em NodeJs para recebimento e tratamento de requisições (backend)</span>  <br>
+→ <span> frontend: Parte de visualização de paginas feita em ReactJS</span>  <br>
 
 
 <h4 id="#tecnologias"> 💻 TECNOLOGIAS </h3>
