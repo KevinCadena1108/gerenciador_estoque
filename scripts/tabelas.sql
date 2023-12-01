@@ -37,7 +37,7 @@ CREATE TABLE pedido (
     idc INTEGER NOT NULL,
     idu INTEGER NOT NULL,
     estado VARCHAR(50) NOT NULL,
-    dth_venda TIMESTAMP NOT NULL,
+    datap DATE,
     CONSTRAINT fk_pedido_cliente FOREIGN KEY (idc) REFERENCES cliente(idc) ON DELETE CASCADE,
     CONSTRAINT fk_pedido_usuario FOREIGN KEY (idu) REFERENCES usuario(idu) ON DELETE CASCADE
 );
