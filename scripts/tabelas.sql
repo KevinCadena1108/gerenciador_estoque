@@ -11,7 +11,8 @@ CREATE TABLE usuario
     telefone VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     senha VARCHAR(100) NOT NULL,
-    tipo VARCHAR(50) NOT NULL
+    tipo VARCHAR(50) NOT NULL,
+    CONSTRAINT uk_usuario UNIQUE (email)
 );
 
 CREATE TABLE produto (
@@ -28,9 +29,7 @@ CREATE TABLE cliente (
     endereco VARCHAR(200) NOT NULL,
     email VARCHAR(100) NOT NULL,
     telefone VARCHAR(15) NOT NULL,
-    tipo VARCHAR(15) NOT NULL,
-    cpf VARCHAR(11) UNIQUE,
-    cnpj VARCHAR(14) UNIQUE
+    tipo VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE pedido (
