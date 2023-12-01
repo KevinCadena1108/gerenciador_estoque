@@ -4,7 +4,7 @@ import { getUsers } from "./requests";
 import { CircularProgress, Typography } from "@mui/material";
 import TableDefault from "../../components/Table";
 
-const Funcionarios = () => {
+const Usuarios = () => {
   const [page, setPage] = useState(0);
   const { isLoading, isError, error, data, isFetching } = useQuery({
     queryKey: ["users", page],
@@ -22,7 +22,7 @@ const Funcionarios = () => {
 
     setTableProps({
       tableName: "Usuários",
-      add: "/app/funcionario/cadastro",
+      add: "/app/usuario/cadastro",
       cols: cols,
       rows: users,
       page: page,
@@ -40,4 +40,4 @@ const Funcionarios = () => {
   );
 };
 
-export default Funcionarios;
+export default Usuarios;

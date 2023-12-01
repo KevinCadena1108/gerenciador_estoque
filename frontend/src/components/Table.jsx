@@ -13,6 +13,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const TableDefault = ({ props }) => {
   const { tableName, add, cols, rows, page, setPage, loading } = props;
@@ -69,10 +70,9 @@ const TableDefault = ({ props }) => {
         <Typography variant="h5" fontWeight={"bold"}>
           {tableName}
         </Typography>
-        <Button variant="contained" href={add}>
-          {" "}
-          Cadastrar{" "}
-        </Button>
+        <Link to={add}>
+          <Button variant="contained">Cadastrar</Button>
+        </Link>
       </Stack>
       <TableContainer
         style={{ maxWidth: "100%", margin: "auto", maxHeight: "300px" }}
