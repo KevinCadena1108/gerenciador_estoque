@@ -19,8 +19,8 @@ const Form = ({ children, onSubmit, back, remove, title }) => {
       }}
     >
       <form onSubmit={onSubmit}>
-        <Grid mb={4} container>
-          <Grid item xs={12}>
+        <Grid spacing={2} mb={4} container>
+          <Grid mb={4} item xs={12}>
             <Typography
               textAlign={{ xs: "center", md: "start" }}
               fontWeight="bold"

@@ -29,7 +29,8 @@ CREATE TABLE cliente (
     endereco VARCHAR(200) NOT NULL,
     email VARCHAR(100) NOT NULL,
     telefone VARCHAR(15) NOT NULL,
-    tipo VARCHAR(15) NOT NULL
+    tipo VARCHAR(15) NOT NULL.
+    CONSTRAINT uk_cliente UNIQUE (email)
 );
 
 CREATE TABLE pedido (

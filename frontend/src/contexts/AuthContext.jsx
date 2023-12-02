@@ -1,6 +1,7 @@
 import { createContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUser, login } from "../services/authenticationRequests";
+import { api } from "../services/api";
 
 export const AuthContext = createContext({});
 
@@ -21,6 +22,7 @@ const AuthProvider = ({ children }) => {
     const { token, user } = await login(email, senha);
 
     localStorage.setItem("token", token);
+    api.defaults.headers["Authorization"] = `Bearer ${token}`;
     setUser(user);
 
     navigate("/app");
