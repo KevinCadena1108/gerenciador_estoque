@@ -23,7 +23,6 @@ export async function ensureAuthenticated(req, res, next) {
 
     next();
   } catch (error) {
-    console.log(error);
     throw new AppError("Token enviado é invalido");
   }
 }

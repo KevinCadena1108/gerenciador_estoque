@@ -104,8 +104,7 @@ const TableDefault = ({ props }) => {
             <TableRow>
               <TableCell colSpan={cols.length}>
                 <Typography textAlign={"center"}>
-                  {" "}
-                  Carregando: {(page + 1) * 20}{" "}
+                  Carregando no máximo: {(page + 1) * 20} elementos
                 </Typography>
               </TableCell>
             </TableRow>

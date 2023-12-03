@@ -8,7 +8,7 @@ import Usuarios from "./pages/Usuarios";
 import CadUsu from "./pages/CadUsu";
 import CadCli from "./pages/CadCli";
 import CadEs from "./pages/CadEs";
-import { Vendas } from "./pages/Vendas";
+import Vendas from "./pages/Vendas";
 import { Relatorio } from "./pages/Relatorio";
 import { VerVendas } from "./pages/VerVendas";
 import Providers from "./Providers";

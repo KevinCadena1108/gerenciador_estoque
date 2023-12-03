@@ -1,11 +1,6 @@
 import { Alert, Snackbar } from "@mui/material";
-import { useState } from "react";
 
 const AlertMessage = ({ alert, setAlert }) => {
-  useState(() => {
-    console.log(alert);
-  }, [alert]);
-
   return (
     <Snackbar
       anchorOrigin={{ vertical: "top", horizontal: "right" }}

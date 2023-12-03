@@ -21,6 +21,12 @@ class UsuarioController {
     if (userAlreadyExists.length > 0)
       throw new AppError("Já existe um usuário com esse email");
 
+    if (senha.length < 6)
+      throw new AppError("Senha deve ter no mínimo 6 caracteres");
+
+    if (tipo !== "ADMINISTRADOR" && tipo !== "FUNCIONARIO")
+      throw new AppError("Tipo de usuário inválido");
+
     const passwordHash = await hash(senha, 8);
 
     await this.repository.createUser({
