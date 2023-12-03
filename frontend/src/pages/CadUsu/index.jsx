@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import {
   Typography,
   Grid,
@@ -10,11 +10,17 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-
+import { cadastrarUsuario } from "./requests.js";
 import PhoneInput from "../../components/PhoneInput";
 import Form from "../../components/Form";
+import AlertMessage from "../../components/AlertMessage.jsx";
 
 const CadUsu = () => {
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "error",
+  });
   const {
     register,
     handleSubmit,
@@ -22,16 +28,27 @@ const CadUsu = () => {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+  const onSubmit = async (user) => {
+    let telefoneFormatado = user.telefone.split("(").join("");
+    telefoneFormatado = telefoneFormatado.split(")").join("");
+    telefoneFormatado = telefoneFormatado.split("-").join("");
 
-  const onSubmit = (data) => {
-    console.log(data);
+    const { data, status } = await cadastrarUsuario({
+      ...user,
+      telefone: telefoneFormatado,
+    });
+
+    setAlert({
+      open: true,
+      message: data.message,
+      severity: status !== 400 ? "success" : "error",
+    });
   };
 
   return (
     <>
+      <AlertMessage alert={alert} setAlert={setAlert} />
+
       <Form
         onSubmit={handleSubmit(onSubmit)}
         title="Cadastrar Usuário"
