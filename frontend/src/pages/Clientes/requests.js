@@ -1,6 +1,10 @@
 import { api } from "../../services/api";
 
 export const getClientes = async (page) => {
-  const { data } = await api.get(`/cliente/?page=${page}`);
-  return data;
+  try {
+    const { data } = await api.get(`/cliente/?page=${page}`);
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
 };

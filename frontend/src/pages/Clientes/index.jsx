@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getClientes } from "./requests";
-import { CircularProgress, Typography } from "@mui/material";
+import { CircularProgress, Alert, Container } from "@mui/material";
 import TableDefault from "../../components/Table";
 
 const Clientes = () => {
@@ -19,6 +19,7 @@ const Clientes = () => {
 
   useEffect(() => {
     data?.map((cliente) => clientes.add(cliente));
+    console.log(error, isError);
 
     setTableProps({
       tableName: "Clientes",
@@ -32,7 +33,19 @@ const Clientes = () => {
   }, [isLoading, isFetching, page, data]); // eslint-disable-line
 
   return isError ? (
-    <Typography>Error: {error?.message}</Typography>
+    <Container
+      sx={{
+        height: "80vh",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Alert severity="error">
+        Error: {error?.response?.message || error?.message}
+      </Alert>
+    </Container>
   ) : tableProps ? (
     <TableDefault props={tableProps} />
   ) : (
