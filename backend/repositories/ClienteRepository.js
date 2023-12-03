@@ -12,6 +12,17 @@ class ClienteRepository {
       throw new AppError(error);
     }
   }
+
+  async createCliente({ nome, endereco, email, telefone, tipo, cpf, cnpj }) {
+    try {
+      return await db.none(
+        "INSERT INTO cliente (nome, endereco, email, telefone, tipo, cpf, cnpj) VALUES ($1, $2, $3, $4, $5, $6, $7);",
+        [nome, endereco, email, telefone, tipo, cpf, cnpj]
+      );
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
 }
 
 export default ClienteRepository;

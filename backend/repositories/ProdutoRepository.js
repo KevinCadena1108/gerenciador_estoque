@@ -12,6 +12,17 @@ class ProdutoRepository {
       throw new AppError(error);
     }
   }
+
+  async createProduto({ nome, preco, quantidade, descricao }) {
+    try {
+      await db.none(
+        "INSERT INTO produto (nome, preco, quantidade_estoque, descricao) VALUES ($1, $2, $3, $4);",
+        [nome, preco, quantidade, descricao]
+      );
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
 }
 
 export default ProdutoRepository;

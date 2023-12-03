@@ -1,10 +1,14 @@
 import { Router } from "express";
-import PedidosController from "../controllers/PedidosController.js";
+import PedidoController from "../controllers/PedidoController.js";
+import { pedidoRepository } from "../repositories/index.js";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated.js";
 
 const pedidoRoutes = Router();
 
-const pedidosController = new PedidosController();
+const pedidoController = new PedidoController(pedidoRepository);
 
-pedidoRoutes.get("/", pedidosController.get);
+pedidoRoutes.get("/", ensureAuthenticated, async (req, res) => {
+  await pedidoController.getPedidos(req, res);
+});
 
 export { pedidoRoutes };

@@ -10,7 +10,7 @@ const router = Router();
 router.use("/user", userRoutes);
 router.use("/cliente", clienteRoutes);
 router.use("/produto", produtoRoutes);
-router.use("/pedidos", pedidoRoutes);
+router.use("/pedido", pedidoRoutes);
 router.use("/auth", authenticationRoutes);
 
 export { router };
