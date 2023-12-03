@@ -1,113 +1,103 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import {
-  Button,
-  Grid,
-  Link,
-  TextField,
   Typography,
+  Grid,
+  TextField,
   Select,
   MenuItem,
   FormControl,
   InputLabel,
+  FormHelperText,
+  InputAdornment,
 } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useForm } from "react-hook-form";
 
-export const Vendas = () => {
+import Form from "../../components/Form";
+
+const Vendas = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <>
-      <Grid container my={3} direction="row" alignItems="center">
-        <Grid item xs={2} sx={{ textAlign: "center" }}>
-          {" "}
-          <Link href="/app">
-            <ArrowBackIcon fontSize="large" />{" "}
-          </Link>
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        title="Realizar Vendas"
+        back="/app"
+      >
+        <Grid item xs={12}>
+          <Typography variant="h6"> Dados do Produto </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <FormControl
+            variant="standard"
+            fullWidth
+            error={Boolean(errors?.tipo)}
+            {...register("tipo", { required: "Esse campo é obrigatório" })}
+          >
+            <InputLabel id="select-input-label">Tipo</InputLabel>
+            <Select
+              defaultValue="TRADICIONAL"
+              id="select-input-label"
+              label="Tipo"
+            >
+              <MenuItem value="TRADICIONAL">Tradicional</MenuItem>
+              <MenuItem value="ESPRESSO">Espresso</MenuItem>
+              <MenuItem value="ESPECIAL">Especial</MenuItem>
+              <MenuItem value="BLEND">Blend</MenuItem>
+            </Select>
+            {errors?.tipo && (
+              <FormHelperText> {errors?.tipo?.message} </FormHelperText>
+            )}
+          </FormControl>
         </Grid>
 
-        <Grid item sm={3} xs={2}>
-          {" "}
+        <Grid mb={4} item xs={12} md={6}>
+          <TextField
+            variant="standard"
+            label="Quantidade"
+            fullWidth
+            error={Boolean(errors?.quantidade)}
+            helperText={errors?.quantidade?.message}
+            {...register("quantidade", {
+              required: "Esse campo é obrigatório",
+            })}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">KG</InputAdornment>
+              ),
+            }}
+          />
         </Grid>
-
-        <Grid item xs={2}>
-          {" "}
-          <Typography variant="h3" sx={{ textAlign: "center" }}>
-            {" "}
-            Vendas{" "}
-          </Typography>{" "}
+        <Grid mb={4} item xs={12} md={6}>
+          <TextField
+            variant="standard"
+            label="Valor"
+            fullWidth
+            error={Boolean(errors?.valor)}
+            helperText={errors?.valor?.message}
+            {...register("valor", { required: "Esse campo é obrigatório" })}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">R$</InputAdornment>
+              ),
+            }}
+          />
         </Grid>
-      </Grid>
-
-      <MyForm />
+      </Form>
     </>
   );
 };
 
-function MyForm() {
-  const [formData, setFormData] = useState({
-    nome: "",
-    preco: "",
-    quantidade: "",
-    tipo: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <Grid container spacing={2} m={2}>
-        <Grid item xs={7}>
-          <FormControl fullWidth variant="outlined">
-            <InputLabel htmlFor="tipo">Tipo</InputLabel>
-            <Select
-              name="tipo"
-              value={formData.tipo}
-              onChange={handleChange}
-              label="Tipo"
-            >
-              <MenuItem value="Tradicional">Tradicional</MenuItem>
-              <MenuItem value="Especial">Especial</MenuItem>
-              <MenuItem value="Espresso">Espresso</MenuItem>
-              <MenuItem value="Blend">Blend</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={7}>
-          <TextField
-            label="Preço"
-            variant="outlined"
-            name="preço"
-            value={formData.preço}
-            onChange={handleChange}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={7}>
-          <TextField
-            label="Quantidade"
-            variant="outlined"
-            name="quantidade"
-            value={formData.quantidade}
-            onChange={handleChange}
-            fullWidth
-          />
-        </Grid>
-      </Grid>
-
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        sx={{ margin: "20px", marginLeft: "35px" }}
-      >
-        Cadastrar
-      </Button>
-    </form>
-  );
-}
+export default Vendas;

@@ -44,7 +44,7 @@ export const MainListItems = () => {
           <ListItemIcon>
             <RemoveRedEyeIcon />
           </ListItemIcon>
-          <ListItemText primary="Visualisar vendas" />
+          <ListItemText primary="Visualisar Vendas" />
         </ListItemButton>
       </Link>
 
