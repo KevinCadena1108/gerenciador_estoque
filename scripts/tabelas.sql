@@ -30,7 +30,9 @@ CREATE TABLE cliente (
     email VARCHAR(100) NOT NULL,
     telefone VARCHAR(15) NOT NULL,
     tipo VARCHAR(15) NOT NULL,
-    CONSTRAINT uk_cliente UNIQUE (email)
+    cpf VARCHAR(11),
+    cnpj VARCHAR(14),
+    CONSTRAINT uk_cliente UNIQUE (email, cpf, cnpj)
 );
 
 CREATE TABLE pedido (
