@@ -11,4 +11,12 @@ pedidoRoutes.get("/", ensureAuthenticated, async (req, res) => {
   await pedidoController.getPedidos(req, res);
 });
 
+pedidoRoutes.get("/chart", ensureAuthenticated, async (req, res) => {
+  await pedidoController.getPedidosForChart(req, res);
+});
+
+pedidoRoutes.get("/total", ensureAuthenticated, async (req, res) => {
+  await pedidoController.getTotalPedidos(req, res);
+});
+
 export { pedidoRoutes };

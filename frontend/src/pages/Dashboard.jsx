@@ -2,9 +2,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Chart from "../components/Chart";
 import Deposits from "../components/Deposits";
 import Orders from "../components/Orders";
+import DashboardChart from "../components/Chart";
 
 export default function Dashboard() {
   return (
@@ -19,11 +19,13 @@ export default function Dashboard() {
                 p: 2,
                 display: "flex",
                 flexDirection: "column",
-                height: 240,
+                alignItems: "center",
+                justifyContent: "center",
+                height: 350,
               }}
               elevation={0}
             >
-              <Chart />
+              <DashboardChart />
             </Paper>
           </Grid>
           {/* Recent Deposits */}
@@ -33,7 +35,7 @@ export default function Dashboard() {
                 p: 2,
                 display: "flex",
                 flexDirection: "column",
-                height: 240,
+                height: 350,
               }}
             >
               <Deposits />

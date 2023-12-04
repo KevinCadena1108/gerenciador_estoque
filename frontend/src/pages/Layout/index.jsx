@@ -150,7 +150,8 @@ const Layout = () => {
                   : theme.palette.grey[900],
               flexGrow: 1,
               height: "100vh",
-              overflow: "auto",
+              overflowX: "hidden",
+              overflowY: "auto",
             }}
           >
             {open && isMobile && (

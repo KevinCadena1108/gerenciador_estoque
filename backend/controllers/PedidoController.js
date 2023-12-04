@@ -10,6 +10,18 @@ class PedidoController {
 
     return res.status(200).json(pedidos);
   }
+
+  async getPedidosForChart(req, res) {
+    const pedidos = await this.repository.getPedidosForChart();
+
+    return res.status(200).json(pedidos);
+  }
+
+  async getTotalPedidos(req, res) {
+    const total = await this.repository.getTotalPedidos();
+
+    return res.status(200).json(total);
+  }
 }
 
 export default PedidoController;
