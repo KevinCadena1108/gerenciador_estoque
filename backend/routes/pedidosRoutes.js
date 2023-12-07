@@ -19,4 +19,8 @@ pedidoRoutes.get("/total", ensureAuthenticated, async (req, res) => {
   await pedidoController.getTotalPedidos(req, res);
 });
 
+pedidoRoutes.post("/", ensureAuthenticated, async (req, res) => {
+  await pedidoController.createPedido(req, res);
+});
+
 export { pedidoRoutes };
