@@ -75,7 +75,7 @@ const TableDefault = ({ props }) => {
         </Link>
       </Stack>
       <TableContainer
-        style={{ maxWidth: "100%", margin: "auto", maxHeight: "300px" }}
+        style={{ maxWidth: "100%", margin: "auto", maxHeight: "1000px" }}
         ref={table}
       >
         <Table stickyHeader style={{ width: "100%" }}>

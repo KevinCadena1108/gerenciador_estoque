@@ -35,7 +35,11 @@ export default function DashboardChart() {
     () => ({
       options: {
         labels: [...produtos],
-        title: { text: "Porcentagem de vendas", align: "center" },
+        title: {
+          text: "Porcentagem de vendas",
+          align: "center",
+          style: { fontSize: "20px" },
+        },
         plotOptions: {
           pie: {
             donut: {

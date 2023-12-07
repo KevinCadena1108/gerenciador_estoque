@@ -48,6 +48,54 @@ class UsuarioController {
 
     return res.status(200).json(users);
   }
+  async deleteUser(req, res) {
+    const { id } = req.params;
+
+    try {
+      const deletedUser = await this.repository.deleteUser(id);
+
+      if (!deletedUser) {
+        return res.status(404).json({ message: "Usuário não encontrado" });
+      }
+
+      return res.status(200).json({ message: "Usuário deletado com sucesso" });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Erro ao deletar usuário", error: error.message });
+    }
+  }
+  async updateUser(req, res) {
+    const { id } = req.params;
+    const { nome, email, senha, telefone, cargo, tipo } = req.body;
+
+    if (senha.length < 6)
+      throw new AppError("Senha deve ter no mínimo 6 caracteres");
+
+    if (tipo !== "ADMINISTRADOR" && tipo !== "FUNCIONARIO")
+      throw new AppError("Tipo de usuário inválido");
+
+    try {
+      const updatedUser = await this.repository.updateUser(id, {
+        nome,
+        email,
+        senha,
+        telefone,
+        cargo,
+        tipo,
+      });
+
+      if (!updatedUser) {
+        return res.status(404).json({ message: "Usuário não encontrado" });
+      }
+
+      return res.status(200).json({ message: "Usuário atualizado com sucesso" });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Erro ao atualizar usuário", error: error.message });
+    }
+  }
 }
 
 export default UsuarioController;
