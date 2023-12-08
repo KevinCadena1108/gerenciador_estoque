@@ -27,24 +27,24 @@ export const MainListItems = () => {
         </ListItemButton>
       </Link>
 
-      <Link style={{ color: "black", textDecoration: "none" }} to="/app/vendas">
+      <Link
+        style={{ color: "black", textDecoration: "none" }}
+        to="/app/pedido/cadastro"
+      >
         <ListItemButton>
           <ListItemIcon>
             <ShoppingCartIcon />
           </ListItemIcon>
-          <ListItemText primary="Vendas" />
+          <ListItemText primary="Pedidos" />
         </ListItemButton>
       </Link>
 
-      <Link
-        style={{ color: "black", textDecoration: "none" }}
-        to="/app/verVendas"
-      >
+      <Link style={{ color: "black", textDecoration: "none" }} to="/app/pedido">
         <ListItemButton>
           <ListItemIcon>
             <RemoveRedEyeIcon />
           </ListItemIcon>
-          <ListItemText primary="Visualisar Vendas" />
+          <ListItemText primary="Visualisar Pedidos" />
         </ListItemButton>
       </Link>
 

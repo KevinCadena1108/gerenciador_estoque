@@ -13,6 +13,14 @@ class ProdutoRepository {
     }
   }
 
+  async getProdutosForSelect() {
+    try {
+      return await db.any("SELECT idp as value, nome as label FROM produto;");
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
+
   async createProduto({ nome, preco, quantidade, descricao }) {
     try {
       await db.none(

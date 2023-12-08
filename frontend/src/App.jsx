@@ -8,9 +8,9 @@ import Usuarios from "./pages/Usuarios";
 import CadUsu from "./pages/CadUsu";
 import CadCli from "./pages/CadCli";
 import CadEs from "./pages/CadEs";
-import Vendas from "./pages/Vendas";
+import CadPed from "./pages/CadPed";
 import { Relatorio } from "./pages/Relatorio";
-import { VerVendas } from "./pages/VerVendas";
+import Pedidos from "./pages/Pedidos";
 import Providers from "./Providers";
 
 const App = () => {
@@ -26,10 +26,10 @@ const App = () => {
             <Route path="estoque" element={<Estoque />} />
             <Route path="cliente/cadastro" element={<CadCli />} />
             <Route path="estoque/cadastro" element={<CadEs />} />
-            <Route path="vendas" element={<Vendas />} />
+            <Route path="pedido/cadastro" element={<CadPed />} />
             <Route path="Relatorio" element={<Relatorio />} />
             <Route path="usuario/cadastro" element={<CadUsu />} />
-            <Route path="vervendas" element={<VerVendas />} />
+            <Route path="pedido" element={<Pedidos />} />
           </Route>
         </Routes>
       </Providers>

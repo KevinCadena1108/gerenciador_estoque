@@ -22,6 +22,12 @@ class PedidoController {
 
     return res.status(200).json(total);
   }
+
+  async createPedido(req, res) {
+    const pedido = await this.repository.createPedido(req.body);
+
+    return res.status(200).json(pedido);
+  }
 }
 
 export default PedidoController;

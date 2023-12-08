@@ -11,6 +11,10 @@ produtoRoutes.get("/", ensureAuthenticated, async (req, res) => {
   await produtoController.getProdutos(req, res);
 });
 
+produtoRoutes.get("/select", ensureAuthenticated, async (req, res) => {
+  await produtoController.getProdutosForSelect(req, res);
+});
+
 produtoRoutes.post("/", ensureAuthenticated, async (req, res) => {
   await produtoController.createProduto(req, res);
 });
