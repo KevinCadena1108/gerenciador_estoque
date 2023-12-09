@@ -2,6 +2,35 @@ import AppError from "../AppError.js";
 import db from "../db.js";
 
 class PedidoRepository {
+  async createPedido(pedido) {
+    try {
+      let queryPedido =
+        "INSERT INTO pedido (idu, idc, estado, datap) VALUES ($1, $2, $3, $4) RETURNING codp;";
+      let queryItemPedido =
+        "INSERT INTO itempedido (codp, idp, quantidade_pedido) VALUES ($1, $2, $3);";
+      let removeEstoque =
+        "UPDATE produto SET quantidade_estoque = quantidade_estoque - $1 WHERE idp = $2;";
+
+      const { codp } = await db.one(queryPedido, [
+        pedido.vendedor,
+        pedido.cliente,
+        pedido.estado,
+        pedido.data,
+      ]);
+
+      pedido?.carrinho?.map(async (pedido) => {
+        await db.none(queryItemPedido, [
+          codp,
+          pedido.produtoId,
+          pedido.quantidade,
+        ]);
+        await db.none(removeEstoque, [pedido.quantidade, pedido.produtoId]);
+      });
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
+
   async getPedidos(page) {
     try {
       let query =

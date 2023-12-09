@@ -13,6 +13,14 @@ class ClienteRepository {
     }
   }
 
+  async getClientsAutocomplete() {
+    try {
+      return await db.any("SELECT idc as id, nome as label FROM cliente;");
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
+
   async createCliente({ nome, endereco, email, telefone, tipo, cpf, cnpj }) {
     try {
       return await db.none(

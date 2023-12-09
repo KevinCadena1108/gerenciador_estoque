@@ -14,6 +14,12 @@ class UsuarioController {
     return res.status(200).json(user);
   }
 
+  async getUsersAutocomplete(req, res) {
+    const users = await this.repository.getUsersAutocomplete();
+
+    return res.status(200).json(users);
+  }
+
   async createUser(req, res) {
     const { nome, email, senha, telefone, cargo, tipo } = req.body;
 
@@ -89,7 +95,9 @@ class UsuarioController {
         return res.status(404).json({ message: "Usuário não encontrado" });
       }
 
-      return res.status(200).json({ message: "Usuário atualizado com sucesso" });
+      return res
+        .status(200)
+        .json({ message: "Usuário atualizado com sucesso" });
     } catch (error) {
       return res
         .status(500)

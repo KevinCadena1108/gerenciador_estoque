@@ -11,6 +11,10 @@ clienteRoutes.get("/", ensureAuthenticated, async (req, res) => {
   await clienteController.getClients(req, res);
 });
 
+clienteRoutes.get("/autocomplete", ensureAuthenticated, async (req, res) => {
+  await clienteController.getClientsAutocomplete(req, res);
+});
+
 clienteRoutes.post("/", ensureAuthenticated, async (req, res) => {
   await clienteController.createCliente(req, res);
 });

@@ -9,7 +9,6 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import LogoutIcon from "@mui/icons-material/Logout";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { AuthContext } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 
@@ -27,24 +26,12 @@ export const MainListItems = () => {
         </ListItemButton>
       </Link>
 
-      <Link
-        style={{ color: "black", textDecoration: "none" }}
-        to="/app/pedido/cadastro"
-      >
+      <Link style={{ color: "black", textDecoration: "none" }} to="/app/pedido">
         <ListItemButton>
           <ListItemIcon>
             <ShoppingCartIcon />
           </ListItemIcon>
           <ListItemText primary="Pedidos" />
-        </ListItemButton>
-      </Link>
-
-      <Link style={{ color: "black", textDecoration: "none" }} to="/app/pedido">
-        <ListItemButton>
-          <ListItemIcon>
-            <RemoveRedEyeIcon />
-          </ListItemIcon>
-          <ListItemText primary="Visualisar Pedidos" />
         </ListItemButton>
       </Link>
 

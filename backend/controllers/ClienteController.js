@@ -11,6 +11,12 @@ class ClienteController {
     return res.status(200).json(clients);
   }
 
+  async getClientsAutocomplete(req, res) {
+    const clients = await this.repository.getClientsAutocomplete();
+
+    return res.status(200).json(clients);
+  }
+
   async createCliente(req, res) {
     const { nome, endereco, email, telefone, tipo, cpf, cnpj } = req.body;
 
@@ -65,9 +71,7 @@ class ClienteController {
         return res.status(404).json({ message: "Cliente não encontrado" });
       }
 
-      return res
-        .status(200)
-        .json({ message: "Cliente deletado com sucesso" });
+      return res.status(200).json({ message: "Cliente deletado com sucesso" });
     } catch (error) {
       return res
         .status(500)

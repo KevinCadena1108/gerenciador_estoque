@@ -34,6 +34,14 @@ class UsuarioRepository {
     }
   }
 
+  async getUsersAutocomplete() {
+    try {
+      return await db.any("SELECT idu as id, nome as label FROM usuario;");
+    } catch (error) {
+      throw new AppError(error.message);
+    }
+  }
+
   async getUsers(page) {
     try {
       return await db.any(

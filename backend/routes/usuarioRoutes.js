@@ -12,6 +12,10 @@ userRoutes.get("/recover", ensureAuthenticated, async (req, res) => {
   await userController.recoverUser(req, res);
 });
 
+userRoutes.get("/autocomplete", ensureAuthenticated, async (req, res) => {
+  await userController.getUsersAutocomplete(req, res);
+});
+
 userRoutes.get("/", ensureAuthenticated, ensureAdmin, async (req, res) => {
   await userController.getUsers(req, res);
 });
