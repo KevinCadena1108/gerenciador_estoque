@@ -11,7 +11,7 @@ import {
   InputLabel,
   Alert,
 } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
+import { DatePicker } from "@mui/lab";
 import { useQuery } from "@tanstack/react-query";
 
 import {

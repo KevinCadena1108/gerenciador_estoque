@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import {
   Typography,
   Grid,
@@ -10,11 +10,17 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-
+import { createCliente } from "./requests";
 import PhoneInput from "../../components/PhoneInput";
 import Form from "../../components/Form";
+import AlertMessage from "../../components/AlertMessage";
 
 const CadCli = () => {
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "error",
+  });
   const {
     register,
     handleSubmit,
@@ -22,31 +28,64 @@ const CadCli = () => {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+  const onSubmit = async (cliente) => {
+    let telefoneFormatado = cliente.telefone.split("(").join("");
+    telefoneFormatado = telefoneFormatado.split(")").join("");
+    telefoneFormatado = telefoneFormatado.split("-").join("");
 
-  const onSubmit = (data) => {
-    console.log(data);
+    const token = localStorage.getItem("token");
+
+    const cpf_cnpj = cliente.cpf_cnpj;
+    const cpf = cliente.tipo === "FISICO" ? cpf_cnpj : null;
+    const cnpj = cliente.tipo === "JURIDICO" ? cpf_cnpj : null;
+
+    try {
+      const response = await createCliente(
+        { ...cliente, telefone: telefoneFormatado, cpf, cnpj },
+        token
+      );
+
+      if (response.status === 200) {
+        setAlert({
+          open: true,
+          message: "Cliente cadastrado com sucesso!",
+          severity: "success",
+        });
+      } else {
+        setAlert({
+          open: true,
+          message: "Erro ao cadastrar cliente",
+          severity: "error",
+        });
+      }
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.response?.data?.message || "Erro ao cadastrar cliente",
+        severity: "error",
+      });
+    }
   };
 
   return (
     <>
+      <AlertMessage alert={alert} setAlert={setAlert} />
+
       <Form
         onSubmit={handleSubmit(onSubmit)}
         title="Cadastrar Cliente"
         back="/app/cliente"
       >
         <Grid item xs={12}>
-          <Typography variant="h6"> Dados Pessoais </Typography>
+          <Typography variant="h6">Dados Pessoais</Typography>
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
             variant="standard"
             label="Nome"
             fullWidth
-            error={Boolean(errors?.nome)}
-            helperText={errors?.nome?.message}
+            error={Boolean(errors.nome)}
+            helperText={errors.nome?.message}
             {...register("nome", { required: "Esse campo é obrigatório" })}
           />
         </Grid>
@@ -63,14 +102,14 @@ const CadCli = () => {
             variant="standard"
             label="Endereço"
             fullWidth
-            error={Boolean(errors?.endereco)}
-            helperText={errors?.endereco?.message}
+            error={Boolean(errors.endereco)}
+            helperText={errors.endereco?.message}
             {...register("endereco", { required: "Esse campo é obrigatório" })}
           />
         </Grid>
 
         <Grid item xs={12}>
-          <Typography variant="h6"> Dados Complementares </Typography>
+          <Typography variant="h6">Dados Complementares</Typography>
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
@@ -78,8 +117,8 @@ const CadCli = () => {
             label="Email"
             type="email"
             fullWidth
-            error={Boolean(errors?.email)}
-            helperText={errors?.email?.message}
+            error={Boolean(errors.email)}
+            helperText={errors.email?.message}
             {...register("email", { required: "Esse campo é obrigatório" })}
           />
         </Grid>
@@ -88,29 +127,29 @@ const CadCli = () => {
             variant="standard"
             label="CPF/CNPJ"
             fullWidth
-            error={Boolean(errors?.cpf)}
-            helperText={errors?.cpf?.message}
-            {...register("cpf/cnpj")}
+            error={Boolean(errors.cpf_cnpj)}
+            helperText={errors.cpf_cnpj?.message}
+            {...register("cpf_cnpj", { required: "Esse campo é obrigatório" })}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <FormControl
             variant="standard"
             fullWidth
-            error={Boolean(errors?.tipo)}
-            {...register("tipo", { required: "Esse campo é obrigatório" })}
+            error={Boolean(errors.tipo)}
           >
-            <InputLabel id="select-input-label">Tipo</InputLabel>
+            <InputLabel id="select-tipo-label">Tipo</InputLabel>
             <Select
-              defaultValue="PESSOA FISICA"
-              id="select-input-label"
+              labelId="select-tipo-label"
               label="Tipo"
+              defaultValue=""
+              {...register("tipo", { required: "Esse campo é obrigatório" })}
             >
-              <MenuItem value="PESSOA FISICA">Pessoa Física</MenuItem>
-              <MenuItem value="PESSOA JURIDICA">Pessoa Jurídica</MenuItem>
+              <MenuItem value="FISICO">Pessoa Física</MenuItem>
+              <MenuItem value="JURIDICO">Pessoa Jurídica</MenuItem>
             </Select>
-            {errors?.tipo && (
-              <FormHelperText> {errors?.tipo?.message} </FormHelperText>
+            {errors.tipo && (
+              <FormHelperText>{errors.tipo.message}</FormHelperText>
             )}
           </FormControl>
         </Grid>

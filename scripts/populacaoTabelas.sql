@@ -1,4 +1,5 @@
 INSERT INTO usuario (nome, cargo, telefone, email, senha, tipo) VALUES 
+('kevin', 'top', '1234567890', 'kevincadena1108@gmail.com', '$2a$08$6RIW9a4MHzbw1wV1V43zXutaEzDkAza5BQXr5meqsBJalVUo8gQHa', 'ADMINISTRADOR'),
 ('Usuario1', 'Cargo1', '1234567890', 'usuario1@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'FUNCIONARIO'),
 ('Usuario2', 'Cargo2', '1234567891', 'usuario2@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'FUNCIONARIO'),
 ('Usuario3', 'Cargo3', '1234567892', 'usuario3@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'FUNCIONARIO'),

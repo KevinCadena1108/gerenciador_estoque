@@ -16,17 +16,8 @@ clienteRoutes.get("/autocomplete", ensureAuthenticated, async (req, res) => {
 });
 
 clienteRoutes.post("/", ensureAuthenticated, async (req, res) => {
-  await clienteController.createCliente(req, res);
+  await clienteController.createClient(req, res);
 });
 
-clienteRoutes.put("/:id", ensureAuthenticated, async (req, res) => {
-  const { id } = req.params;
-  await clienteController.updateCliente(id, req, res);
-});
-
-clienteRoutes.delete("/:id", ensureAuthenticated, async (req, res) => {
-  const { id } = req.params;
-  await clienteController.deleteCliente(id, req, res);
-});
 
 export { clienteRoutes };

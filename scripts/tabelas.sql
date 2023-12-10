@@ -1,7 +1,7 @@
-CREATE DATABASE estoque;
-\c estoque
+--CREATE DATABASE estoque;
+--\c estoque
 
-SET datestyle = 'ISO,DMY';
+--SET datestyle = 'ISO,DMY';
 
 CREATE TABLE usuario
 (
@@ -49,7 +49,7 @@ CREATE TABLE itempedido (
     idi SERIAL PRIMARY KEY,
     codp INTEGER NOT NULL,
     idp INTEGER NOT NULL,
-    quantidade_pedido INTEGER NOT NULL,--
+    quantidade_pedido INTEGER NOT NULL,
     CONSTRAINT fk_itempedido_produto FOREIGN KEY (idp) REFERENCES produto(idp) ON DELETE CASCADE,
     CONSTRAINT fk_itempedido_pedido FOREIGN KEY (codp) REFERENCES pedido(codp) ON DELETE CASCADE
 );

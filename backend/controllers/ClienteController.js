@@ -1,14 +1,16 @@
+import AppError from "../AppError.js";
+
 class ClienteController {
   constructor(clienteRepository) {
     this.repository = clienteRepository;
   }
 
-  async getClients(req, res) {
-    const page = parseInt(req.query?.page);
+  async recoverClient(req, res) {
+    const client = req.client;
 
-    const clients = await this.repository.getClients(page);
+    if (!client) throw new AppError("Cliente não encontrado");
 
-    return res.status(200).json(clients);
+    return res.status(200).json(client);
   }
 
   async getClientsAutocomplete(req, res) {
@@ -17,8 +19,14 @@ class ClienteController {
     return res.status(200).json(clients);
   }
 
-  async createCliente(req, res) {
+  async createClient(req, res) {
     const { nome, endereco, email, telefone, tipo, cpf, cnpj } = req.body;
+
+    const clientExists = await this.repository.findByEmail(email);
+    if (clientExists.length > 0) throw new AppError("Cliente já cadastrado");
+
+    if (tipo !== "FISICO" && tipo !== "JURIDICO")
+      throw new AppError("Tipo de cliente inválido");
 
     await this.repository.createClient({
       nome,
@@ -32,51 +40,13 @@ class ClienteController {
 
     return res.status(200).json({ message: "Cliente criado com sucesso" });
   }
-  async updateCliente(req, res) {
-    const { id } = req.params;
-    const { nome, endereco, email, telefone, tipo, cpf, cnpj } = req.body;
 
-    try {
-      const updatedClient = await this.repository.updateClient(id, {
-        nome,
-        endereco,
-        email,
-        telefone,
-        tipo,
-        cpf,
-        cnpj,
-      });
+  async getClients(req, res) {
+    const page = parseInt(req.query?.page);
 
-      if (!updatedClient) {
-        return res.status(404).json({ message: "Cliente não encontrado" });
-      }
+    const clients = await this.repository.getClients(page);
 
-      return res
-        .status(200)
-        .json({ message: "Cliente atualizado com sucesso" });
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ message: "Erro ao atualizar cliente", error: error.message });
-    }
-  }
-
-  async deleteCliente(req, res) {
-    const { id } = req.params;
-
-    try {
-      const deletedClient = await this.repository.deleteClient(id);
-
-      if (!deletedClient) {
-        return res.status(404).json({ message: "Cliente não encontrado" });
-      }
-
-      return res.status(200).json({ message: "Cliente deletado com sucesso" });
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ message: "Erro ao deletar cliente", error: error.message });
-    }
+    return res.status(200).json(clients);
   }
 }
 
