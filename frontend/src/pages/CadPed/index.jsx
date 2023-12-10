@@ -11,7 +11,7 @@ import {
   InputLabel,
   Alert,
 } from "@mui/material";
-import { DatePicker } from "@mui/lab";
+import { DatePicker } from "@mui/x-date-pickers";
 import { useQuery } from "@tanstack/react-query";
 
 import {
@@ -192,19 +192,22 @@ const CadPed = () => {
             <Grid mb={4} item xs={12} md={6}>
               <InputLabel sx={{ mb: 1 }}>Data</InputLabel>
               <DatePicker
+                label="Data"
+                format="dd/MM/yyyy"
                 value={formulario.data}
                 onChange={(newValue) => {
                   setForumlario({ ...formulario, data: newValue });
                 }}
-                slotProps={{
-                  textField: {
-                    variant: "standard",
-                    fullWidth: true,
-                    required: true,
-                    error: Boolean(errors?.data),
-                    helperText: errors?.data,
-                  },
-                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    fullWidth
+                    required
+                    error={Boolean(errors?.data)}
+                    helperText={errors?.data}
+                  />
+                )}
               />
             </Grid>
 
