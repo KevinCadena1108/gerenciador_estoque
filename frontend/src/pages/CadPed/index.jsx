@@ -193,7 +193,7 @@ const CadPed = () => {
               <InputLabel sx={{ mb: 1 }}>Data</InputLabel>
               <DatePicker
                 label="Data"
-                format="dd/MM/yyyy"
+                format="DD/MM/YYYY"
                 value={formulario.data}
                 onChange={(newValue) => {
                   setForumlario({ ...formulario, data: newValue });
