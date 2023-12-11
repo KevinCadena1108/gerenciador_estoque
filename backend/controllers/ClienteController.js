@@ -5,10 +5,44 @@ class ClienteController {
     this.repository = clienteRepository;
   }
 
-  async recoverClient(req, res) {
-    const client = req.client;
+  async deleteClient(req, res) {
+    const { id } = req.params;
 
-    if (!client) throw new AppError("Cliente não encontrado");
+    await this.repository.deleteClient(parseInt(id));
+
+    return res.status(200).json({ message: "Cliente deletado com sucesso" });
+  }
+
+  async updateClient(req, res) {
+    const { nome, endereco, email, telefone, tipo, cpf, cnpj } = req.body;
+    const { id } = req.params;
+
+    const client = await this.repository.findById(parseInt(id));
+
+    if (!id || !client) throw new AppError("Cliente não encontrado");
+
+    if (tipo !== "PESSOA FISICA" && tipo !== "PESSOA JURIDICA")
+      throw new AppError("Tipo de cliente inválido");
+
+    await this.repository.updateClient(parseInt(id), {
+      nome,
+      endereco,
+      email,
+      telefone,
+      tipo,
+      cpf,
+      cnpj,
+    });
+
+    return res.status(200).json({ message: "Cliente atualizado com sucesso" });
+  }
+
+  async recoverClient(req, res) {
+    const { id } = req.params;
+
+    const client = await this.repository.findById(id);
+
+    if (!id || !client) throw new AppError("Cliente não encontrado");
 
     return res.status(200).json(client);
   }
@@ -25,7 +59,7 @@ class ClienteController {
     const clientExists = await this.repository.findByEmail(email);
     if (clientExists.length > 0) throw new AppError("Cliente já cadastrado");
 
-    if (tipo !== "FISICO" && tipo !== "JURIDICO")
+    if (tipo !== "PESSOA FISICA" && tipo !== "PESSOA JURIDICA")
       throw new AppError("Tipo de cliente inválido");
 
     await this.repository.createClient({

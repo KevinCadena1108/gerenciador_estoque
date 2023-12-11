@@ -13,6 +13,17 @@ class ClienteRepository {
     }
   }
 
+  async updateClient(id, { nome, endereco, email, telefone, tipo, cpf, cnpj }) {
+    try {
+      return await db.none(
+        "UPDATE cliente SET nome = $1, endereco = $2, email = $3, telefone = $4, tipo = $5, cpf = $6, cnpj = $7 WHERE idc = $8;",
+        [nome, endereco, email, telefone, tipo, cpf, cnpj, id]
+      );
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
+
   async findByEmail(email) {
     try {
       return db.any("SELECT * FROM cliente WHERE email = $1;", [email]);

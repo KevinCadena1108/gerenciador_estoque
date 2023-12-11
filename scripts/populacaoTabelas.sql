@@ -26,16 +26,16 @@ INSERT INTO produto (nome, descricao, preco, quantidade_estoque) VALUES
 ('Produto10', 'Descrição do Produto10', 12.00, 100);
 
 INSERT INTO cliente (nome, endereco, email, telefone, tipo, cpf, cnpj) VALUES 
-('Cliente1', 'Endereço do Cliente1', 'cliente1@email.com', '1234567890', 'PESSOA FISICA', '12345678901', NULL),
-('Cliente2', 'Endereço do Cliente2', 'cliente2@email.com', '1234567891', 'PESSOA FISICA', '12345678902', NULL),
-('Cliente3', 'Endereço do Cliente3', 'cliente3@email.com', '1234567892', 'PESSOA JURIDICA', NULL, '12345678901234'),
-('Cliente4', 'Endereço do Cliente4', 'cliente4@email.com', '1234567893', 'PESSOA JURIDICA', NULL, '12345678901235'),
-('Cliente5', 'Endereço do Cliente5', 'cliente5@email.com', '1234567894', 'PESSOA FISICA', '12345678905', NULL),
-('Cliente6', 'Endereço do Cliente6', 'cliente6@email.com', '1234567895', 'PESSOA FISICA', '12345678906', NULL),
-('Cliente7', 'Endereço do Cliente7', 'cliente7@email.com', '1234567896', 'PESSOA JURIDICA', NULL, '12345678901236'),
-('Cliente8', 'Endereço do Cliente8', 'cliente8@email.com', '1234567897', 'PESSOA JURIDICA', NULL, '12345678901237'),
-('Cliente9', 'Endereço do Cliente9', 'cliente9@email.com', '1234567898', 'PESSOA FISICA', '12345678909', NULL),
-('Cliente10', 'Endereço do Cliente10', 'cliente10@email.com', '1234567899', 'PESSOA FISICA', '12345678910', NULL);
+('Cliente1', 'Endereço do Cliente1', 'cliente1@email.com', '12345678901', 'PESSOA FISICA', '12345678901', NULL),
+('Cliente2', 'Endereço do Cliente2', 'cliente2@email.com', '12345678911', 'PESSOA FISICA', '12345678902', NULL),
+('Cliente3', 'Endereço do Cliente3', 'cliente3@email.com', '12345678921', 'PESSOA JURIDICA', NULL, '12345678901234'),
+('Cliente4', 'Endereço do Cliente4', 'cliente4@email.com', '12345678931', 'PESSOA JURIDICA', NULL, '12345678901235'),
+('Cliente5', 'Endereço do Cliente5', 'cliente5@email.com', '12345678941', 'PESSOA FISICA', '12345678905', NULL),
+('Cliente6', 'Endereço do Cliente6', 'cliente6@email.com', '12345678951', 'PESSOA FISICA', '12345678906', NULL),
+('Cliente7', 'Endereço do Cliente7', 'cliente7@email.com', '12345678961', 'PESSOA JURIDICA', NULL, '12345678901236'),
+('Cliente8', 'Endereço do Cliente8', 'cliente8@email.com', '12345678971', 'PESSOA JURIDICA', NULL, '12345678901237'),
+('Cliente9', 'Endereço do Cliente9', 'cliente9@email.com', '12345678981', 'PESSOA FISICA', '12345678909', NULL),
+('Cliente10', 'Endereço do Cliente10', 'cliente10@email.com', '12345678991', 'PESSOA FISICA', '12345678910', NULL);
 
 INSERT INTO pedido (idc, idu, estado, datap) VALUES 
 (1, 1, 'Em Processamento', '2023-12-01'),
