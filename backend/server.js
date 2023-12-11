@@ -1,6 +1,7 @@
 import "express-async-errors";
 import express from "express";
 import cors from "cors";
+import "dotenv/config.js";
 import AppError from "./AppError.js";
 import { router } from "./routes/index.js";
 
