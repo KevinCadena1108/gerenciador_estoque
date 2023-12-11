@@ -31,6 +31,7 @@ const Clientes = () => {
 		setTableProps({
 			tableName: 'Clientes',
 			add: '/app/cliente/cadastro',
+			edit: '/app/cliente/editar/',
 			cols: cols,
 			rows: clientes,
 			page: page,

@@ -29,14 +29,15 @@ const Usuarios = () => {
 		}
 
     setTableProps({
-      tableName: "Usuários",
-      add: "/app/usuario/cadastro",
-      cols: cols,
-      rows: users,
-      page: page,
-      setPage: setPage,
-      loading: isFetching || isLoading,
-    });
+			tableName: 'Usuários',
+			add: '/app/usuario/cadastro',
+			edit: '/app/usuario/editar/',
+			cols: cols,
+			rows: users,
+			page: page,
+			setPage: setPage,
+			loading: isFetching || isLoading
+		});
   }, [isLoading, isFetching, page, data]); // eslint-disable-line
 
   return isError ? (

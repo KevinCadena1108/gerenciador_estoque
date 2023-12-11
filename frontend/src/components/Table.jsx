@@ -14,10 +14,11 @@ import {
 	Typography
 } from '@mui/material';
 import PerfectScrollBar from 'react-perfect-scrollbar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const TableDefault = ({ props }) => {
-	const { tableName, add, cols, rows, page, setPage, loading } = props;
+	const navigate = useNavigate();
+	const { tableName, add, cols, rows, page, setPage, loading, edit } = props;
 	const [data, setData] = useState(null);
 	let table = useRef();
 
@@ -50,6 +51,10 @@ const TableDefault = ({ props }) => {
 			tableRef.removeEventListener('scroll', handlerTableScroll);
 		};
 	}, [handlerTableScroll]);
+
+	const navigateToEdit = (id) => {
+		navigate(edit + id);
+	};
 
 	return (
 		<Container
@@ -93,9 +98,13 @@ const TableDefault = ({ props }) => {
 						<TableBody>
 							{data &&
 								[...data].map((item) => (
-									<TableRow key={item.id}>
+									<TableRow
+										onClick={() => navigateToEdit(item.id || item.codigo)}
+										sx={{ ':hover': { backgroundColor: 'rgba(207, 207, 207, 0.5)', cursor: 'pointer' } }}
+										key={item.id || `cod-${item.codigo}`}
+									>
 										{Object.keys(item).map((colunaItem) => (
-											<TableCell key={`${item.id}-${colunaItem}`}>{item[colunaItem]}</TableCell>
+											<TableCell key={`${item.id || item.codigo}-${colunaItem}`}>{item[colunaItem]}</TableCell>
 										))}
 									</TableRow>
 								))}

@@ -8,7 +8,7 @@ const Pedidos = () => {
   const [page, setPage] = useState(0);
   const [pedidos, setPedidos] = useState(new Set());
 	const { isLoading, isError, error, data, isFetching } = useQuery({
-		queryKey: ['produtos', page],
+		queryKey: ['pedidos', page],
 		queryFn: () => getPedidos(page),
 		keepPreviousData: true
 	});
@@ -31,6 +31,7 @@ const Pedidos = () => {
 		setTableProps({
 			tableName: 'Pedidos',
 			add: '/app/pedido/cadastro',
+      edit: '/app/pedido/editar/',
 			cols: cols,
 			rows: pedidos,
 			page: page,
