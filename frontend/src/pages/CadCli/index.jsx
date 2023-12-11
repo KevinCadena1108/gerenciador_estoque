@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext } from "react";
 import {
   Typography,
   Grid,
@@ -13,16 +13,12 @@ import { useForm } from "react-hook-form";
 import { createCliente } from "./requests";
 import PhoneInput from "../../components/PhoneInput";
 import Form from "../../components/Form";
-import AlertMessage from "../../components/AlertMessage";
 import { useNavigate } from "react-router-dom";
+import { AlertContext } from "../../contexts/AlertContext";
 
 const CadCli = () => {
   const navigate = useNavigate();
-  const [alert, setAlert] = useState({
-    open: false,
-    message: "",
-    severity: "error",
-  });
+  const { setAlert } = useContext(AlertContext);
   const {
     register,
     handleSubmit,
@@ -52,13 +48,11 @@ const CadCli = () => {
       severity: status !== 400 ? "success" : "error",
     });
 
-    navigate("/app");
+    navigate("/app/cliente");
   };
 
   return (
     <>
-      <AlertMessage alert={alert} setAlert={setAlert} />
-
       <Form
         onSubmit={handleSubmit(onSubmit)}
         title="Cadastrar Cliente"
@@ -117,7 +111,11 @@ const CadCli = () => {
             fullWidth
             error={Boolean(errors.cpf_cnpj)}
             helperText={errors.cpf_cnpj?.message}
-            {...register("cpf_cnpj", { required: "Esse campo é obrigatório" })}
+            {...register("cpf_cnpj", {
+              required: "Esse campo é obrigatório",
+              maxLength: 14,
+              minLength: 11,
+            })}
           />
         </Grid>
         <Grid item xs={12} md={6}>

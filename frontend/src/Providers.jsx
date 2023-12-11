@@ -4,6 +4,7 @@ import AuthProvider from "./contexts/AuthContext";
 import { BrowserRouter } from "react-router-dom";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import AlertProvider from "./contexts/AlertContext";
 
 const Providers = ({ children }) => {
   const theme = createTheme();
@@ -14,7 +15,9 @@ const Providers = ({ children }) => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <BrowserRouter>
-            <AuthProvider>{children}</AuthProvider>
+            <AuthProvider>
+              <AlertProvider>{children}</AlertProvider>
+            </AuthProvider>
           </BrowserRouter>
         </ThemeProvider>
       </QueryClientProvider>

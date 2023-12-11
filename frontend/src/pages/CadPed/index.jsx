@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import {
   Typography,
   Grid,
@@ -21,16 +21,12 @@ import {
 } from "./requests.js";
 
 import Form from "../../components/Form";
-import AlertMessage from "../../components/AlertMessage.jsx";
 import { useNavigate } from "react-router-dom";
+import { AlertContext } from "../../contexts/AlertContext.jsx";
 
 const CadPed = () => {
   const navigate = useNavigate();
-  const [alert, setAlert] = useState({
-    open: false,
-    message: "",
-    severity: "error",
-  });
+  const { setAlert } = useContext(AlertContext);
   const [errors, setErrors] = useState({});
   const [carrinho, setCarrinho] = useState(new Set());
   const [formulario, setForumlario] = useState({
@@ -157,8 +153,6 @@ const CadPed = () => {
         <CircularProgress />
       ) : (
         <>
-          <AlertMessage alert={alert} setAlert={setAlert} />
-
           <Form onSubmit={onSubmit} title="Realizar Pedido" back="/app">
             <Grid item xs={12}>
               <Typography variant="h6"> Dados do Pedido </Typography>

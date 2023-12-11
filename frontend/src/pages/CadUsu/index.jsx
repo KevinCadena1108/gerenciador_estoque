@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import {
   Typography,
   Grid,
@@ -13,17 +13,14 @@ import { useForm } from "react-hook-form";
 import { cadastrarUsuario, deletarUsuario } from "./requests.js";
 import PhoneInput from "../../components/PhoneInput";
 import Form from "../../components/Form";
-import AlertMessage from "../../components/AlertMessage.jsx";
 import { useNavigate, useParams } from "react-router-dom";
+import { AlertContext } from "../../contexts/AlertContext.jsx";
 
 const CadUsu = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const [alert, setAlert] = useState({
-    open: false,
-    message: "",
-    severity: "error",
-  });
+  const { setAlert } = useContext(AlertContext);
+
   const {
     register,
     handleSubmit,
@@ -78,8 +75,6 @@ const CadUsu = () => {
 
   return (
     <>
-      <AlertMessage alert={alert} setAlert={setAlert} />
-
       <Form
         onSubmit={handleSubmit(onSubmit)}
         back="/app/usuario"

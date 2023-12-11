@@ -1,19 +1,16 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Typography, Grid, TextField, InputAdornment } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import Form from "../../components/Form";
 import { createEstoque } from "./requests";
 import { useNavigate } from "react-router-dom";
-import AlertMessage from "../../components/AlertMessage";
+import { AlertContext } from "../../contexts/AlertContext";
 
 const CadEs = () => {
   const navigate = useNavigate();
-  const [alert, setAlert] = useState({
-    open: false,
-    message: "",
-    severity: "error",
-  });
+  const { setAlert } = useContext(AlertContext);
+
   const {
     register,
     handleSubmit,
@@ -34,8 +31,6 @@ const CadEs = () => {
 
   return (
     <>
-      <AlertMessage alert={alert} setAlert={setAlert} />
-
       <Form
         onSubmit={handleSubmit(onSubmit)}
         title="Cadastrar Estoque"

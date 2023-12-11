@@ -12,10 +12,12 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import AlertMessage from "../../components/AlertMessage";
 import { MainListItems } from "../../components/ListItems";
 import { CircularProgress, Container, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import { AuthContext } from "../../contexts/AuthContext";
+import { AlertContext } from "../../contexts/AlertContext";
 
 const drawerWidth = 240;
 
@@ -70,6 +72,7 @@ const Drawer = styled(MuiDrawer, {
 
 const Layout = () => {
   const { isAuthenticated, signOut } = React.useContext(AuthContext);
+  const { alert, setAlert } = React.useContext(AlertContext);
   const [open, setOpen] = React.useState(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -174,6 +177,7 @@ const Layout = () => {
                 width: { md: `calc(100vw - ${drawerWidth}px)`, xs: "90vw" },
               }}
             >
+              <AlertMessage alert={alert} setAlert={setAlert} />
               <Outlet />
             </Container>
           </Box>
