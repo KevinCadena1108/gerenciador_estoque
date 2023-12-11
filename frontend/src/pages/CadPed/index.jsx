@@ -1,5 +1,15 @@
 import React, { useMemo, useState } from "react";
-import { Typography, Grid, TextField, CircularProgress, Autocomplete, Box, Fab, Button, Alert } from '@mui/material';
+import {
+  Typography,
+  Grid,
+  TextField,
+  CircularProgress,
+  Autocomplete,
+  Box,
+  Fab,
+  Button,
+  Alert,
+} from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useQuery } from "@tanstack/react-query";
 
@@ -46,6 +56,13 @@ const CadPed = () => {
     queryKey: ["clientesSelect"],
     queryFn: getClientesAutocomplete,
   });
+
+  const precoCarrinho = useMemo(() => {
+    return Array.from(carrinho).reduce(
+      (acc, item) => acc + item.preco * item.quantidade,
+      0
+    );
+  }, [carrinho]);
 
   const produtosSelect = useMemo(() => {
     return produtos
@@ -110,12 +127,18 @@ const CadPed = () => {
   const adicionarCarrinho = (produto) => {
     if (!produto.produto || !produto.quantidade) return;
 
-    const id = produtos.find((item) => item.label === produto.produto).value;
+    const selectedProduct = produtos.find(
+      (item) => item.label === produto.produto
+    );
 
     const thisCar = new Set(carrinho);
 
     !Array.from(carrinho).find((item) => item.produto === produto.produto) &&
-      thisCar.add({ ...produto, produtoId: id });
+      thisCar.add({
+        ...produto,
+        produtoId: selectedProduct.value,
+        preco: selectedProduct.price,
+      });
 
     setCarrinho(thisCar);
   };
@@ -129,182 +152,219 @@ const CadPed = () => {
   };
 
   return (
-		<>
-			{isLoadingProducts && isLoadingClients && isLoadingUsers ? (
-				<CircularProgress />
-			) : (
-				<>
-					<AlertMessage alert={alert} setAlert={setAlert} />
+    <>
+      {isLoadingProducts && isLoadingClients && isLoadingUsers ? (
+        <CircularProgress />
+      ) : (
+        <>
+          <AlertMessage alert={alert} setAlert={setAlert} />
 
-					<Form onSubmit={onSubmit} title='Realizar Pedido' back='/app'>
-						<Grid item xs={12}>
-							<Typography variant='h6'> Dados do Pedido </Typography>
-						</Grid>
-						<Grid mb={2} item xs={12} md={6}>
-							<Autocomplete
-								disablePortal
-								options={isLoadingClients ? [] : clientes}
-								fullWidth
-								inputValue={formulario.cliente}
-								onInputChange={(e, value) => {
-									setForumlario({ ...formulario, cliente: value });
-								}}
-								renderInput={(params) => (
-									<TextField
-										{...params}
-										error={Boolean(errors?.cliente)}
-										helperText={errors?.cliente}
-										label='Cliente'
-										required
-										variant='standard'
-									/>
-								)}
-							/>
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<Autocomplete
-								disablePortal
-								options={isLoadingUsers ? [] : usuarios}
-								fullWidth
-								inputValue={formulario.vendedor}
-								onInputChange={(e, value) => {
-									setForumlario({ ...formulario, vendedor: value });
-								}}
-								renderInput={(params) => (
-									<TextField
-										{...params}
-										label='Vendedor'
-										required
-										error={Boolean(errors?.vendedor)}
-										helperText={errors?.vendedor}
-										variant='standard'
-									/>
-								)}
-							/>
-						</Grid>
-						<Grid mb={4} item xs={12} md={6}>
-							<DatePicker
-								label='Data'
-								format='dd/MM/yyyy'
-								value={formulario.data}
-								slotProps={{ textField: { required: true, variant: 'standard', fullWidth: true } }}
-								onChange={(newValue) => {
-									setForumlario({ ...formulario, data: newValue });
-								}}
-								renderInput={(params) => (
-									<TextField
-										{...params}
-										variant='standard'
-										fullWidth
-										required
-										error={Boolean(errors?.data)}
-										helperText={errors?.data}
-									/>
-								)}
-							/>
-						</Grid>
+          <Form onSubmit={onSubmit} title="Realizar Pedido" back="/app">
+            <Grid item xs={12}>
+              <Typography variant="h6"> Dados do Pedido </Typography>
+            </Grid>
+            <Grid mb={2} item xs={12} md={6}>
+              <Autocomplete
+                disablePortal
+                options={isLoadingClients ? [] : clientes}
+                fullWidth
+                inputValue={formulario.cliente}
+                onInputChange={(e, value) => {
+                  setForumlario({ ...formulario, cliente: value });
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    error={Boolean(errors?.cliente)}
+                    helperText={errors?.cliente}
+                    label="Cliente"
+                    required
+                    variant="standard"
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Autocomplete
+                disablePortal
+                options={isLoadingUsers ? [] : usuarios}
+                fullWidth
+                inputValue={formulario.vendedor}
+                onInputChange={(e, value) => {
+                  setForumlario({ ...formulario, vendedor: value });
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Vendedor"
+                    required
+                    error={Boolean(errors?.vendedor)}
+                    helperText={errors?.vendedor}
+                    variant="standard"
+                  />
+                )}
+              />
+            </Grid>
+            <Grid mb={4} item xs={12} md={6}>
+              <DatePicker
+                label="Data"
+                format="dd/MM/yyyy"
+                value={formulario.data}
+                slotProps={{
+                  textField: {
+                    required: true,
+                    variant: "standard",
+                    fullWidth: true,
+                  },
+                }}
+                onChange={(newValue) => {
+                  setForumlario({ ...formulario, data: newValue });
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    fullWidth
+                    required
+                    error={Boolean(errors?.data)}
+                    helperText={errors?.data}
+                  />
+                )}
+              />
+            </Grid>
 
-						<Grid item xs={12} sm={6}>
-							<TextField
-								label='Estado'
-								variant='standard'
-								fullWidth
-								required
-								value={formulario.estado}
-								onChange={({ target: { value } }) => {
-									setForumlario({
-										...formulario,
-										estado: value
-									});
-								}}
-							/>
-						</Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Estado"
+                variant="standard"
+                fullWidth
+                required
+                value={formulario.estado}
+                onChange={({ target: { value } }) => {
+                  setForumlario({
+                    ...formulario,
+                    estado: value,
+                  });
+                }}
+              />
+            </Grid>
 
-						{errors?.carrinho && (
-							<Grid item xs={12}>
-								<Alert severity='error'>{errors?.carrinho}</Alert>
-							</Grid>
-						)}
+            {errors?.carrinho && (
+              <Grid item xs={12}>
+                <Alert severity="error">{errors?.carrinho}</Alert>
+              </Grid>
+            )}
 
-						<Grid item xs={12}>
-							<Typography variant='h6'> Produtos do Pedido </Typography>
-						</Grid>
-						<Grid item xs={12} md={5}>
-							<Autocomplete
-								inputValue={novoProduto.produto}
-								onInputChange={(e, value) => {
-									setNovoProduto({
-										...novoProduto,
-										produto: value
-									});
-								}}
-								options={isLoadingProducts ? [] : produtosSelect}
-								id='select-input-label'
-								label='Tipo'
-								renderInput={(params) => <TextField {...params} label='Produto' variant='standard' />}
-							/>
-						</Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6"> Produtos do Pedido </Typography>
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <Autocomplete
+                inputValue={novoProduto.produto}
+                onInputChange={(e, value) => {
+                  setNovoProduto({
+                    ...novoProduto,
+                    produto: value,
+                  });
+                }}
+                options={isLoadingProducts ? [] : produtosSelect}
+                id="select-input-label"
+                label="Tipo"
+                renderInput={(params) => (
+                  <TextField {...params} label="Produto" variant="standard" />
+                )}
+              />
+            </Grid>
 
-						<Grid mb={2} item xs={12} md={5}>
-							<TextField
-								variant='standard'
-								label='Quantidade'
-								fullWidth
-								inputProps={{ type: 'number', min: 1 }}
-								value={novoProduto.quantidade}
-								onChange={({ target: { value } }) => {
-									setNovoProduto({
-										...novoProduto,
-										quantidade: value
-									});
-								}}
-								error={Boolean(errors?.quantidade)}
-								helperText={errors?.quantidade?.message}
-							/>
-						</Grid>
-						<Grid item xs={12} md={2}>
-							<Box display='flex' width={'100%'} height={'100%'} justifyContent='center' alignItems='flex-end'>
-								<Button
-									sx={{ width: { xs: '50%', md: '100%' } }}
-									variant='outlined'
-									onClick={() => {
-										adicionarCarrinho(novoProduto);
-									}}
-								>
-									Inserir
-								</Button>
-							</Box>
-						</Grid>
-						<Grid item xs={12}>
-							<Grid container spacing={2} justifyContent={'center'}>
-								{Array.from(carrinho).map((produto) => (
-									<React.Fragment key={produto.produtoId}>
-										<Grid item xs={12} md={5}>
-											<TextField variant='standard' label='Produto' fullWidth value={produto.produto} disabled />
-										</Grid>
-										<Grid item xs={12} md={5}>
-											<TextField variant='standard' label='Quantidade' fullWidth value={produto.quantidade} disabled />
-										</Grid>
-										<Grid item xs={2}>
-											<Fab
-												size='small'
-												color='error'
-												onClick={() => {
-													removeCarrinho(produto);
-												}}
-											>
-												X
-											</Fab>
-										</Grid>
-									</React.Fragment>
-								))}
-							</Grid>
-						</Grid>
-					</Form>
-				</>
-			)}
-		</>
-	);
+            <Grid mb={2} item xs={12} md={5}>
+              <TextField
+                variant="standard"
+                label="Quantidade"
+                fullWidth
+                inputProps={{ type: "number", min: 1 }}
+                value={novoProduto.quantidade}
+                onChange={({ target: { value } }) => {
+                  setNovoProduto({
+                    ...novoProduto,
+                    quantidade: value,
+                  });
+                }}
+                error={Boolean(errors?.quantidade)}
+                helperText={errors?.quantidade?.message}
+              />
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <Box
+                display="flex"
+                width={"100%"}
+                height={"100%"}
+                justifyContent="center"
+                alignItems="flex-end"
+              >
+                <Button
+                  sx={{ width: { xs: "50%", md: "100%" } }}
+                  variant="outlined"
+                  onClick={() => {
+                    adicionarCarrinho(novoProduto);
+                  }}
+                >
+                  Inserir
+                </Button>
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Grid container spacing={2} justifyContent={"center"}>
+                {Array.from(carrinho).map((produto) => (
+                  <React.Fragment key={produto.produtoId}>
+                    <Grid item xs={12} md={5}>
+                      <TextField
+                        variant="standard"
+                        label="Produto"
+                        fullWidth
+                        value={produto.produto}
+                        disabled
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={5}>
+                      <TextField
+                        variant="standard"
+                        label="Quantidade"
+                        fullWidth
+                        value={produto.quantidade}
+                        disabled
+                      />
+                    </Grid>
+                    <Grid item xs={2}>
+                      <Fab
+                        size="small"
+                        color="error"
+                        onClick={() => {
+                          removeCarrinho(produto);
+                        }}
+                      >
+                        X
+                      </Fab>
+                    </Grid>
+                  </React.Fragment>
+                ))}
+                <Grid item xs={12}>
+                  <Box
+                    display="flex"
+                    justifyContent={{ xs: "center", sm: "flex-end" }}
+                    alignItems="center"
+                  >
+                    <Typography variant="h6">
+                      Total: R$ {precoCarrinho}
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Form>
+        </>
+      )}
+    </>
+  );
 };
 
 export default CadPed;

@@ -15,7 +15,9 @@ class ProdutoRepository {
 
   async getProdutosForSelect() {
     try {
-      return await db.any("SELECT idp as value, nome as label FROM produto;");
+      return await db.any(
+        "SELECT idp as value, nome as label, preco as price FROM produto ORDER BY idp DESC;"
+      );
     } catch (error) {
       throw new AppError(error);
     }
@@ -38,7 +40,7 @@ class ProdutoRepository {
     } catch (error) {
       throw new AppError(error);
     }
-  } 
+  }
 }
 
 export default ProdutoRepository;
