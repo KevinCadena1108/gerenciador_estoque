@@ -1,36 +1,41 @@
-import { useEffect } from "react";
-import {
-  Typography,
-  Grid,
-  TextField,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  FormHelperText,
-  InputAdornment,
-} from "@mui/material";
+import { useState } from "react";
+import { Typography, Grid, TextField, InputAdornment } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import Form from "../../components/Form";
+import { createEstoque } from "./requests";
+import { useNavigate } from "react-router-dom";
+import AlertMessage from "../../components/AlertMessage";
 
 const CadEs = () => {
+  const navigate = useNavigate();
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "error",
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+  const onSubmit = async (produto) => {
+    const { data, status } = await createEstoque(produto);
 
-  const onSubmit = (data) => {
-    console.log(data);
+    setAlert({
+      open: true,
+      message: data.message,
+      severity: status !== 400 ? "success" : "error",
+    });
+
+    navigate("/app/estoque");
   };
 
   return (
     <>
+      <AlertMessage alert={alert} setAlert={setAlert} />
+
       <Form
         onSubmit={handleSubmit(onSubmit)}
         title="Cadastrar Estoque"
@@ -40,27 +45,14 @@ const CadEs = () => {
           <Typography variant="h6"> Dados do Produto </Typography>
         </Grid>
         <Grid item xs={12} md={6}>
-          <FormControl
+          <TextField
             variant="standard"
+            label="Nome"
             fullWidth
-            error={Boolean(errors?.tipo)}
-            {...register("tipo", { required: "Esse campo é obrigatório" })}
-          >
-            <InputLabel id="select-input-label">Tipo</InputLabel>
-            <Select
-              defaultValue="TRADICIONAL"
-              id="select-input-label"
-              label="Tipo"
-            >
-              <MenuItem value="TRADICIONAL">Tradicional</MenuItem>
-              <MenuItem value="ESPRESSO">Espresso</MenuItem>
-              <MenuItem value="ESPECIAL">Especial</MenuItem>
-              <MenuItem value="BLEND">Blend</MenuItem>
-            </Select>
-            {errors?.tipo && (
-              <FormHelperText> {errors?.tipo?.message} </FormHelperText>
-            )}
-          </FormControl>
+            error={Boolean(errors?.nome)}
+            helperText={errors?.nome?.message}
+            {...register("nome", { required: "Esse campo é obrigatório" })}
+          />
         </Grid>
 
         <Grid mb={4} item xs={12} md={6}>
@@ -73,11 +65,6 @@ const CadEs = () => {
             {...register("quantidade", {
               required: "Esse campo é obrigatório",
             })}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">KG</InputAdornment>
-              ),
-            }}
           />
         </Grid>
         <Grid mb={4} item xs={12} md={6}>
@@ -87,7 +74,7 @@ const CadEs = () => {
             fullWidth
             error={Boolean(errors?.valor)}
             helperText={errors?.valor?.message}
-            {...register("valor", { required: "Esse campo é obrigatório" })}
+            {...register("preco", { required: "Esse campo é obrigatório" })}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">R$</InputAdornment>
@@ -102,7 +89,7 @@ const CadEs = () => {
             fullWidth
             error={Boolean(errors?.descricao)}
             helperText={errors?.descricao?.message}
-            {...register("descricao", { required: "Esse campo é obrigatório" })}
+            {...register("descricao")}
           />
         </Grid>
       </Form>

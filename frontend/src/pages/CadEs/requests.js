@@ -2,7 +2,7 @@ import { api } from "../../services/api";
 
 export const createEstoque = async (estoque) => {
   try {
-    const response = await api.post("/estoque", estoque);
+    const response = await api.post("/produto", estoque);
     return response;
   } catch (error) {
     return error.response;
@@ -10,7 +10,7 @@ export const createEstoque = async (estoque) => {
 };
 export const updateEstoque = async (id, estoque) => {
   try {
-    const response = await api.put(`/estoque/${id}`, estoque);
+    const response = await api.put(`/produto/${id}`, estoque);
     return response;
   } catch (error) {
     return error.response;

@@ -36,8 +36,8 @@ const CadCli = () => {
     telefoneFormatado = telefoneFormatado.split("-").join("");
 
     const cpf_cnpj = cliente.cpf_cnpj;
-    const cpf = cliente.tipo === "FISICO" ? cpf_cnpj : null;
-    const cnpj = cliente.tipo === "JURIDICO" ? cpf_cnpj : null;
+    const cpf = cliente.tipo === "PESSOA FISICA" ? cpf_cnpj : null;
+    const cnpj = cliente.tipo === "PESSOA JURIDICA" ? cpf_cnpj : null;
 
     const { data, status } = await createCliente({
       ...cliente,

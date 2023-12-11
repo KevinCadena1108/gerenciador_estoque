@@ -47,28 +47,12 @@ const CadUsu = () => {
 
   const handleRemove = async () => {
     if (isEdit) {
-      try {
-        const { status } = await deletarUsuario(params.id);
-        if (status === 200) {
-          setAlert({
-            open: true,
-            message: "Usuário deletado com sucesso",
-            severity: "success",
-          });
-        } else {
-          setAlert({
-            open: true,
-            message: "Erro ao deletar usuário",
-            severity: "error",
-          });
-        }
-      } catch (error) {
-        setAlert({
-          open: true,
-          message: "Erro ao deletar usuário",
-          severity: "error",
-        });
-      }
+      const { data: resData, status } = await deletarUsuario(params.id);
+      setAlert({
+        open: true,
+        message: resData.message,
+        severity: status !== 400 ? "success" : "error",
+      });
     }
     navigate("/app/usuario");
   };

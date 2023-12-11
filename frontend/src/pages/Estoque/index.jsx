@@ -7,38 +7,38 @@ import TableDefault from "../../components/Table";
 const Estoque = () => {
   const [page, setPage] = useState(0);
   const [produtos, setProdutos] = useState(new Set());
-	const { isLoading, isError, error, data, isFetching } = useQuery({
-		queryKey: ['produtos', page],
-		queryFn: () => getProdutos(page),
-		keepPreviousData: true
-	});
+  const { isLoading, isError, error, data, isFetching } = useQuery({
+    queryKey: ["produtos", page],
+    queryFn: () => getProdutos(page),
+    keepPreviousData: true,
+  });
 
-	const cols = ['Id', 'Nome', 'Descricao', 'Preço', 'Quantidade'];
+  const cols = ["Id", "Nome", "Descricao", "Preço", "Quantidade"];
 
-	const [tableProps, setTableProps] = useState(null);
+  const [tableProps, setTableProps] = useState(null);
 
-	useEffect(() => {
-		let auxProdutos = produtos;
+  useEffect(() => {
+    let auxProdutos = produtos;
 
-		if (data && data.length > 0) {
-			data?.map((produto) => {
-				auxProdutos.add(produto);
-			});
+    if (data && data.length > 0) {
+      data?.map((produto) => {
+        auxProdutos.add({ ...produto, preco: `R$ ${produto.preco}` });
+      });
 
-			setProdutos(auxProdutos);
-		}
+      setProdutos(auxProdutos);
+    }
 
-		setTableProps({
-			tableName: 'Produtos',
-			add: '/app/estoque/cadastro',
-			edit: '/app/estoque/editar/',
-			cols: cols,
-			rows: produtos,
-			page: page,
-			setPage: setPage,
-			loading: isFetching || isLoading
-		});
-	}, [isLoading, isFetching, page, data]); // eslint-disable-line
+    setTableProps({
+      tableName: "Produtos",
+      add: "/app/estoque/cadastro",
+      edit: "/app/estoque/editar/",
+      cols: cols,
+      rows: produtos,
+      page: page,
+      setPage: setPage,
+      loading: isFetching || isLoading,
+    });
+  }, [isLoading, isFetching, page, data]); // eslint-disable-line
 
   return isError ? (
     <Container
