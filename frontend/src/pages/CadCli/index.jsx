@@ -14,58 +14,41 @@ import { createCliente } from "./requests";
 import PhoneInput from "../../components/PhoneInput";
 import Form from "../../components/Form";
 import AlertMessage from "../../components/AlertMessage";
+import { useNavigate } from 'react-router-dom';
 
 const CadCli = () => {
-  const [alert, setAlert] = useState({
-    open: false,
-    message: "",
-    severity: "error",
-  });
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const navigate = useNavigate();
+	const [alert, setAlert] = useState({
+		open: false,
+		message: '',
+		severity: 'error'
+	});
+	const {
+		register,
+		handleSubmit,
+		setValue,
+		formState: { errors }
+	} = useForm();
 
-  const onSubmit = async (cliente) => {
-    let telefoneFormatado = cliente.telefone.split("(").join("");
-    telefoneFormatado = telefoneFormatado.split(")").join("");
-    telefoneFormatado = telefoneFormatado.split("-").join("");
+	const onSubmit = async (cliente) => {
+		let telefoneFormatado = cliente.telefone.split('(').join('');
+		telefoneFormatado = telefoneFormatado.split(')').join('');
+		telefoneFormatado = telefoneFormatado.split('-').join('');
 
-    const token = localStorage.getItem("token");
+		const cpf_cnpj = cliente.cpf_cnpj;
+		const cpf = cliente.tipo === 'FISICO' ? cpf_cnpj : null;
+		const cnpj = cliente.tipo === 'JURIDICO' ? cpf_cnpj : null;
 
-    const cpf_cnpj = cliente.cpf_cnpj;
-    const cpf = cliente.tipo === "FISICO" ? cpf_cnpj : null;
-    const cnpj = cliente.tipo === "JURIDICO" ? cpf_cnpj : null;
+		const { data, status } = await createCliente({ ...cliente, telefone: telefoneFormatado, cpf, cnpj });
 
-    try {
-      const response = await createCliente(
-        { ...cliente, telefone: telefoneFormatado, cpf, cnpj },
-        token
-      );
+		setAlert({
+			open: true,
+			message: data.message,
+			severity: status !== 400 ? 'success' : 'error'
+		});
 
-      if (response.status === 200) {
-        setAlert({
-          open: true,
-          message: "Cliente cadastrado com sucesso!",
-          severity: "success",
-        });
-      } else {
-        setAlert({
-          open: true,
-          message: "Erro ao cadastrar cliente",
-          severity: "error",
-        });
-      }
-    } catch (error) {
-      setAlert({
-        open: true,
-        message: error.response?.data?.message || "Erro ao cadastrar cliente",
-        severity: "error",
-      });
-    }
-  };
+		navigate('/app');
+	};
 
   return (
     <>

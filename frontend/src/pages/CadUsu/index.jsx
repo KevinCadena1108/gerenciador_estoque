@@ -14,36 +14,40 @@ import { cadastrarUsuario } from "./requests.js";
 import PhoneInput from "../../components/PhoneInput";
 import Form from "../../components/Form";
 import AlertMessage from "../../components/AlertMessage.jsx";
+import { useNavigate } from 'react-router-dom';
 
 const CadUsu = () => {
-  const [alert, setAlert] = useState({
-    open: false,
-    message: "",
-    severity: "error",
-  });
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const navigate = useNavigate();
+	const [alert, setAlert] = useState({
+		open: false,
+		message: '',
+		severity: 'error'
+	});
+	const {
+		register,
+		handleSubmit,
+		setValue,
+		formState: { errors }
+	} = useForm();
 
-  const onSubmit = async (user) => {
-    let telefoneFormatado = user.telefone.split("(").join("");
-    telefoneFormatado = telefoneFormatado.split(")").join("");
-    telefoneFormatado = telefoneFormatado.split("-").join("");
+	const onSubmit = async (user) => {
+		let telefoneFormatado = user.telefone.split('(').join('');
+		telefoneFormatado = telefoneFormatado.split(')').join('');
+		telefoneFormatado = telefoneFormatado.split('-').join('');
 
-    const { data, status } = await cadastrarUsuario({
-      ...user,
-      telefone: telefoneFormatado,
-    });
+		const { data, status } = await cadastrarUsuario({
+			...user,
+			telefone: telefoneFormatado
+		});
 
-    setAlert({
-      open: true,
-      message: data.message,
-      severity: status !== 400 ? "success" : "error",
-    });
-  };
+		setAlert({
+			open: true,
+			message: data.message,
+			severity: status !== 400 ? 'success' : 'error'
+		});
+
+		navigate('/app');
+	};
 
   return (
     <>

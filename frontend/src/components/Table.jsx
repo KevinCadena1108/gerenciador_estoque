@@ -1,126 +1,126 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  Button,
-  Container,
-  LinearProgress,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableFooter,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+	Button,
+	Container,
+	LinearProgress,
+	Stack,
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableFooter,
+	TableHead,
+	TableRow,
+	Typography
+} from '@mui/material';
+import PerfectScrollBar from 'react-perfect-scrollbar';
+import { Link } from 'react-router-dom';
 
 const TableDefault = ({ props }) => {
-  const { tableName, add, cols, rows, page, setPage, loading } = props;
-  const [distanceBottom, setDistanceBottom] = useState(0);
-  const [data, setData] = useState(null);
-  const table = useRef();
+	const { tableName, add, cols, rows, page, setPage, loading } = props;
+	const [data, setData] = useState(null);
+	let table = useRef();
 
-  const scrollListener = useCallback(() => {
-    let bottom = table.current.scrollHeight - table.current.clientHeight;
+	const handlerTableScroll = useCallback(
+		async (event) => {
+			const { clientHeight, scrollTop, scrollHeight } = event.target;
 
-    if (!distanceBottom) {
-      setDistanceBottom(Math.round(bottom * 0.2));
-    }
-    if (table.current.scrollTop > bottom - distanceBottom && !loading) {
-      setPage(page + 1);
-    }
-  }, [loading, distanceBottom, page]); // eslint-disable-line
+			const scroll = scrollTop;
+			const end = scrollHeight - clientHeight;
 
-  useEffect(() => {
-    setData(rows);
-  }, [rows]);
+			const porcentageScrolled = Math.round((scroll / end) * 100);
 
-  useEffect(() => {
-    const tableRef = table?.current;
+			if (porcentageScrolled > 99 && [...data].length === 20 && !loading) {
+				await setPage(page + 1);
+			}
+		},
+		[page, loading]
+	); // eslint-disable-line
 
-    tableRef.addEventListener("scroll", scrollListener);
+	useEffect(() => {
+		setData(rows);
+	}, [rows]);
 
-    return () => {
-      tableRef.removeEventListener("scroll", scrollListener);
-    };
-  }, [scrollListener]);
+	useEffect(() => {
+		const tableRef = table?.current;
 
-  return (
-    <Container
-      sx={{
-        my: 3,
-        backgroundColor: "white",
-        width: "100%",
-        borderRadius: 4,
-        p: 4,
-      }}
-    >
-      <Stack
-        sx={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 4,
-          flexDirection: { md: "row", xs: "column" },
-          mb: 4,
-        }}
-      >
-        <Typography variant="h5" fontWeight={"bold"}>
-          {tableName}
-        </Typography>
-        <Link to={add}>
-          <Button variant="contained">Cadastrar</Button>
-        </Link>
-      </Stack>
-      <TableContainer
-        style={{ maxWidth: "100%", margin: "auto", maxHeight: "1000px" }}
-        ref={table}
-      >
-        <Table stickyHeader style={{ width: "100%" }}>
-          <TableHead>
-            <TableRow>
-              {cols?.map((coluna) => (
-                <TableCell key={coluna}> {coluna} </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
+		tableRef.addEventListener('scroll', handlerTableScroll);
 
-          <TableBody>
-            {data &&
-              [...data].map((item) => (
-                <TableRow key={item.id}>
-                  {Object.keys(item).map((colunaItem) => (
-                    <TableCell key={`${item.id}-${colunaItem}`}>
-                      {item[colunaItem]}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-          </TableBody>
+		return () => {
+			tableRef.removeEventListener('scroll', handlerTableScroll);
+		};
+	}, [handlerTableScroll]);
 
-          <TableFooter>
-            <TableRow>
-              <TableCell colSpan={cols.length}>
-                <Typography textAlign={"center"}>
-                  Carregando no máximo: {(page + 1) * 20} elementos
-                </Typography>
-              </TableCell>
-            </TableRow>
+	return (
+		<Container
+			sx={{
+				my: 3,
+				backgroundColor: 'white',
+				width: '100%',
+				borderRadius: 4,
+				p: 4
+			}}
+		>
+			<Stack
+				sx={{
+					width: '100%',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'space-between',
+					gap: 4,
+					flexDirection: { md: 'row', xs: 'column' },
+					mb: 4
+				}}
+			>
+				<Typography variant='h5' fontWeight={'bold'}>
+					{tableName}
+				</Typography>
+				<Link to={add}>
+					<Button variant='contained'>Cadastrar</Button>
+				</Link>
+			</Stack>
+			<TableContainer style={{ maxWidth: '100%', margin: 'auto', maxHeight: '500px' }} ref={table}>
+				<PerfectScrollBar>
+					<Table stickyHeader style={{ width: '100%' }}>
+						<TableHead>
+							<TableRow>
+								{cols?.map((coluna) => (
+									<TableCell key={coluna}> {coluna} </TableCell>
+								))}
+							</TableRow>
+						</TableHead>
 
-            {loading && (
-              <TableRow>
-                <TableCell colSpan={cols.length}>
-                  <LinearProgress style={{ width: "100%" }} />
-                </TableCell>
-              </TableRow>
-            )}
-          </TableFooter>
-        </Table>
-      </TableContainer>
-    </Container>
-  );
+						<TableBody>
+							{data &&
+								[...data].map((item) => (
+									<TableRow key={item.id}>
+										{Object.keys(item).map((colunaItem) => (
+											<TableCell key={`${item.id}-${colunaItem}`}>{item[colunaItem]}</TableCell>
+										))}
+									</TableRow>
+								))}
+						</TableBody>
+
+						<TableFooter>
+							<TableRow>
+								<TableCell colSpan={cols.length}>
+									<Typography textAlign={'center'}>Carregando: {data && [...data].length} elementos</Typography>
+								</TableCell>
+							</TableRow>
+
+							{loading && (
+								<TableRow>
+									<TableCell colSpan={cols.length}>
+										<LinearProgress style={{ width: '100%' }} />
+									</TableCell>
+								</TableRow>
+							)}
+						</TableFooter>
+					</Table>
+				</PerfectScrollBar>
+			</TableContainer>
+		</Container>
+	);
 };
 
 export default TableDefault;
