@@ -19,5 +19,9 @@ clienteRoutes.post("/", ensureAuthenticated, async (req, res) => {
   await clienteController.createClient(req, res);
 });
 
+clienteRoutes.delete("/:id", ensureAuthenticated, async (req, res) => {
+  await clienteController.deleteClient(req, res);
+});
+
 
 export { clienteRoutes };

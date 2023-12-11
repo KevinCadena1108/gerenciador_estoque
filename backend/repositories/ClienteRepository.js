@@ -50,6 +50,14 @@ class ClienteRepository {
       throw new AppError(error);
     }
   }
+
+  async deleteClient(id) {
+    try {
+      await db.none("DELETE FROM cliente WHERE idc = $1;", [id]);
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
 }
 
 export default ClienteRepository;

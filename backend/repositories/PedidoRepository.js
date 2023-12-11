@@ -68,6 +68,18 @@ class PedidoRepository {
       throw new AppError(error);
     }
   }
+
+  async deletePedido(id) {
+    try {
+      let queryPedido = "DELETE FROM pedido WHERE codp = $1;";
+      let queryItemPedido = "DELETE FROM itempedido WHERE codp = $1;";
+
+      await db.none(queryItemPedido, [id]);
+      await db.none(queryPedido, [id]);
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
 }
 
 export default PedidoRepository;

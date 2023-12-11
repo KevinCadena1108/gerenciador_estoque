@@ -14,41 +14,46 @@ import { createCliente } from "./requests";
 import PhoneInput from "../../components/PhoneInput";
 import Form from "../../components/Form";
 import AlertMessage from "../../components/AlertMessage";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const CadCli = () => {
   const navigate = useNavigate();
-	const [alert, setAlert] = useState({
-		open: false,
-		message: '',
-		severity: 'error'
-	});
-	const {
-		register,
-		handleSubmit,
-		setValue,
-		formState: { errors }
-	} = useForm();
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "error",
+  });
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
-	const onSubmit = async (cliente) => {
-		let telefoneFormatado = cliente.telefone.split('(').join('');
-		telefoneFormatado = telefoneFormatado.split(')').join('');
-		telefoneFormatado = telefoneFormatado.split('-').join('');
+  const onSubmit = async (cliente) => {
+    let telefoneFormatado = cliente.telefone.split("(").join("");
+    telefoneFormatado = telefoneFormatado.split(")").join("");
+    telefoneFormatado = telefoneFormatado.split("-").join("");
 
-		const cpf_cnpj = cliente.cpf_cnpj;
-		const cpf = cliente.tipo === 'FISICO' ? cpf_cnpj : null;
-		const cnpj = cliente.tipo === 'JURIDICO' ? cpf_cnpj : null;
+    const cpf_cnpj = cliente.cpf_cnpj;
+    const cpf = cliente.tipo === "FISICO" ? cpf_cnpj : null;
+    const cnpj = cliente.tipo === "JURIDICO" ? cpf_cnpj : null;
 
-		const { data, status } = await createCliente({ ...cliente, telefone: telefoneFormatado, cpf, cnpj });
+    const { data, status } = await createCliente({
+      ...cliente,
+      telefone: telefoneFormatado,
+      cpf,
+      cnpj,
+    });
 
-		setAlert({
-			open: true,
-			message: data.message,
-			severity: status !== 400 ? 'success' : 'error'
-		});
+    setAlert({
+      open: true,
+      message: data.message,
+      severity: status !== 400 ? "success" : "error",
+    });
 
-		navigate('/app');
-	};
+    navigate("/app");
+  };
 
   return (
     <>

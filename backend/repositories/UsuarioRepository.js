@@ -52,6 +52,15 @@ class UsuarioRepository {
       throw new Error(error);
     }
   }
+
+  async deleteUser(id) {
+    try {
+      await db.none("DELETE FROM usuario WHERE idu = $1;", [id]);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
 }
 
 export default UsuarioRepository;

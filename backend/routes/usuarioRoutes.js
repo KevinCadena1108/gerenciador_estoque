@@ -24,4 +24,15 @@ userRoutes.post("/", ensureAuthenticated, ensureAdmin, async (req, res) => {
   await userController.createUser(req, res);
 });
 
+userRoutes.delete(
+  "/:id",
+  ensureAuthenticated,
+  ensureAdmin,
+  async (req, res) => {
+    await userController.deleteUser(req, res);
+  }
+);
+
+
+
 export { userRoutes };

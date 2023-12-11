@@ -23,4 +23,8 @@ pedidoRoutes.post("/", ensureAuthenticated, async (req, res) => {
   await pedidoController.createPedido(req, res);
 });
 
+pedidoRoutes.delete("/:id", ensureAuthenticated, async (req, res) => {
+  await pedidoController.deletePedido(req, res);
+});
+
 export { pedidoRoutes };

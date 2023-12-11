@@ -31,6 +31,14 @@ class ProdutoRepository {
       throw new AppError(error);
     }
   }
+
+  async deleteProduto(id) {
+    try {
+      await db.none("DELETE FROM produto WHERE idp = $1;", [id]);
+    } catch (error) {
+      throw new AppError(error);
+    }
+  } 
 }
 
 export default ProdutoRepository;
