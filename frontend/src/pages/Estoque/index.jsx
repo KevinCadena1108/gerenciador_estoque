@@ -6,30 +6,38 @@ import TableDefault from "../../components/Table";
 
 const Estoque = () => {
   const [page, setPage] = useState(0);
-  const { isLoading, isError, error, data, isFetching } = useQuery({
-    queryKey: ["produtos", page],
-    queryFn: () => getProdutos(page),
-    keepPreviousData: true,
-  });
+  const [produtos, setProdutos] = useState(new Set());
+	const { isLoading, isError, error, data, isFetching } = useQuery({
+		queryKey: ['produtos', page],
+		queryFn: () => getProdutos(page),
+		keepPreviousData: true
+	});
 
-  let produtos = new Set();
-  const cols = ["Id", "Nome", "Descricao", "Preço", "Quantidade"];
+	const cols = ['Id', 'Nome', 'Descricao', 'Preço', 'Quantidade'];
 
-  const [tableProps, setTableProps] = useState(null);
+	const [tableProps, setTableProps] = useState(null);
 
-  useEffect(() => {
-    data?.map((produto) => produtos.add(produto));
+	useEffect(() => {
+		let auxProdutos = produtos;
 
-    setTableProps({
-      tableName: "Produtos",
-      add: "/app/estoque/cadastro",
-      cols: cols,
-      rows: produtos,
-      page: page,
-      setPage: setPage,
-      loading: isFetching || isLoading,
-    });
-  }, [isLoading, isFetching, page, data]); // eslint-disable-line
+		if (data && data.length > 0) {
+			data?.map((produto) => {
+				auxProdutos.add(produto);
+			});
+
+			setProdutos(auxProdutos);
+		}
+
+		setTableProps({
+			tableName: 'Produtos',
+			add: '/app/estoque/cadastro',
+			cols: cols,
+			rows: produtos,
+			page: page,
+			setPage: setPage,
+			loading: isFetching || isLoading
+		});
+	}, [isLoading, isFetching, page, data]); // eslint-disable-line
 
   return isError ? (
     <Container

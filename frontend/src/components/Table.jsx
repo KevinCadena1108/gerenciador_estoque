@@ -22,7 +22,7 @@ const TableDefault = ({ props }) => {
 	let table = useRef();
 
 	const handlerTableScroll = useCallback(
-		async (event) => {
+		(event) => {
 			const { clientHeight, scrollTop, scrollHeight } = event.target;
 
 			const scroll = scrollTop;
@@ -30,12 +30,12 @@ const TableDefault = ({ props }) => {
 
 			const porcentageScrolled = Math.round((scroll / end) * 100);
 
-			if (porcentageScrolled > 99 && [...data].length === 20 && !loading) {
-				await setPage(page + 1);
+			if (porcentageScrolled > 99 && [...data].length % 20 === 0 && !loading) {
+				setPage(page + 1);
 			}
 		},
-		[page, loading]
-	); // eslint-disable-line
+		[page, loading] // eslint-disable-line
+	);
 
 	useEffect(() => {
 		setData(rows);

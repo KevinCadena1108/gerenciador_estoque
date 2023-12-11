@@ -6,19 +6,27 @@ import TableDefault from "../../components/Table";
 
 const Usuarios = () => {
   const [page, setPage] = useState(0);
-  const { isLoading, isError, error, data, isFetching } = useQuery({
-    queryKey: ["users", page],
-    queryFn: () => getUsers(page),
-    keepPreviousData: true,
-  });
+  const [users, setUsers] = useState(new Set());
+	const { isLoading, isError, error, data, isFetching } = useQuery({
+		queryKey: ['users', page],
+		queryFn: () => getUsers(page),
+		keepPreviousData: true
+	});
 
-  let users = new Set();
   const cols = ["Id", "Nome", "Telefone", "Cargo", "Email", "Tipo"];
 
   const [tableProps, setTableProps] = useState(null);
 
   useEffect(() => {
-    data?.map((user) => users.add(user));
+    let auxUsers = users;
+
+		if (data && data.length > 0) {
+			data?.map((user) => {
+				auxUsers.add(user);
+			});
+
+			setUsers(auxUsers);
+		}
 
     setTableProps({
       tableName: "Usuários",
