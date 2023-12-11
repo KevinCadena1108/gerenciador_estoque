@@ -56,7 +56,7 @@ const Form = ({ children, onSubmit, back, remove, title }) => {
             </Button>
           )}
           <Button endIcon={<SendIcon />} type="submit" variant="contained">
-            Adicionar
+            {remove ? "Atualizar" : "Cadastrar"}
           </Button>
         </Stack>
       </form>

@@ -57,19 +57,9 @@ class UsuarioController {
   async deleteUser(req, res) {
     const { id } = req.params;
 
-    try {
-      const deletedUser = await this.repository.deleteUser(id);
+    await this.repository.deleteUser(id);
 
-      if (!deletedUser) {
-        return res.status(404).json({ message: "Usuário não encontrado" });
-      }
-
-      return res.status(200).json({ message: "Usuário deletado com sucesso" });
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ message: "Erro ao deletar usuário", error: error.message });
-    }
+    return res.status(200).json({ message: "Usuário deletado com sucesso" });
   }
   async updateUser(req, res) {
     const { id } = req.params;

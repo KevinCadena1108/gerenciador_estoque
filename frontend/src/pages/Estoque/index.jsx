@@ -10,7 +10,6 @@ const Estoque = () => {
   const { isLoading, isError, error, data, isFetching } = useQuery({
     queryKey: ["produtos", page],
     queryFn: () => getProdutos(page),
-    keepPreviousData: true,
   });
 
   const cols = ["Id", "Nome", "Descricao", "Preço", "Quantidade"];
@@ -18,11 +17,15 @@ const Estoque = () => {
   const [tableProps, setTableProps] = useState(null);
 
   useEffect(() => {
+    setPage(0);
+  }, []);
+
+  useEffect(() => {
     let auxProdutos = produtos;
 
     if (data && data.length > 0) {
       data?.map((produto) => {
-        auxProdutos.add({ ...produto, preco: `R$ ${produto.preco}` });
+        !auxProdutos.has(produto.id) && auxProdutos.add(produto);
       });
 
       setProdutos(auxProdutos);

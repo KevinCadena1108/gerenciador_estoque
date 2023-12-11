@@ -15,6 +15,21 @@ export const getClientesAutocomplete = async () => {
   return data;
 };
 
+export const getPedido = async (id) => {
+  const { data } = await api.get(`/pedido/${id}`);
+  return data;
+};
+
+export const updatePedido = async (id, pedido) => {
+  const response = await api.put(`/pedido/${id}`, pedido);
+  return response;
+};
+
+export const deletePedido = async (id) => {
+  const response = await api.delete(`/pedido/${id}`);
+  return response;
+};
+
 export const criarPedido = async (pedido) => {
   const response = await api.post(`/pedido`, pedido);
   return response;

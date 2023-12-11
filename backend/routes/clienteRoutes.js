@@ -11,7 +11,7 @@ clienteRoutes.get("/", ensureAuthenticated, async (req, res) => {
   await clienteController.getClients(req, res);
 });
 
-clienteRoutes.get("/:id", ensureAuthenticated, async (req, res) => {
+clienteRoutes.get("/recover/:id", ensureAuthenticated, async (req, res) => {
   await clienteController.recoverClient(req, res);
 });
 

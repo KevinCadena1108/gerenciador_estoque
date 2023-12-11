@@ -7,38 +7,37 @@ import TableDefault from "../../components/Table";
 const Pedidos = () => {
   const [page, setPage] = useState(0);
   const [pedidos, setPedidos] = useState(new Set());
-	const { isLoading, isError, error, data, isFetching } = useQuery({
-		queryKey: ['pedidos', page],
-		queryFn: () => getPedidos(page),
-		keepPreviousData: true
-	});
+  const { isLoading, isError, error, data, isFetching } = useQuery({
+    queryKey: ["pedidos", page],
+    queryFn: () => getPedidos(page),
+  });
 
-  const cols = ['Codigo', 'Cliente', 'Vendedor', 'Status', 'Data de Pagamento'];
+  const cols = ["Codigo", "Cliente", "Vendedor", "Status", "Data de Pagamento"];
 
-	const [tableProps, setTableProps] = useState(null);
+  const [tableProps, setTableProps] = useState(null);
 
-	useEffect(() => {
-		let auxPedidos = pedidos;
+  useEffect(() => {
+    let auxPedidos = pedidos;
 
-		if (data && data.length > 0) {
-			data?.map((pedido) => {
-				auxPedidos.add(pedido);
-			});
+    if (data && data.length > 0) {
+      data?.map((pedido) => {
+        !auxPedidos.has(pedido.codigo) && auxPedidos.add(pedido);
+      });
 
-			setPedidos(auxPedidos);
-		}
+      setPedidos(auxPedidos);
+    }
 
-		setTableProps({
-			tableName: 'Pedidos',
-			add: '/app/pedido/cadastro',
-      edit: '/app/pedido/editar/',
-			cols: cols,
-			rows: pedidos,
-			page: page,
-			setPage: setPage,
-			loading: isFetching || isLoading
-		});
-	}, [isLoading, isFetching, page, data]); // eslint-disable-line
+    setTableProps({
+      tableName: "Pedidos",
+      add: "/app/pedido/cadastro",
+      edit: "/app/pedido/editar/",
+      cols: cols,
+      rows: pedidos,
+      page: page,
+      setPage: setPage,
+      loading: isFetching || isLoading,
+    });
+  }, [isLoading, isFetching, page, data]); // eslint-disable-line
 
   return isError ? (
     <Container

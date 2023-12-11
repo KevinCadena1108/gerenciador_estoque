@@ -7,11 +7,10 @@ import TableDefault from "../../components/Table";
 const Usuarios = () => {
   const [page, setPage] = useState(0);
   const [users, setUsers] = useState(new Set());
-	const { isLoading, isError, error, data, isFetching } = useQuery({
-		queryKey: ['users', page],
-		queryFn: () => getUsers(page),
-		keepPreviousData: true
-	});
+  const { isLoading, isError, error, data, isFetching } = useQuery({
+    queryKey: ["users", page],
+    queryFn: () => getUsers(page),
+  });
 
   const cols = ["Id", "Nome", "Telefone", "Cargo", "Email", "Tipo"];
 
@@ -20,24 +19,24 @@ const Usuarios = () => {
   useEffect(() => {
     let auxUsers = users;
 
-		if (data && data.length > 0) {
-			data?.map((user) => {
-				auxUsers.add(user);
-			});
+    if (data && data.length > 0) {
+      data?.map((user) => {
+        !auxUsers.has(user.id) && auxUsers.add(user);
+      });
 
-			setUsers(auxUsers);
-		}
+      setUsers(auxUsers);
+    }
 
     setTableProps({
-			tableName: 'Usuários',
-			add: '/app/usuario/cadastro',
-			edit: '/app/usuario/editar/',
-			cols: cols,
-			rows: users,
-			page: page,
-			setPage: setPage,
-			loading: isFetching || isLoading
-		});
+      tableName: "Usuários",
+      add: "/app/usuario/cadastro",
+      edit: "/app/usuario/editar/",
+      cols: cols,
+      rows: users,
+      page: page,
+      setPage: setPage,
+      loading: isFetching || isLoading,
+    });
   }, [isLoading, isFetching, page, data]); // eslint-disable-line
 
   return isError ? (

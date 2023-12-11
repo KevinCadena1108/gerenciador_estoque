@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import {
   Typography,
   Grid,
@@ -15,16 +15,20 @@ import { useQuery } from "@tanstack/react-query";
 
 import {
   criarPedido,
+  deletePedido,
   getClientesAutocomplete,
+  getPedido,
   getProdutosForSelect,
   getUsuariosAutocomplete,
+  updatePedido,
 } from "./requests.js";
 
 import Form from "../../components/Form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AlertContext } from "../../contexts/AlertContext.jsx";
 
 const CadPed = () => {
+  const params = useParams();
   const navigate = useNavigate();
   const { setAlert } = useContext(AlertContext);
   const [errors, setErrors] = useState({});
@@ -36,22 +40,46 @@ const CadPed = () => {
     estado: "",
   });
   const [novoProduto, setNovoProduto] = useState({
-    produtoId: null,
+    produtoid: null,
     produto: "",
     quantidade: "",
   });
+
   const { isLoading: isLoadingProducts, data: produtos } = useQuery({
     queryKey: ["produtosSelect"],
-    queryFn: getProdutosForSelect,
+    queryFn: () => getProdutosForSelect(),
   });
   const { isLoading: isLoadingUsers, data: usuarios } = useQuery({
     queryKey: ["usuariosSelect"],
-    queryFn: getUsuariosAutocomplete,
+    queryFn: () => getUsuariosAutocomplete(),
   });
   const { isLoading: isLoadingClients, data: clientes } = useQuery({
     queryKey: ["clientesSelect"],
-    queryFn: getClientesAutocomplete,
+    queryFn: () => getClientesAutocomplete(),
   });
+
+  const isEdit = useMemo(() => Boolean(params.id), [params.id]);
+
+  const { isLoading: isLoadingEdit, data: editData } = useQuery({
+    queryKey: ["editPedido", params.id],
+    queryFn: () => getPedido(params.id),
+    enabled: isEdit,
+  });
+
+  useEffect(() => {
+    if (isEdit && editData) {
+      let data = editData.data.split("/");
+
+      setForumlario({
+        data: new Date(data[2], data[1], data[0]),
+        cliente: editData.cliente,
+        vendedor: editData.vendedor,
+        estado: editData.estado,
+      });
+
+      setCarrinho(new Set(editData.carrinho));
+    }
+  }, [editData, isEdit]);
 
   const precoCarrinho = useMemo(() => {
     return Array.from(carrinho).reduce(
@@ -64,7 +92,7 @@ const CadPed = () => {
     return produtos
       ?.filter(
         (produto) =>
-          !Array.from(carrinho).some((item) => item.produtoId === produto.value)
+          !Array.from(carrinho).some((item) => item.produtoid === produto.value)
       )
       .map((produto) => ({ label: produto.label, id: produto.value }));
   }, [produtos, carrinho]);
@@ -109,7 +137,9 @@ const CadPed = () => {
       })),
     };
 
-    const { data: resData, status } = await criarPedido(data);
+    const { data: resData, status } = isEdit
+      ? await updatePedido(params.id, data)
+      : await criarPedido(data);
 
     setAlert({
       open: true,
@@ -132,7 +162,7 @@ const CadPed = () => {
     !Array.from(carrinho).find((item) => item.produto === produto.produto) &&
       thisCar.add({
         ...produto,
-        produtoId: selectedProduct.value,
+        produtoid: selectedProduct.value,
         preco: selectedProduct.price,
       });
 
@@ -147,21 +177,39 @@ const CadPed = () => {
     });
   };
 
+  const handleRemove = async () => {
+    const { data, status } = await deletePedido(params.id);
+
+    setAlert({
+      open: true,
+      message: data.message,
+      severity: status !== 400 ? "success" : "error",
+    });
+
+    navigate("/app");
+  };
+
   return (
     <>
-      {isLoadingProducts && isLoadingClients && isLoadingUsers ? (
+      {(isLoadingProducts && isLoadingClients && isLoadingUsers) ||
+      (isEdit && isLoadingEdit) ? (
         <CircularProgress />
       ) : (
         <>
-          <Form onSubmit={onSubmit} title="Realizar Pedido" back="/app">
+          <Form
+            onSubmit={onSubmit}
+            title="Realizar Pedido"
+            back="/app"
+            remove={handleRemove}
+          >
             <Grid item xs={12}>
               <Typography variant="h6"> Dados do Pedido </Typography>
             </Grid>
             <Grid mb={2} item xs={12} md={6}>
               <Autocomplete
-                disablePortal
                 options={isLoadingClients ? [] : clientes}
                 fullWidth
+                value={formulario.cliente}
                 inputValue={formulario.cliente}
                 onInputChange={(e, value) => {
                   setForumlario({ ...formulario, cliente: value });
@@ -180,9 +228,9 @@ const CadPed = () => {
             </Grid>
             <Grid item xs={12} md={6}>
               <Autocomplete
-                disablePortal
                 options={isLoadingUsers ? [] : usuarios}
                 fullWidth
+                value={formulario.vendedor}
                 inputValue={formulario.vendedor}
                 onInputChange={(e, value) => {
                   setForumlario({ ...formulario, vendedor: value });
@@ -227,7 +275,7 @@ const CadPed = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <TextField
                 label="Estado"
                 variant="standard"
@@ -309,7 +357,7 @@ const CadPed = () => {
             <Grid item xs={12}>
               <Grid container spacing={2} justifyContent={"center"}>
                 {Array.from(carrinho).map((produto) => (
-                  <React.Fragment key={produto.produtoId}>
+                  <React.Fragment key={produto.produtoid + produto.quantidade}>
                     <Grid item xs={12} md={5}>
                       <TextField
                         variant="standard"
