@@ -35,16 +35,25 @@ export default function SignIn() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="md">
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: { xs: 4, sm: 8 },
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
+        <Typography
+          my={4}
+          variant="h2"
+          fontWeight="bold"
+          textAlign="center"
+          fontFamily="'Abril Fatface', serif"
+        >
+          Aroma Perfetto Cafè
+        </Typography>
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
@@ -63,13 +72,14 @@ export default function SignIn() {
           component="form"
           onSubmit={handleSubmit(onSubmit)}
           noValidate
-          sx={{ mt: 1 }}
+          sx={{ mt: 1, px: 4 }}
         >
           <TextField
             margin="normal"
             required
             fullWidth
             label="Email"
+            variant="standard"
             autoComplete="email"
             autoFocus
             {...register("email", { required: "Esse campo é obrigatório" })}
@@ -79,6 +89,7 @@ export default function SignIn() {
             required
             fullWidth
             label="Senha"
+            variant="standard"
             type="password"
             autoComplete="current-password"
             {...register("senha", {
