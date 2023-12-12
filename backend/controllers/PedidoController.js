@@ -12,7 +12,7 @@ class PedidoController {
         ? relatorio.push({
             codp: item.codp,
             estado: item.estado,
-            data: item.data,
+            data: item.datap,
             cliente: item.cliente,
             vendedor: item.vendedor,
             carrinho: [
@@ -38,8 +38,6 @@ class PedidoController {
         0
       );
     });
-
-    console.log(relatorio);
 
     return res.status(200).json(relatorio);
   }
