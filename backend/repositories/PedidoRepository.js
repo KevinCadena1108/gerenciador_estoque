@@ -148,6 +148,21 @@ class PedidoRepository {
       throw new AppError(error);
     }
   }
+
+  async getRelatorio() {
+    try {
+      let itensPedidos =
+        "SELECT p.codp, c.nome AS cliente, u.nome AS vendedor, p.estado, p.datap, p2.nome AS produto, p2.preco, i.quantidade_pedido  FROM pedido p ";
+      itensPedidos +=
+        "NATURAL JOIN cliente c JOIN usuario u ON u.idu = p.idu JOIN itempedido i ON i.codp = p.codp JOIN produto p2 ON p2.idp = i.idp ";
+      itensPedidos +=
+        "WHERE date_trunc('month', p.datap) = date_trunc('month',current_date) ORDER BY p.codp DESC;";
+
+      return db.any(itensPedidos);
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
 }
 
 export default PedidoRepository;

@@ -2,10 +2,20 @@ import { Router } from "express";
 import PedidoController from "../controllers/PedidoController.js";
 import { pedidoRepository } from "../repositories/index.js";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated.js";
+import { ensureAdmin } from "../middlewares/ensureAdmin.js";
 
 const pedidoRoutes = Router();
 
 const pedidoController = new PedidoController(pedidoRepository);
+
+pedidoRoutes.get(
+  "/relatorio",
+  ensureAuthenticated,
+  ensureAdmin,
+  async (req, res) => {
+    await pedidoController.getRelatorio(req, res);
+  }
+);
 
 pedidoRoutes.get("/", ensureAuthenticated, async (req, res) => {
   await pedidoController.getPedidos(req, res);

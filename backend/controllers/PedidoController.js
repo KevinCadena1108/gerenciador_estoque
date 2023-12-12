@@ -3,6 +3,47 @@ class PedidoController {
     this.repository = pedidosRepository;
   }
 
+  async getRelatorio(req, res) {
+    const itens = await this.repository.getRelatorio();
+    const relatorio = [];
+
+    itens.map((item) => {
+      !relatorio.find((rel) => rel.codp === item.codp)
+        ? relatorio.push({
+            codp: item.codp,
+            estado: item.estado,
+            data: item.data,
+            cliente: item.cliente,
+            vendedor: item.vendedor,
+            carrinho: [
+              {
+                produto: item.produto,
+                preco: item.preco,
+                quantidade: item.quantidade_pedido,
+              },
+            ],
+          })
+        : relatorio
+            .find((rel) => rel.codp === item.codp)
+            .carrinho.push({
+              produto: item.produto,
+              preco: item.preco,
+              quantidade: item.quantidade_pedido,
+            });
+    });
+
+    relatorio.map((rel) => {
+      rel.total = rel.carrinho.reduce(
+        (total, item) => total + item.preco * item.quantidade,
+        0
+      );
+    });
+
+    console.log(relatorio);
+
+    return res.status(200).json(relatorio);
+  }
+
   async getPedidos(req, res) {
     const page = parseInt(req.query?.page);
 
