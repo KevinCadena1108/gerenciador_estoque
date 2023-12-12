@@ -34,6 +34,28 @@ class ProdutoRepository {
     }
   }
 
+  async findProdutoById(id) {
+    try {
+      return await db.one(
+        "SELECT idp as id, nome, descricao, preco, quantidade_estoque as quantidade FROM produto WHERE idp = $1;",
+        [id]
+      );
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
+
+  async updateProduto(id, { nome, preco, quantidade, descricao }) {
+    try {
+      await db.none(
+        "UPDATE produto SET nome = $1, preco = $2, quantidade_estoque = $3, descricao = $4 WHERE idp = $5;",
+        [nome, preco, quantidade, descricao, id]
+      );
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
+
   async deleteProduto(id) {
     try {
       await db.none("DELETE FROM produto WHERE idp = $1;", [id]);

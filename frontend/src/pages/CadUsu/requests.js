@@ -9,6 +9,15 @@ export const cadastrarUsuario = async (user) => {
   }
 };
 
+export const buscarUsuario = async (id) => {
+  try {
+    const { data } = await api.get(`/user/recover/${id}`);
+    return data;
+  } catch (error) {
+    return error.response;
+  }
+};
+
 export const atualizarUsuario = async (id, user) => {
   try {
     const response = await api.put(`/user/${id}`, user);

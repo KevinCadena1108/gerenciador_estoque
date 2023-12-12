@@ -53,6 +53,17 @@ class UsuarioRepository {
     }
   }
 
+  async updateUser(id, { nome, email, telefone, cargo, tipo }) {
+    try {
+      await db.none(
+        "UPDATE usuario SET nome = $1, email = $2, telefone = $3, cargo = $4, tipo = $5 WHERE idu = $6;",
+        [nome, email, telefone, cargo, tipo, id]
+      );
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
+
   async deleteUser(id) {
     try {
       await db.none("DELETE FROM usuario WHERE idu = $1;", [id]);
@@ -60,7 +71,6 @@ class UsuarioRepository {
       throw new Error(error);
     }
   }
-
 }
 
 export default UsuarioRepository;

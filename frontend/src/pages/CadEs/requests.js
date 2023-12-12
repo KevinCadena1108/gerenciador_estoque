@@ -2,7 +2,7 @@ import { api } from "../../services/api";
 
 export const getEstoque = async (id) => {
   try {
-    const { data } = await api.get(`/produto/${id}`);
+    const { data } = await api.get(`/produto/recover/${id}`);
     return data;
   } catch (error) {
     return error.response;

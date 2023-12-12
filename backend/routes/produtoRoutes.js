@@ -19,9 +19,16 @@ produtoRoutes.post("/", ensureAuthenticated, async (req, res) => {
   await produtoController.createProduto(req, res);
 });
 
+produtoRoutes.get("/recover/:id", ensureAuthenticated, async (req, res) => {
+  await produtoController.findProdutoById(req, res);
+});
+
+produtoRoutes.put("/:id", ensureAuthenticated, async (req, res) => {
+  await produtoController.updateProduto(req, res);
+});
+
 produtoRoutes.delete("/:id", ensureAuthenticated, async (req, res) => {
   await produtoController.deleteProduto(req, res);
-}); 
-
+});
 
 export { produtoRoutes };

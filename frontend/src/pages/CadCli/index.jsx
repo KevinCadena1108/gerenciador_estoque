@@ -49,7 +49,7 @@ const CadCli = () => {
   useEffect(() => {
     isError && navigate("/app/cliente");
 
-    if (editData) {
+    if (editData && !isLoading) {
       setValue("nome", editData?.nome);
       setValue("endereco", editData?.endereco);
       setValue("email", editData?.email);
@@ -57,7 +57,7 @@ const CadCli = () => {
       setValue("cpf_cnpj", editData?.cpf || editData?.cnpj);
       setValue("tipo", editData?.tipo);
     }
-  }, [editData, isError]); // eslint-disable-line
+  }, [editData, isError, isLoading]); // eslint-disable-line
 
   const onSubmit = async (cliente) => {
     let telefoneFormatado = cliente.telefone.split("(").join("");

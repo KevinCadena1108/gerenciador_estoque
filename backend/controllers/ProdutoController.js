@@ -33,6 +33,7 @@ class ProdutoController {
 
     return res.status(200).json({ message: "Produto criado com sucesso" });
   }
+
   async deleteProduto(req, res) {
     const { id } = req.params;
 
@@ -51,6 +52,14 @@ class ProdutoController {
     }
   }
 
+  async findProdutoById(req, res) {
+    const { id } = req.params;
+
+    const produto = await this.repository.findProdutoById(parseInt(id));
+
+    return res.status(200).json(produto);
+  }
+
   async updateProduto(req, res) {
     const { id } = req.params;
     const { nome, preco, quantidade, descricao } = req.body;
@@ -59,26 +68,14 @@ class ProdutoController {
 
     if (quantidade <= 0) throw new AppError("Quantidade inválida");
 
-    try {
-      const updatedProduct = await this.repository.updateProduto(id, {
-        nome,
-        preco,
-        quantidade,
-        descricao,
-      });
+    await this.repository.updateProduto(parseInt(id), {
+      nome,
+      preco,
+      quantidade,
+      descricao,
+    });
 
-      if (!updatedProduct) {
-        return res.status(404).json({ message: "Produto não encontrado" });
-      }
-
-      return res
-        .status(200)
-        .json({ message: "Produto atualizado com sucesso" });
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ message: "Erro ao atualizar produto", error: error.message });
-    }
+    return res.status(200).json({ message: "Produto atualizado com sucesso" });
   }
 }
 

@@ -50,7 +50,8 @@ class PedidoRepository {
       let query =
         "SELECT pr.nome as produto, sum(i.quantidade_pedido)::DECIMAL as quantidade ";
       query += "FROM itempedido i NATURAL JOIN produto pr ";
-      query += "GROUP BY pr.nome LIMIT 20;";
+      query +=
+        "GROUP BY pr.nome LIMIT (SELECT count(i2.*) FROM pedido p2 NATURAL JOIN itempedido i2 LIMIT 20);";
 
       return await db.any(query);
     } catch (error) {
@@ -61,7 +62,11 @@ class PedidoRepository {
   async getTotalPedidos() {
     try {
       let query =
-        "SELECT coalesce(sum(p.preco), 0) as valor FROM itempedido i NATURAL JOIN produto p LIMIT 20;";
+        "WITH quantidadeItens AS (SELECT count(i2.*) AS quantidade_itens FROM pedido p2 NATURAL JOIN itempedido i2 LIMIT 20), ";
+      query +=
+        "precosPedidos AS (SELECT i.idi, p.preco*i.quantidade_pedido AS valor FROM itempedido i NATURAL JOIN produto p LIMIT (SELECT quantidade_itens FROM quantidadeItens)) ";
+      query +=
+        "SELECT coalesce(sum(pp.valor), 0) as valor FROM precosPedidos pp;";
 
       return await db.one(query);
     } catch (error) {
