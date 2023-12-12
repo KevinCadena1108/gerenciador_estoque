@@ -24,6 +24,8 @@ const Estoque = () => {
     let auxProdutos = produtos;
 
     if (data && data.length > 0) {
+      page === 0 && auxProdutos.clear();
+
       data?.map((produto) => {
         !auxProdutos.has(produto.id) && auxProdutos.add(produto);
       });

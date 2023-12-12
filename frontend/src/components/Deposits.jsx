@@ -46,7 +46,7 @@ export default function Deposits() {
         Faturado nas ultimas 20 vendas
       </Typography>
       <Box>
-        <Link to="/app/verVendas">Visualisar vendas</Link>
+        <Link to="/app/pedido">Visualizar pedidos</Link>
       </Box>
     </React.Fragment>
   );

@@ -20,6 +20,8 @@ const Pedidos = () => {
     let auxPedidos = pedidos;
 
     if (data && data.length > 0) {
+      page === 0 && auxPedidos.clear();
+
       data?.map((pedido) => {
         !auxPedidos.has(pedido.codigo) && auxPedidos.add(pedido);
       });

@@ -20,6 +20,8 @@ const Clientes = () => {
     let auxClientes = clientes;
 
     if (data && data.length > 0) {
+      page === 0 && auxClientes.clear();
+
       data?.map((cliente) => {
         !auxClientes.has(cliente.id) && auxClientes.add(cliente);
       });

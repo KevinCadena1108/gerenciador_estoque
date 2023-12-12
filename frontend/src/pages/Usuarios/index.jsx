@@ -20,6 +20,8 @@ const Usuarios = () => {
     let auxUsers = users;
 
     if (data && data.length > 0) {
+      page === 0 && auxUsers.clear();
+
       data?.map((user) => {
         !auxUsers.has(user.id) && auxUsers.add(user);
       });

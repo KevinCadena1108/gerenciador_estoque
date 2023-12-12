@@ -86,7 +86,7 @@ const CadUsu = () => {
       severity: status !== 400 ? "success" : "error",
     });
 
-    navigate("/app");
+    navigate("/app/usuario");
   };
 
   return (
