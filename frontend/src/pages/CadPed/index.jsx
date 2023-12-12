@@ -147,7 +147,7 @@ const CadPed = () => {
       severity: status !== 400 ? "success" : "error",
     });
 
-    navigate("/app");
+    navigate("/app/pedido");
   };
 
   const adicionarCarrinho = (produto) => {
