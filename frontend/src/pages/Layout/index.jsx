@@ -71,11 +71,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Layout = () => {
-  const {
-    isAuthenticated,
-    user: { tipo },
-    signOut,
-  } = React.useContext(AuthContext);
+  const { isAuthenticated, user, signOut } = React.useContext(AuthContext);
   const { alert, setAlert } = React.useContext(AlertContext);
   const [open, setOpen] = React.useState(true);
   const theme = useTheme();
@@ -144,7 +140,7 @@ const Layout = () => {
             </Toolbar>
             <Divider />
             <List component="nav">
-              <MainListItems isAdmin={tipo === "ADMINISTRADOR"} />
+              <MainListItems isAdmin={user?.tipo === "ADMINISTRADOR"} />
             </List>
           </Drawer>
 

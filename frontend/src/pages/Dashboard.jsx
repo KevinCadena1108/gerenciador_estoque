@@ -12,7 +12,7 @@ export default function Dashboard() {
       <Toolbar />
       <Container maxWidth="lg" sx={{ mb: 4 }}>
         <Grid container spacing={3}>
-          {/* Chart */}
+          {/* GRAFICO */}
           <Grid item xs={12} md={8} lg={9}>
             <Paper
               sx={{
@@ -28,7 +28,7 @@ export default function Dashboard() {
               <DashboardChart />
             </Paper>
           </Grid>
-          {/* Recent Deposits */}
+          {/* TOTALIZADOR */}
           <Grid item xs={12} md={4} lg={3}>
             <Paper
               sx={{
@@ -41,7 +41,7 @@ export default function Dashboard() {
               <Deposits />
             </Paper>
           </Grid>
-          {/* Recent Orders */}
+          {/* CLIENTES */}
           <Grid item xs={12}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
               <Orders />
