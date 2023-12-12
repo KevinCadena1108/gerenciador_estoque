@@ -1,5 +1,14 @@
 import { api } from "../../services/api";
 
+export const getEstoque = async (id) => {
+  try {
+    const { data } = await api.get(`/produto/${id}`);
+    return data;
+  } catch (error) {
+    return error.response;
+  }
+};
+
 export const createEstoque = async (estoque) => {
   try {
     const response = await api.post("/produto", estoque);
@@ -8,6 +17,7 @@ export const createEstoque = async (estoque) => {
     return error.response;
   }
 };
+
 export const updateEstoque = async (id, estoque) => {
   try {
     const response = await api.put(`/produto/${id}`, estoque);
@@ -19,7 +29,7 @@ export const updateEstoque = async (id, estoque) => {
 
 export const deleteEstoque = async (id) => {
   try {
-    const response = await api.delete(`/estoque/${id}`);
+    const response = await api.delete(`/produto/${id}`);
     return response;
   } catch (error) {
     return error.response;
