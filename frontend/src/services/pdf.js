@@ -27,7 +27,7 @@ function generatePDF(data) {
     doc.text(`STATUS: ${pedido.estado}`, 10, 10 + linhas * 8);
     linhas++;
     doc.text(
-      `DATA DO PAGAMENTO: ${new Date(pedido.data).toLocaleDateString()}`,
+      `DATA DO PAGAMENTO: ${new Date(pedido.data).toLocaleDateString("pt-BR")}`,
       10,
       10 + linhas * 8
     );

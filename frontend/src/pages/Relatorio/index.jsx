@@ -57,7 +57,8 @@ const Relatorio = () => {
                   Estado do Pedido: {pedido.estado}
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  Data de pagameto: {new Date(pedido.data).toLocaleDateString()}
+                  Data de pagameto:{" "}
+                  {new Date(pedido.data).toLocaleDateString("pt-BR")}
                 </Grid>
                 <Grid item xs={12} md={6}>
                   Cliente: {pedido.cliente}
