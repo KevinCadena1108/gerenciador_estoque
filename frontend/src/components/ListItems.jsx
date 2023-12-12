@@ -12,7 +12,7 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import { AuthContext } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 
-export const MainListItems = () => {
+export const MainListItems = ({ isAdmin }) => {
   const { signOut } = React.useContext(AuthContext);
 
   return (
@@ -59,29 +59,33 @@ export const MainListItems = () => {
         </ListItemButton>
       </Link>
 
-      <Link
-        style={{ color: "black", textDecoration: "none" }}
-        to="/app/usuario"
-      >
-        <ListItemButton>
-          <ListItemIcon>
-            <PeopleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Usuários" />
-        </ListItemButton>
-      </Link>
+      {isAdmin && (
+        <>
+          <Link
+            style={{ color: "black", textDecoration: "none" }}
+            to="/app/usuario"
+          >
+            <ListItemButton>
+              <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText primary="Usuários" />
+            </ListItemButton>
+          </Link>
 
-      <Link
-        style={{ color: "black", textDecoration: "none" }}
-        to="/app/relatorio"
-      >
-        <ListItemButton>
-          <ListItemIcon>
-            <BarChartIcon />
-          </ListItemIcon>
-          <ListItemText primary="Relatório" />
-        </ListItemButton>
-      </Link>
+          <Link
+            style={{ color: "black", textDecoration: "none" }}
+            to="/app/relatorio"
+          >
+            <ListItemButton>
+              <ListItemIcon>
+                <BarChartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Relatório" />
+            </ListItemButton>
+          </Link>
+        </>
+      )}
 
       <ListItemButton onClick={signOut}>
         <ListItemIcon>
