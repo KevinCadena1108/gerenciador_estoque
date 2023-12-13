@@ -50,7 +50,6 @@ export default function SignIn() {
           variant="h2"
           fontWeight="bold"
           textAlign="center"
-          fontFamily="'Abril Fatface', serif"
         >
           Aroma Perfetto Cafè
         </Typography>

@@ -77,7 +77,7 @@ class PedidoRepository {
   async findPedidoById(id) {
     try {
       let pedido =
-        "SELECT pe.codp as codigo, c.nome as cliente, u.nome as vendedor, pe.estado, to_char(pe.datap, 'DD/MM/YYYY') as data ";
+        "SELECT pe.codp as codigo, c.nome as cliente, c.idc as cliente_id, u.idu as vendedor_id, u.nome as vendedor, pe.estado, to_char(pe.datap, 'DD/MM/YYYY') as data ";
       pedido +=
         "FROM pedido pe NATURAL JOIN cliente c JOIN usuario u ON u.idu = pe.idu ";
       pedido += "WHERE pe.codp = $1;";

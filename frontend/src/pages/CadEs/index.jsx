@@ -126,7 +126,7 @@ const CadEs = () => {
               helperText={errors?.valor?.message}
               {...register("preco", { required: "Esse campo é obrigatório" })}
               InputProps={{
-                inputProps: { min: 0 },
+                inputProps: { min: 0, step: 0.1 },
                 startAdornment: (
                   <InputAdornment position="start">R$</InputAdornment>
                 ),

@@ -166,8 +166,6 @@ const CadPed = () => {
       (item) => item.label === produto.produto
     );
 
-    console.log(selectedProduct, produto);
-
     if (produto.quantidade > selectedProduct.quantidade) {
       setErrors({ ...errors, carrinho: "Quantidade maior que o estoque" });
       return;

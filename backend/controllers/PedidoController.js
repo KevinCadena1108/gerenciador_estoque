@@ -75,7 +75,13 @@ class PedidoController {
 
     const pedido = await this.repository.findPedidoById(parseInt(id));
 
-    return res.status(200).json(pedido);
+    const pedidoAtt = {
+      ...pedido,
+      cliente: `${pedido.cliente_id} - ${pedido.cliente}`,
+      vendedor: `${pedido.vendedor_id} - ${pedido.vendedor}`,
+    };
+
+    return res.status(200).json(pedidoAtt);
   }
 
   async createPedido(req, res) {

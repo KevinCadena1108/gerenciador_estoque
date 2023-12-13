@@ -173,8 +173,8 @@ const CadCli = () => {
                 helperText={errors.cpf_cnpj?.message}
                 {...register("cpf_cnpj", {
                   required: "Esse campo é obrigatório",
-                  maxLength: 14,
-                  minLength: 11,
+                  maxLength: { value: 14, message: "CPF/CNPJ inválido" },
+                  minLength: { value: 11, message: "CPF/CNPJ inválido" },
                 })}
               />
             </Grid>
