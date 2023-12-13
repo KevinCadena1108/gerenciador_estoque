@@ -39,7 +39,7 @@ const Estoque = () => {
       setPage: setPage,
       loading: isFetching || isLoading,
     });
-  }, [data]); // eslint-disable-line
+  }, [isLoading, isFetching, page, data]); // eslint-disable-line
 
   return isError ? (
     <Container

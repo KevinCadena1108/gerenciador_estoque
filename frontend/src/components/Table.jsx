@@ -34,7 +34,7 @@ const TableDefault = ({ props }) => {
         setPage(page + 1);
       }
     },
-    [page, loading] // eslint-disable-line
+    [page, loading, rows] // eslint-disable-line
   );
 
   useEffect(() => {
