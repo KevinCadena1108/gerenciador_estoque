@@ -21,7 +21,7 @@ const Orders = () => {
 
     if (data && data.length > 0) {
       data?.map((cliente) => {
-        auxClientes.set(cliente);
+        auxClientes.set(cliente.id, cliente);
       });
 
       setClientes(auxClientes);

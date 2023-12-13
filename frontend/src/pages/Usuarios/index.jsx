@@ -23,7 +23,7 @@ const Usuarios = () => {
       page === 0 && auxUsers.clear();
 
       data?.map((user) => {
-        auxUsers.set(user);
+        auxUsers.set(user.id, user);
       });
 
       setUsers(auxUsers);

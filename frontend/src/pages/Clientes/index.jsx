@@ -23,7 +23,7 @@ const Clientes = () => {
       page === 0 && auxClientes.clear();
 
       data?.map((cliente) => {
-        auxClientes.set(cliente);
+        auxClientes.set(cliente.id, cliente);
       });
 
       setClientes(auxClientes);

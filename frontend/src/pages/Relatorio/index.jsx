@@ -11,12 +11,18 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { useQuery } from "@tanstack/react-query";
 import { getRelatorio } from "./requests.js";
 import generatePDF from "../../services/pdf.js";
+import { useMemo } from "react";
 
 const Relatorio = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["relatorio"],
     queryFn: () => getRelatorio(),
   });
+
+  const faturamentoTotal = useMemo(
+    () => data?.reduce((acc, pedido) => acc + pedido.total, 0),
+    [data]
+  );
 
   return (
     <>
@@ -105,20 +111,19 @@ const Relatorio = () => {
                         {" "}
                         Preço item: R$ {produto.preco * produto.quantidade}{" "}
                       </Grid>
-                      <Grid
-                        item
-                        py={2}
-                        xs={12}
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="flex-end"
-                        gap={1}
-                      >
-                        <ShoppingBasketIcon /> Total do carrinho: R${" "}
-                        {pedido.total}
-                      </Grid>
                     </React.Fragment>
                   ))}
+                  <Grid
+                    item
+                    py={2}
+                    xs={12}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="flex-end"
+                    gap={1}
+                  >
+                    <ShoppingBasketIcon /> Total do carrinho: R$ {pedido.total}
+                  </Grid>
                 </Grid>
               </React.Fragment>
             ))}
@@ -127,10 +132,16 @@ const Relatorio = () => {
               py={4}
               mx={2}
               xs={12}
+              gap={2}
               display="flex"
-              justifyContent={{ xs: "center", md: "flex-end" }}
+              justifyContent={"space-between"}
               alignItems="center"
+              flexDirection={{ xs: "column", md: "row" }}
             >
+              <Typography variant="h6" fontWeight="bold">
+                {" "}
+                FATURAMENTO MENSAL: R$ {faturamentoTotal}{" "}
+              </Typography>
               <Button
                 variant="contained"
                 onClick={() => {

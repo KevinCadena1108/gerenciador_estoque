@@ -23,7 +23,7 @@ const Pedidos = () => {
       page === 0 && auxPedidos.clear();
 
       data?.map((pedido) => {
-        auxPedidos.set(pedido);
+        auxPedidos.set(pedido.codigo, pedido);
       });
 
       setPedidos(auxPedidos);
