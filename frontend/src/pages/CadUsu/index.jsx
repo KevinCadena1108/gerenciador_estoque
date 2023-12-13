@@ -170,11 +170,13 @@ const CadUsu = () => {
                 variant="standard"
                 fullWidth
                 error={Boolean(errors?.tipo)}
-                {...register("tipo", { required: "Esse campo é obrigatório" })}
               >
                 <InputLabel id="select-input-label">Tipo</InputLabel>
                 <Select
-                  defaultValue={editData?.tipo || "FUNCIONARIO"}
+                  {...register("tipo", {
+                    required: "Esse campo é obrigatório",
+                  })}
+                  defaultValue={editData && editData?.tipo}
                   id="select-input-label"
                   label="Tipo"
                 >
