@@ -156,7 +156,7 @@ class PedidoRepository {
       itensPedidos +=
         "NATURAL JOIN cliente c JOIN usuario u ON u.idu = p.idu JOIN itempedido i ON i.codp = p.codp JOIN produto p2 ON p2.idp = i.idp ";
       itensPedidos +=
-        "WHERE date_trunc('month', p.datap) = date_trunc('month',current_date) ORDER BY p.codp DESC;";
+        "WHERE date_trunc('month', p.datap) = date_trunc('month',current_date) AND date_trunc('year', p.datap) = date_trunc('year',current_date)  ORDER BY p.codp DESC;";
 
       return db.any(itensPedidos);
     } catch (error) {
