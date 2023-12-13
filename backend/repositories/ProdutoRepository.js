@@ -13,6 +13,17 @@ class ProdutoRepository {
     }
   }
 
+  async findByNome(nome) {
+    try {
+      return await db.any(
+        "SELECT idp as id, nome, descricao, preco, quantidade_estoque FROM produto WHERE nome = $1;",
+        [nome]
+      );
+    } catch (error) {
+      throw new AppError(error);
+    }
+  }
+
   async getProdutosForSelect() {
     try {
       return await db.any(

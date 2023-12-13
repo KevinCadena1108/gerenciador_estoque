@@ -33,7 +33,9 @@ CREATE TABLE cliente (
     tipo VARCHAR(15) NOT NULL,
     cpf VARCHAR(11),
     cnpj VARCHAR(14),
-    CONSTRAINT uk_cliente UNIQUE (email, cpf, cnpj)
+    CONSTRAINT uk_cliente_email UNIQUE (email),
+    CONSTRAINT uk_cliente_cpf UNIQUE (cpf),
+    CONSTRAINT uk_cliente_cnpj UNIQUE (cnpj)
 );
 
 CREATE TABLE pedido (

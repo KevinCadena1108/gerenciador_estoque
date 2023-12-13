@@ -1,3 +1,5 @@
+import AppError from "../AppError.js";
+
 class ProdutoController {
   constructor(produtoRepository) {
     this.repository = produtoRepository;
@@ -25,6 +27,11 @@ class ProdutoController {
   async createProduto(req, res) {
     const { nome, preco, quantidade, descricao } = req.body;
 
+    const productAlreadyExists = await this.repository.findByNome(nome);
+
+    if (productAlreadyExists.length > 0)
+      throw new AppError("Já existe um produto com esse nome");
+
     if (preco <= 0) throw new AppError("Preço inválido");
 
     if (quantidade <= 0) throw new AppError("Quantidade inválida");
@@ -42,7 +49,7 @@ class ProdutoController {
   async deleteProduto(req, res) {
     const { id } = req.params;
 
-    const deletedProduct = await this.repository.deleteProduto(parseInt(id));
+    await this.repository.deleteProduto(parseInt(id));
 
     return res.status(200).json({ message: "Produto deletado com sucesso" });
   }
@@ -58,6 +65,11 @@ class ProdutoController {
   async updateProduto(req, res) {
     const { id } = req.params;
     const { nome, preco, quantidade, descricao } = req.body;
+
+    const productAlreadyExists = await this.repository.findByNome(nome);
+
+    if (productAlreadyExists.length > 0)
+      throw new AppError("Já existe um produto com esse nome");
 
     if (preco <= 0) throw new AppError("Preço inválido");
 
