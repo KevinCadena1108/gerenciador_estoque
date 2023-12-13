@@ -6,7 +6,7 @@ import TableDefault from "./Table";
 
 const Orders = () => {
   const [page, setPage] = useState(0);
-  const [clientes, setClientes] = useState(new Set());
+  const [clientes, setClientes] = useState(new Map());
   const { isLoading, isError, error, data, isFetching } = useQuery({
     queryKey: ["clientes", page],
     queryFn: () => getClientes(page),
@@ -21,7 +21,7 @@ const Orders = () => {
 
     if (data && data.length > 0) {
       data?.map((cliente) => {
-        !auxClientes.has(cliente.id) && auxClientes.add(cliente);
+        auxClientes.set(cliente.id, cliente);
       });
 
       setClientes(auxClientes);

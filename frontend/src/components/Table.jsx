@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 import {
   Button,
   Container,
@@ -19,7 +19,6 @@ import { Link, useNavigate } from "react-router-dom";
 const TableDefault = ({ props }) => {
   const navigate = useNavigate();
   const { tableName, add, cols, rows, page, setPage, loading, edit } = props;
-  const [data, setData] = useState(null);
   let table = useRef();
 
   const handlerTableScroll = useCallback(
@@ -31,16 +30,12 @@ const TableDefault = ({ props }) => {
 
       const porcentageScrolled = Math.round((scroll / end) * 100);
 
-      if (porcentageScrolled > 99 && [...data].length % 20 === 0 && !loading) {
+      if (porcentageScrolled > 99 && [...rows].length % 20 === 0 && !loading) {
         setPage(page + 1);
       }
     },
-    [page, loading] // eslint-disable-line
+    [page, loading, rows] // eslint-disable-line
   );
-
-  useEffect(() => {
-    setData(rows);
-  }, [rows]);
 
   useEffect(() => {
     const tableRef = table?.current;
@@ -99,8 +94,8 @@ const TableDefault = ({ props }) => {
             </TableHead>
 
             <TableBody>
-              {data &&
-                [...data].map((item) => (
+              {rows &&
+                [...rows.values()].map((item) => (
                   <TableRow
                     onClick={() => navigateToEdit(item.id || item.codigo)}
                     sx={{
@@ -126,7 +121,7 @@ const TableDefault = ({ props }) => {
               <TableRow>
                 <TableCell colSpan={cols.length}>
                   <Typography textAlign={"center"}>
-                    Carregando: {data && [...data].length} elementos
+                    Carregando: {rows && [...rows].length} elementos
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -146,4 +141,4 @@ const TableDefault = ({ props }) => {
   );
 };
 
-export default TableDefault;
+export default memo(TableDefault);

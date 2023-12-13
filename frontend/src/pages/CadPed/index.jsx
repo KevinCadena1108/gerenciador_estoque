@@ -147,7 +147,7 @@ const CadPed = () => {
       severity: status !== 400 ? "success" : "error",
     });
 
-    navigate("/app");
+    navigate("/app/pedido");
   };
 
   const adicionarCarrinho = (produto) => {
@@ -186,7 +186,7 @@ const CadPed = () => {
       severity: status !== 400 ? "success" : "error",
     });
 
-    navigate("/app");
+    navigate("/app/pedido");
   };
 
   return (
@@ -199,7 +199,7 @@ const CadPed = () => {
           <Form
             onSubmit={onSubmit}
             title="Realizar Pedido"
-            back="/app"
+            back="/app/pedido"
             remove={handleRemove}
           >
             <Grid item xs={12}>

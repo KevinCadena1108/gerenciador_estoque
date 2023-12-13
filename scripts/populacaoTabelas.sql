@@ -1,15 +1,15 @@
 INSERT INTO usuario (nome, cargo, telefone, email, senha, tipo) VALUES 
 ('kevin', 'top', '1234567890', 'kevincadena1108@gmail.com', '$2a$08$6RIW9a4MHzbw1wV1V43zXutaEzDkAza5BQXr5meqsBJalVUo8gQHa', 'ADMINISTRADOR'),
-('Usuario1', 'Cargo1', '1234567890', 'usuario1@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'FUNCIONARIO'),
-('Usuario2', 'Cargo2', '1234567891', 'usuario2@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'FUNCIONARIO'),
-('Usuario3', 'Cargo3', '1234567892', 'usuario3@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'FUNCIONARIO'),
-('Usuario4', 'Cargo4', '1234567893', 'usuario4@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'FUNCIONARIO'),
-('Usuario5', 'Cargo5', '1234567894', 'usuario5@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'FUNCIONARIO'),
-('Usuario6', 'Cargo6', '1234567895', 'usuario6@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'ADMINISTRADOR'),
-('Usuario7', 'Cargo7', '1234567896', 'usuario7@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'ADMINISTRADOR'),
-('Usuario8', 'Cargo8', '1234567897', 'usuario8@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'ADMINISTRADOR'),
-('Usuario9', 'Cargo9', '1234567898', 'usuario9@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'ADMINISTRADOR'),
-('Usuario10', 'Cargo10', '1234567899', 'usuario10@email.com', '$2a$08$X13.j2K6rGrftVCvichJEOQpYxU3tA.Tf2eHz0.Hp4qIFfSf5gH/S', 'ADMINISTRADOR');
+('Usuario1', 'Cargo1', '1234567890', 'usuario1@email.com', '$2a$08$02BHPm7sHqnRYeEc9EP.TO51IdhOP7fA2pIVnD2XCPHNT6FurwX/G', 'FUNCIONARIO'),
+('Usuario2', 'Cargo2', '1234567891', 'usuario2@email.com', '$2a$08$02BHPm7sHqnRYeEc9EP.TO51IdhOP7fA2pIVnD2XCPHNT6FurwX/G', 'FUNCIONARIO'),
+('Usuario3', 'Cargo3', '1234567892', 'usuario3@email.com', '$2a$08$02BHPm7sHqnRYeEc9EP.TO51IdhOP7fA2pIVnD2XCPHNT6FurwX/G', 'FUNCIONARIO'),
+('Usuario4', 'Cargo4', '1234567893', 'usuario4@email.com', '$2a$08$02BHPm7sHqnRYeEc9EP.TO51IdhOP7fA2pIVnD2XCPHNT6FurwX/G', 'FUNCIONARIO'),
+('Usuario5', 'Cargo5', '1234567894', 'usuario5@email.com', '$2a$08$02BHPm7sHqnRYeEc9EP.TO51IdhOP7fA2pIVnD2XCPHNT6FurwX/G', 'FUNCIONARIO'),
+('Usuario6', 'Cargo6', '1234567895', 'usuario6@email.com', '$2a$08$02BHPm7sHqnRYeEc9EP.TO51IdhOP7fA2pIVnD2XCPHNT6FurwX/G', 'ADMINISTRADOR'),
+('Usuario7', 'Cargo7', '1234567896', 'usuario7@email.com', '$2a$08$02BHPm7sHqnRYeEc9EP.TO51IdhOP7fA2pIVnD2XCPHNT6FurwX/G', 'ADMINISTRADOR'),
+('Usuario8', 'Cargo8', '1234567897', 'usuario8@email.com', '$2a$08$02BHPm7sHqnRYeEc9EP.TO51IdhOP7fA2pIVnD2XCPHNT6FurwX/G', 'ADMINISTRADOR'),
+('Usuario9', 'Cargo9', '1234567898', 'usuario9@email.com', '$2a$08$02BHPm7sHqnRYeEc9EP.TO51IdhOP7fA2pIVnD2XCPHNT6FurwX/G', 'ADMINISTRADOR'),
+('Usuario10', 'Cargo10', '1234567899', 'usuario10@email.com', '$2a$08$02BHPm7sHqnRYeEc9EP.TO51IdhOP7fA2pIVnD2XCPHNT6FurwX/G', 'ADMINISTRADOR');
 
 -- SENHAS SÃO TODAS = Senha123 
 

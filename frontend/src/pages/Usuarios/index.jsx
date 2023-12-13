@@ -6,7 +6,7 @@ import TableDefault from "../../components/Table";
 
 const Usuarios = () => {
   const [page, setPage] = useState(0);
-  const [users, setUsers] = useState(new Set());
+  const [users, setUsers] = useState(new Map());
   const { isLoading, isError, error, data, isFetching } = useQuery({
     queryKey: ["users", page],
     queryFn: () => getUsers(page),
@@ -20,8 +20,10 @@ const Usuarios = () => {
     let auxUsers = users;
 
     if (data && data.length > 0) {
+      page === 0 && auxUsers.clear();
+
       data?.map((user) => {
-        !auxUsers.has(user.id) && auxUsers.add(user);
+        auxUsers.set(user.id, user);
       });
 
       setUsers(auxUsers);

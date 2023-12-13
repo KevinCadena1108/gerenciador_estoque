@@ -2,6 +2,7 @@ import jsPDF from "jspdf";
 
 function generatePDF(data) {
   const doc = new jsPDF();
+  let faturamentoTotal = 0;
 
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
@@ -11,6 +12,8 @@ function generatePDF(data) {
   linhas++;
 
   data.map((pedido) => {
+    faturamentoTotal += pedido.total;
+
     if (linhas >= 25) {
       doc.addPage();
       linhas = 1;
@@ -52,6 +55,8 @@ function generatePDF(data) {
     doc.text(`TOTAL: R$ ${pedido.total}`, 10, 12 + linhas * 8);
     linhas++;
   });
+
+  doc.text(`FATURAMENTO MENSAL: R$ ${faturamentoTotal}`, 10, 20 + linhas * 8);
 
   doc.save("relatorio.pdf");
 }

@@ -6,7 +6,7 @@ import TableDefault from "../../components/Table";
 
 const Estoque = () => {
   const [page, setPage] = useState(0);
-  const [produtos, setProdutos] = useState(new Set());
+  const [produtos, setProdutos] = useState(new Map());
   const { isLoading, isError, error, data, isFetching } = useQuery({
     queryKey: ["produtos", page],
     queryFn: () => getProdutos(page),
@@ -17,15 +17,13 @@ const Estoque = () => {
   const [tableProps, setTableProps] = useState(null);
 
   useEffect(() => {
-    setPage(0);
-  }, []);
-
-  useEffect(() => {
     let auxProdutos = produtos;
 
     if (data && data.length > 0) {
+      page === 0 && auxProdutos.clear();
+
       data?.map((produto) => {
-        !auxProdutos.has(produto.id) && auxProdutos.add(produto);
+        auxProdutos.set(produto.id, produto);
       });
 
       setProdutos(auxProdutos);
