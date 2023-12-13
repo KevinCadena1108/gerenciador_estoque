@@ -16,7 +16,7 @@ class ProdutoRepository {
   async getProdutosForSelect() {
     try {
       return await db.any(
-        "SELECT idp as value, nome as label, preco as price FROM produto ORDER BY idp DESC;"
+        "SELECT idp as value, nome as label, preco as price, quantidade_estoque as quantidade FROM produto ORDER BY idp DESC;"
       );
     } catch (error) {
       throw new AppError(error);

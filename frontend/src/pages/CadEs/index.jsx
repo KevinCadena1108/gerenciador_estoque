@@ -106,9 +106,11 @@ const CadEs = () => {
             <TextField
               variant="standard"
               label="Quantidade"
+              type="number"
               fullWidth
               error={Boolean(errors?.quantidade)}
               helperText={errors?.quantidade?.message}
+              inputProps={{ inputProps: { min: 0 } }}
               {...register("quantidade", {
                 required: "Esse campo é obrigatório",
               })}
@@ -118,11 +120,13 @@ const CadEs = () => {
             <TextField
               variant="standard"
               label="Valor"
+              type="number"
               fullWidth
               error={Boolean(errors?.valor)}
               helperText={errors?.valor?.message}
               {...register("preco", { required: "Esse campo é obrigatório" })}
               InputProps={{
+                inputProps: { min: 0 },
                 startAdornment: (
                   <InputAdornment position="start">R$</InputAdornment>
                 ),

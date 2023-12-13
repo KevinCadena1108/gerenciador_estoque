@@ -123,6 +123,14 @@ const CadPed = () => {
 
     validate();
 
+    if (Array.from(carrinho).length === 0) {
+      setErrors({
+        ...errors,
+        carrinho: "Você precisa cadastrar ao menos um produto",
+      });
+      return;
+    }
+
     if (errors?.carrinho || errors?.data || errors?.cliente || errors?.vendedor)
       return;
 
@@ -152,11 +160,20 @@ const CadPed = () => {
 
   const adicionarCarrinho = (produto) => {
     if (!produto.produto || !produto.quantidade) return;
+    if (produto.quantidade < 1) return;
 
     const selectedProduct = produtos.find(
       (item) => item.label === produto.produto
     );
 
+    console.log(selectedProduct, produto);
+
+    if (produto.quantidade > selectedProduct.quantidade) {
+      setErrors({ ...errors, carrinho: "Quantidade maior que o estoque" });
+      return;
+    }
+
+    setErrors({ ...carrinho, carrinho: null });
     const thisCar = new Set(carrinho);
 
     !Array.from(carrinho).find((item) => item.produto === produto.produto) &&
@@ -328,7 +345,7 @@ const CadPed = () => {
                 onChange={({ target: { value } }) => {
                   setNovoProduto({
                     ...novoProduto,
-                    quantidade: value,
+                    quantidade: value <= 0 ? 1 : value,
                   });
                 }}
                 error={Boolean(errors?.quantidade)}
