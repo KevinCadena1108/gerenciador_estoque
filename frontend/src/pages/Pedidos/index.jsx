@@ -6,7 +6,7 @@ import TableDefault from "../../components/Table";
 
 const Pedidos = () => {
   const [page, setPage] = useState(0);
-  const [pedidos, setPedidos] = useState(new Set());
+  const [pedidos, setPedidos] = useState(new Map());
   const { isLoading, isError, error, data, isFetching } = useQuery({
     queryKey: ["pedidos", page],
     queryFn: () => getPedidos(page),
@@ -23,7 +23,7 @@ const Pedidos = () => {
       page === 0 && auxPedidos.clear();
 
       data?.map((pedido) => {
-        !auxPedidos.has(pedido.codigo) && auxPedidos.add(pedido);
+        auxPedidos.set(pedido);
       });
 
       setPedidos(auxPedidos);

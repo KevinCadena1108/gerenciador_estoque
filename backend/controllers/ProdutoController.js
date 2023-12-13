@@ -37,19 +37,9 @@ class ProdutoController {
   async deleteProduto(req, res) {
     const { id } = req.params;
 
-    try {
-      const deletedProduct = await this.repository.deleteProduto(id);
+    const deletedProduct = await this.repository.deleteProduto(parseInt(id));
 
-      if (!deletedProduct) {
-        return res.status(404).json({ message: "Produto não encontrado" });
-      }
-
-      return res.status(200).json({ message: "Produto deletado com sucesso" });
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ message: "Erro ao deletar produto", error: error.message });
-    }
+    return res.status(200).json({ message: "Produto deletado com sucesso" });
   }
 
   async findProdutoById(req, res) {
