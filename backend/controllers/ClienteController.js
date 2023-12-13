@@ -50,7 +50,12 @@ class ClienteController {
   async getClientsAutocomplete(req, res) {
     const clients = await this.repository.getClientsAutocomplete();
 
-    return res.status(200).json(clients);
+    const withIdClients = clients.map((client) => ({
+      ...client,
+      label: `${client.id} - ${client.label}`,
+    }));
+
+    return res.status(200).json(withIdClients);
   }
 
   async createClient(req, res) {

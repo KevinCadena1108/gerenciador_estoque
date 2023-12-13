@@ -79,6 +79,14 @@ class PedidoController {
   }
 
   async createPedido(req, res) {
+    const { carrinho } = req.body;
+
+    if (carrinho.length === 0) throw new AppError("Carrinho vazio");
+
+    carrinho.map((item) => {
+      if (item.quantidade <= 0) throw new AppError("Quantidade inválida");
+    });
+
     const pedido = await this.repository.createPedido(req.body);
 
     return res.status(200).json({ message: "Pedido criado com sucesso" });

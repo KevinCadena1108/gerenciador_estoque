@@ -20,7 +20,8 @@ CREATE TABLE produto (
     nome VARCHAR(100) NOT NULL,
     descricao VARCHAR(500),
     preco DECIMAL(10, 2) NOT NULL,
-    quantidade_estoque INTEGER NOT NULL
+    quantidade_estoque INTEGER NOT NULL,
+    CONSTRAINT uk_produto UNIQUE (nome)  
 );
 
 CREATE TABLE cliente (

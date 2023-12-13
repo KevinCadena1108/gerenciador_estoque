@@ -25,7 +25,12 @@ class UsuarioController {
   async getUsersAutocomplete(req, res) {
     const users = await this.repository.getUsersAutocomplete();
 
-    return res.status(200).json(users);
+    const withIdUsers = users.map((user) => ({
+      ...user,
+      label: `${user.id} - ${user.label}`,
+    }));
+
+    return res.status(200).json(withIdUsers);
   }
 
   async createUser(req, res) {

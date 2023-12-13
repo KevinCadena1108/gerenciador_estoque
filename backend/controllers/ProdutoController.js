@@ -14,7 +14,12 @@ class ProdutoController {
   async getProdutosForSelect(req, res) {
     const products = await this.repository.getProdutosForSelect();
 
-    return res.status(200).json(products);
+    const withIdProducts = products.map((product) => ({
+      ...product,
+      label: `${product.value} - ${product.label}`,
+    }));
+
+    return res.status(200).json(withIdProducts);
   }
 
   async createProduto(req, res) {
